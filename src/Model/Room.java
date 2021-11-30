@@ -1,7 +1,10 @@
 package Model;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 public class Room {
-    public static ArrayList<Room> getAllAvailableRooms(LocalDateTime startTime, LocalDateTime endTime) {
+    public static ArrayList<Room> getAllAvailableRooms(LocalDateTime from, LocalDateTime to) {
         return null;
     }
 
@@ -38,17 +41,23 @@ public class Room {
         return connectedRoom!=null;
     }
 
+    public boolean isAvailable(LocalDateTime from, LocalDateTime to)
+    {
+        return true; ///for now
+    }
+
 
     public String toString() {
 
         if(hasConnectedRoom())
         {
-            return   roomNumber + "-" + capacity + "-" + connectedRoom.roomNumber
+            return   roomNumber + "-" + capacity + "-" + connectedRoom.roomNumber;
 
         }
         else return   roomNumber + "-" + capacity + "-" ;
 
 
     }
+
 
 }
