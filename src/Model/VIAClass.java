@@ -2,13 +2,13 @@ package Model;
 
 import java.util.ArrayList;
 
-public class Class
+public class VIAClass
 {
-  public static Class getClassByName(String name)
+  public static VIAClass getClassByName(String name)
   {
     return null;
   }
-  public static ArrayList<Class> getClassesBySemester(int semester)
+  public static ArrayList<VIAClass> getClassesBySemester(int semester)
   {
     return null;
   }
@@ -20,11 +20,11 @@ public class Class
   private final ArrayList<Course> courses;
 
   /**
-   * Create an instance of the class Class
+   * Create an instance of the class VIAClass
    * @param semester Semester of the class
    * @param className Name of the class
    */
-  public Class(int semester, String className)
+  public VIAClass(int semester, String className)
   {
     this.semester = semester;
     this.className = className;
@@ -84,5 +84,22 @@ public class Class
   public ArrayList<Course> getAllCourses()
   {
     return courses;
+  }
+
+  /**
+   * Compares this VIACLass to the specified object.
+   * The result is true if and only if the argument is not null and is a VIAClass object that represents the same course name and semester as this object.
+   * @param obj Object to compare this Class against.
+   * @return True if the given object represents a VIAClass equivalent to this VIAClass, false otherwise
+   */
+  public boolean equals(Object obj)
+  {
+    if(obj instanceof VIAClass)
+    {
+      VIAClass c = (VIAClass) obj;
+
+      return className.equals(c.className) && semester == c.semester;
+    }
+    else return false;
   }
 }

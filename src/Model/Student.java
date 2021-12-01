@@ -16,7 +16,7 @@ public class Student
 
   private ArrayList<Course> courses;
 
-  private Class viaClass;
+  private VIAClass viaClass;
 
   /**
    * Create an instance of the class ExchangeStudent
@@ -26,7 +26,7 @@ public class Student
    * @param viaClass the class to which the object is enrolled
    */
 
-  public Student(String firstName, String lastName,int id, Class viaClass)
+  public Student(String firstName, String lastName,int id, VIAClass viaClass)
   {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -87,7 +87,7 @@ public class Student
    * @return the class to which Student object is enrolled
    */
 
-  public Class getViaClass()
+  public VIAClass getViaClass()
   {
     return viaClass;
   }
