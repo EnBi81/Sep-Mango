@@ -8,7 +8,8 @@ public class Course {
   private int ects;
   private ArrayList<Teacher> teachers;
   private ArrayList<Lesson> lessons;
-
+  private ArrayList<Student> students;
+  private Class viaClass;
 
   public Course(String courseName, int ects, ArrayList<Teacher> teachers){
     this.courseName = courseName;
@@ -25,6 +26,11 @@ public class Course {
   public int getEcts()
   {
     return ects;
+  }
+
+  public void addStudent(){
+    //add attributes according to the Student constructor
+    students.add(new Student());
   }
 
 
