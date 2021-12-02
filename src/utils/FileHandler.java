@@ -97,8 +97,12 @@ public class FileHandler
         if(viaClass.getClassName().equals(info[0] + info[1]))
         {
           Course course = new Course(info[2] + info[0] + info[1], Integer.parseInt(info[4]), viaClass);
-          courses.add(course);
-          break;
+
+          if (!courses.contains(course))
+          {
+            courses.add(course);
+            break;
+          }
         }
       }
     }
@@ -128,9 +132,23 @@ public class FileHandler
     return students;
   }
 
-  public static ArrayList<Teacher> readTeachers(String courseFile) throws FileNotFoundException
+  public static ArrayList<Teacher> readTeachers(String courseFile, ArrayList<Course> teachersCourses) throws FileNotFoundException
   {
-    //ArrayList<String> data
-    return null;
+    ArrayList<String> data = readFromTextFile(courseFile);
+    ArrayList<Teacher> teachers  = new ArrayList<>();
+
+    for (String line: data)
+    {
+      String[] info = line.split(separator);
+
+      Teacher teacher = new Teacher(info[3]);
+
+      if(!(teachers.contains(teacher)))
+      {
+        teachers.add(teacher);
+      }
+
+    }
+   return teachers;
   }
 }
