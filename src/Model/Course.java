@@ -11,9 +11,9 @@ public class Course {
   private ArrayList<Teacher> teachers;
   private ArrayList<Lesson> lessons;
   private ArrayList<Student> students;
-  private Class viaClass;
+  private VIAClass viaClass;
 
-  public Course(String courseName, int ects, ArrayList<Teacher> teachers, Class viaClass){
+  public Course(String courseName, int ects, ArrayList<Teacher> teachers, VIAClass viaClass){
     this.courseName = courseName;
     this.ects = ects;
     this.teachers = teachers;
@@ -34,7 +34,7 @@ public class Course {
     return ects;
   }
 
-  public Class getViaClass(){
+  public VIAClass getViaClass(){
     return viaClass;
   }
 

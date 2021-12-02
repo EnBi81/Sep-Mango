@@ -15,7 +15,7 @@ public class ExchangeStudent extends Student
    * @param id object's id
    * @param viaClass the class to which the object is enrolled
    */
-  public ExchangeStudent(String firstName, String lastName, int id, Class viaClass)
+  public ExchangeStudent(String firstName, String lastName, int id, VIAClass viaClass)
   {
     super(firstName,lastName,id,viaClass);
   }
