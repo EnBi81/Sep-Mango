@@ -30,7 +30,7 @@ public class Lesson
     this.room1 = room;
     this.room2 = null;
   }
-                                           ///***///
+                  ///***///
   public boolean timeOverlapping()
   {
     //return true if lesson can not be added, false if there is no problem
@@ -81,7 +81,16 @@ public class Lesson
     }
     return overlapping;
   }
-
+  /**
+   * returns the curse of the lesson
+   * @return course
+   * @author Uafa
+   * @version 1.0
+   */
+  public Course getCourse()
+  {
+    return course;
+  }
 
   /**
    * returns the primary room where the lesson will be held
@@ -172,16 +181,7 @@ public class Lesson
     return endTime;
   }
 
-  /**
-   * returns the curse of the lesson
-   * @return course
-   * @author Uafa
-   * @version 1.0
-   */
-  public Course getCourse()
-  {
-    return course;
-  }
+
 
   /**
    * sets the end time of the lesson (used for making changes)
