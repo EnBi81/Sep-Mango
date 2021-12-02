@@ -114,13 +114,12 @@ public class Student
 
   /**
    * Check if the Student object is an instance of the ExchangeStudent class
-   * @param student the student who is checked
    * @return true if the Student object is an instance of the ExchangeStudent class
    */
 
-  public boolean isExchange(Student student)
+  public boolean isExchange()
   {
-      return student instanceof ExchangeStudent;
+      return this instanceof ExchangeStudent;
   }
 
   /**
@@ -130,7 +129,7 @@ public class Student
 
   public String toString()
   {
-    return "First name: " + firstName + ", Last name: " + lastName + ", id: " + id + ", " + viaClass.toString();
+    return firstName + " " + lastName + ", id: " + id + ", " + viaClass.toString();
   }
 
   /**
@@ -148,7 +147,7 @@ public class Student
 
     Student one = (Student) obj;
 
-    return firstName.equals(one.firstName) && lastName.equals(one.lastName) && id == one.id && viaClass.equals(one.viaClass);
+    return id == one.id;
   }
 
 }
