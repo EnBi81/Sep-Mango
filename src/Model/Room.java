@@ -12,11 +12,13 @@ public class Room {
     private String roomNumber;
     private int capacity;
     private Room connectedRoom;
+    private ArrayList<Lesson> lessonsInRoom;
 
     public Room(String roomNumber, int capacity) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         connectedRoom = null;
+        lessonsInRoom=null;
     }
 
     public String getRoomNumber() {
@@ -46,6 +48,19 @@ public class Room {
         return true; ///for now
     }
 
+    public void addLesson(Lesson lesson)
+    {
+        lessonsInRoom.add(lesson);
+    }
+
+    public void removeLesson(Lesson lesson)
+    {
+        for (int i = 0; i < lessonsInRoom.size(); i++) {
+            if(lessonsInRoom.get(i).equals(lesson))
+                lessonsInRoom.remove(i);
+        }
+    }
+
 
     public String toString() {
 
@@ -57,6 +72,16 @@ public class Room {
         else return   roomNumber + "-" + capacity + "-" ;
 
 
+    }
+
+    public boolean equals(Object obj)
+    {
+        if(!(obj instanceof Room))
+        {
+            return false;
+        }
+        Room other = (Room)obj;
+        return roomNumber.equals(other.roomNumber) && capacity==other.capacity && connectedRoom.equals(other.connectedRoom) && lessonsInRoom.equals(other.lessonsInRoom);
     }
 
 
