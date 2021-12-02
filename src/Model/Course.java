@@ -68,6 +68,20 @@ public class Course {
     }
   }
 
+  public void addTeacher(Teacher teacher) throws CollisionException{
+    teachers.add(teacher);
+  }
+
+  public void removeTeacher(Teacher teacher){
+    if (teachers.contains(teacher)){
+      teachers.remove(teacher);
+
+    }
+    else {
+      System.out.println(teacher.getName() + " does not teach the course " + getCourseName());
+    }
+  }
+
   public ArrayList<Teacher> getAllTeachers(){
     if (teachers == null){
       System.out.println("There are no teachers for the course " + getCourseName() + ".");
