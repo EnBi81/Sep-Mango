@@ -10,8 +10,7 @@ import java.util.ArrayList;
 
 public class Student
 {
-  private String firstName;
-  private String lastName;
+  private String name;
   private int id;
 
   private ArrayList<Course> courses;
@@ -20,16 +19,14 @@ public class Student
 
   /**
    * Create an instance of the class ExchangeStudent
-   * @param firstName object's first name
-   * @param lastName object's last name
+   * @param name student's name
    * @param id object's id
    * @param viaClass the class to which the object is enrolled
    */
 
-  public Student(String firstName, String lastName,int id, VIAClass viaClass)
+  public Student(String name, int id, VIAClass viaClass)
   {
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.name = name;
     this.id = id;
     this.viaClass = viaClass;
     courses = new ArrayList<Course>();
@@ -42,7 +39,7 @@ public class Student
 
   public String getFirstName()
   {
-    return firstName;
+    return name.split(" ")[0];
   }
 
   /**
@@ -52,9 +49,14 @@ public class Student
 
   public String getLastName()
   {
-    return lastName;
+    var splitName = name.split(" ");
+    return splitName[splitName.length - 1];
   }
 
+  public String getName()
+  {
+    return name;
+  }
   /**
    * Gets a Student object's id
    * @return Student object's id
@@ -72,14 +74,7 @@ public class Student
 
   public ArrayList<Course> getAllCourses()
   {
-    if(courses.size()>0)
-    {
-      return courses;
-    }
-    else
-    {
-      return null;
-    }
+    return courses;
   }
 
   /**
@@ -96,7 +91,6 @@ public class Student
    * Adds a course to the list of all courses
    * @param course the course to add to the list
    */
-
   public void addCourse(Course course)
   {
     courses.add(course);
@@ -106,7 +100,6 @@ public class Student
    * Removes a course from the list of all courses
    * @param course the course to remove from the list
    */
-
   public void removeCourse(Course course)
   {
     courses.remove(course);
@@ -116,7 +109,6 @@ public class Student
    * Check if the Student object is an instance of the ExchangeStudent class
    * @return true if the Student object is an instance of the ExchangeStudent class
    */
-
   public boolean isExchange()
   {
       return this instanceof ExchangeStudent;
@@ -126,10 +118,9 @@ public class Student
    * Gets a String representation of the Student object
    * @return a String containing information about Student object
    */
-
   public String toString()
   {
-    return firstName + " " + lastName + ", id: " + id + ", " + viaClass.toString();
+    return name + ", id: " + id + ", " + viaClass.toString();
   }
 
   /**
@@ -137,7 +128,6 @@ public class Student
    * @param obj object which is compared
    * @return true if the object is equal to the Student object
    */
-
   public boolean equals(Object obj)
   {
     if(!(obj instanceof Student))

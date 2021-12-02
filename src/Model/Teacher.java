@@ -9,12 +9,10 @@ public class Teacher
 
   private String name;
   private ArrayList<Course> courses;
-  private  ArrayList<Lesson> lessons;
 
   public Teacher(String name){
     this.name = name;
     courses = new ArrayList<>();
-    lessons = new ArrayList<>();
   }
 
   public String getName()
@@ -22,40 +20,24 @@ public class Teacher
     return name;
   }
 
-  public void addCourse(Course course) throws CollisionException
+  public void addCourse(Course course)
   {
     courses.add(course);
   }
 
-  // do we really need this? If computer assigns it auto from the spreadsheet. Maybe if teacher would die during the semester, and they needed replacement...
-  public void removeCourse(Course course){
-    if (courses.contains(course)){
-      courses.remove(course);
-
-    }
-    else {
-      System.out.println("Teacher " + getName() + " does not teach course " + course.getCourseName() + ".");
-    }
-  }
-
   public ArrayList<Course> getAllCourses()
   {
-    if (courses == null){
-      System.out.println("Teacher " + getName() + " does not teach any courses.");
-    }
     return courses;
   }
 
   public ArrayList<Lesson> getAllLessons(){
+    ArrayList<Lesson> lessons = new ArrayList<>();
     for (Course course: courses
          )
     {
       if (!(course.getAllLessons() == null)){
         lessons.addAll(course.getAllLessons());
       }
-    }
-    if (lessons == null){
-      System.out.println("Teacher " + getName() + " does not teach any lessons.");
     }
     return lessons;
   }
@@ -71,13 +53,8 @@ public class Teacher
       str += course.getCourseName() + "\n";
     }
 
-    str += "and has these lessons:\n";
 
-    for (Lesson lesson: lessons
-         )
-    {
-      str += lesson.toString() + "\n";
-    }
+
     return str;
   }
 
@@ -88,18 +65,7 @@ public class Teacher
 
     Teacher temp = (Teacher) obj;
 
-    if (this.courses == null){
-      return this.name.equals(temp.name) && temp.courses == null && this.lessons.equals(temp.lessons);
-    }
-
-    if (this.lessons == null){
-      return this.name.equals(temp.name) && temp.courses == null && temp.lessons == null;
-    }
-
-    else {
-      return this.name.equals(temp.name) && this.courses.equals(temp.courses) && this.lessons.equals(temp.lessons);
-
-    }
+      return this.name.equals(temp.name) && this.courses.equals(temp.courses);
   }
 }
 

@@ -18,7 +18,7 @@ public class Room {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         connectedRoom = null;
-        lessonsInRoom=null;
+        lessonsInRoom = new ArrayList<>();
     }
 
     public String getRoomNumber() {
@@ -55,10 +55,7 @@ public class Room {
 
     public void removeLesson(Lesson lesson)
     {
-        for (int i = 0; i < lessonsInRoom.size(); i++) {
-            if(lessonsInRoom.get(i).equals(lesson))
-                lessonsInRoom.remove(i);
-        }
+        lessonsInRoom.remove(lesson);
     }
 
 
@@ -81,7 +78,7 @@ public class Room {
             return false;
         }
         Room other = (Room)obj;
-        return roomNumber.equals(other.roomNumber) && capacity==other.capacity && connectedRoom.equals(other.connectedRoom) && lessonsInRoom.equals(other.lessonsInRoom);
+        return roomNumber.equals(other.roomNumber);
     }
 
 

@@ -13,15 +13,14 @@ public class Course {
   private ArrayList<Student> students;
   private VIAClass viaClass;
 
-  public Course(String courseName, int ects, ArrayList<Teacher> teachers, VIAClass viaClass){
+  public Course(String courseName, int ects, VIAClass viaClass){
     this.courseName = courseName;
     this.ects = ects;
-    this.teachers = teachers;
+    this.teachers = new ArrayList<>();
     lessons = new ArrayList<>();
     this.viaClass = viaClass;
     students = viaClass.getAllStudents();
     //idk is this legal?? lol
-    assignCourseToTeacher();
   }
 
   public String getCourseName()
@@ -70,16 +69,7 @@ public class Course {
 
   public void addTeacher(Teacher teacher) throws CollisionException{
     teachers.add(teacher);
-  }
-
-  public void removeTeacher(Teacher teacher){
-    if (teachers.contains(teacher)){
-      teachers.remove(teacher);
-
-    }
-    else {
-      System.out.println(teacher.getName() + " does not teach the course " + getCourseName());
-    }
+    teacher.addCourse(this);
   }
 
   public ArrayList<Teacher> getAllTeachers(){
@@ -103,17 +93,6 @@ public class Course {
     return lessons;
   }
 
-  public void assignCourseToTeacher(){
-    for (Teacher teacher:teachers
-         )
-    {
-      teacher.addCourse(copy());
-    }
-  }
-
-  public Course copy(){
-    return new Course(this.getCourseName(), this.getEcts(),this.getAllTeachers(),this.getViaClass());
-  }
 
   public boolean equals(Object obj){
     if (!(obj instanceof Course)){

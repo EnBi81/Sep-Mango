@@ -18,6 +18,7 @@ public class VIAClass
   private final String className;
   private final ArrayList<Student> students;
   private final ArrayList<Course> courses;
+  private Room preferredRoom;
 
   /**
    * Create an instance of the class VIAClass
@@ -31,6 +32,16 @@ public class VIAClass
     students = new ArrayList<Student>();
     courses = new ArrayList<Course>();
   }
+
+  public Room getPreferredRoom()
+  {
+    return preferredRoom;
+  }
+  public void setPreferredRoom(Room room)
+  {
+    preferredRoom = room;
+  }
+
 
   /**
    * Gets the semester of the class
