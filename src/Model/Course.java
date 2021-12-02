@@ -101,6 +101,48 @@ public class Course {
     return new Course(this.getCourseName(), this.getEcts(),this.getAllTeachers(),this.getViaClass());
   }
 
+  public boolean equals(Object obj){
+    if (!(obj instanceof Course)){
+      return false;
+    }
 
+    Course temp = (Course) obj;
 
-}
+    if (this.teachers == null){
+      return this.courseName.equals(temp.courseName) && this.ects == temp.ects && this.viaClass.equals(temp.viaClass) && temp.teachers == null && this.lessons.equals(temp.lessons) && this.students.equals(temp.students);
+    }
+
+    if (this.lessons == null){
+      return this.courseName.equals(temp.courseName) && this.ects == temp.ects && this.viaClass.equals(temp.viaClass) && this.teachers.equals(temp.teachers) && temp.lessons == null && this.students.equals(temp.students);
+    }
+
+    if (this.students == null){
+      return this.courseName.equals(temp.courseName) && this.ects == temp.ects && this.viaClass.equals(temp.viaClass) && this.teachers.equals(temp.teachers) && this.lessons.equals(temp.lessons) && temp.students == null;
+    }
+
+    else {
+      return this.courseName.equals(temp.courseName) && this.ects == temp.ects && this.viaClass.equals(temp.viaClass) && this.teachers.equals(temp.teachers) && this.lessons.equals(temp.lessons) && this.students.equals(temp.students);
+
+    }
+    }
+
+    public String toString(){
+    String str= "";
+
+    str += getCourseName() + " has " + getEcts() + " ECTS points.\nTeachers: ";
+
+      for (Teacher teacher: teachers
+      )
+      {
+        str += teacher.getName() + ", ";
+      }
+      str+= "\nClass: " + getViaClass().getClassName();
+      str += "\nLessons: ";
+      for (Lesson lesson: lessons
+      )
+      {
+        str += lesson.toString() + "\n";
+      }
+      return str;
+    }
+  }
