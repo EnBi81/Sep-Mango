@@ -61,7 +61,7 @@ public class Manager
   }
 */
 
-  public void makeRoomConnections()
+  public static void makeRoomConnections(ArrayList<Room> rooms)
   {
     for (int i = 0; i < rooms.size(); i++)
     {

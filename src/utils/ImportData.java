@@ -1,13 +1,58 @@
 package utils;
 
 import Model.*;
+import ScheduleManager.Manager;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ImportData
 {
-  public static final String separator = ",";
+  private String separator = ",";
+
+  private ArrayList<String> readFromTextFile(String file)
+      throws FileNotFoundException
+  {
+    return FileHandler.readFromTextFile(file);
+  }
+
+  public ArrayList<Room> readRoom(String file) throws FileNotFoundException
+  {
+    var data = readFromTextFile(file);
+    ArrayList<Room> rooms = new ArrayList<>();
+
+    for (int i = 0; i < data.size(); i++)
+    {
+      var info = data.get(i).split(separator);
+      rooms.add(new Room(info[0],Integer.parseInt(info[1])));
+    }
+    Manager.makeRoomConnections(rooms);
+    return rooms;
+  }
+
+  public ArrayList<VIAClass> readClasses(String file)
+      throws FileNotFoundException
+  {
+    var data = readFromTextFile(file);
+    ArrayList<VIAClass> classes = new ArrayList<>();
+    for (int i = 0; i < data.size(); i++)
+    {
+      String[] info = data.get(i).split(separator);
+      VIAClass viaClass = new VIAClass(Integer.parseInt(info[0]),info[0]+info[1]);
+      if(!classes.contains(viaClass))
+      {
+        classes.add(viaClass);
+      }
+    }
+    return classes;
+  }
+}
+
+
+
+/*  public static final String separator = ",";
 
   public static ArrayList<String> readFromTextFile(String file)
       throws FileNotFoundException
@@ -129,4 +174,4 @@ public class ImportData
     }
     return teachers;
   }
-}
+}*/
