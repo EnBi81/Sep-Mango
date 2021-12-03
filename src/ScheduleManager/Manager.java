@@ -1,7 +1,7 @@
 package ScheduleManager;
 
 import Model.*;
-import utils.FileHandler;
+import utils.ImportData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,11 +22,11 @@ public class Manager
 
   public void loadData() throws FileNotFoundException
   {
-    classes = FileHandler.readClasses(path + "courses.txt");
-    students = FileHandler.readStudents(path + "students.txt", classes);
-    courses = FileHandler.readCourses(path + "courses.txt", classes);
-    rooms = FileHandler.readRooms(path + "rooms.txt");
-    teachers = FileHandler.readTeachers(path + "courses.txt");
+    classes = ImportData.readClasses(path + "courses.txt");
+    students = ImportData.readStudents(path + "students.txt", classes);
+    courses = ImportData.readCourses(path + "courses.txt", classes);
+    rooms = ImportData.readRooms(path + "rooms.txt");
+    teachers = ImportData.readTeachers(path + "courses.txt");
 
   }
 
@@ -80,6 +80,17 @@ public class Manager
           }
         }
       }
+    }
+  }
+
+  public void connectStudentsWithCourse()
+  {
+    for (int i = 0; i < students.size(); i++)
+    {
+      ArrayList<Course> studentsCourses = new ArrayList<>();
+
+      students
+
     }
   }
 
