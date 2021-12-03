@@ -46,7 +46,7 @@ public class ImportData
 
     return classes;
   }
-  public static ArrayList<Course> readCourses(String courseFile, ArrayList<VIAClass> classes) throws FileNotFoundException
+  public static ArrayList<Course> readCourses(String courseFile,ArrayList<Teacher> teachers, ArrayList<VIAClass> classes) throws FileNotFoundException
   {
     ArrayList<String> data = readFromTextFile(courseFile);
     ArrayList<Course> courses = new ArrayList<>();
@@ -54,11 +54,27 @@ public class ImportData
     for(String line : data)
     {
       String[] info = line.split(separator);
+      ArrayList<Teacher> teachersInCourse = new ArrayList<>();
+
+      for (String teacherLine: data)
+      {
+        String[] info1 = line.split(separator);
+        if ((info1[2] + info1[0] + info1[1]).equals (info[2] + info[0] + info[1])){
+          for (Teacher teacher: teachers)
+          {
+            if (teacher.getName().equals(info1[3])){
+              teachersInCourse.add(teacher);
+              break;
+            }
+          }
+        }
+      }
+
       for (VIAClass viaClass : classes)
       {
         if(viaClass.getClassName().equals(info[0] + info[1]))
         {
-          Course course = new Course(info[2] + info[0] + info[1], Integer.parseInt(info[4]), viaClass);
+          Course course = new Course(info[2] + info[0] + info[1], Integer.parseInt(info[4]), teachersInCourse, viaClass);
 
           if (!courses.contains(course))
           {

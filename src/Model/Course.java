@@ -19,7 +19,8 @@ public class Course {
     this.teachers = new ArrayList<>();
     lessons = new ArrayList<>();
     this.viaClass = viaClass;
-    students = viaClass.getAllStudents();
+    students = new ArrayList<>();
+    students.addAll(viaClass.getAllStudents());
     assignCourseToTeacher();
   }
 
