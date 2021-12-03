@@ -11,6 +11,8 @@ import java.util.Collections;
 public class ImportData
 {
   private String separator = ",";
+  ArrayList<VIAClass> classes = new ArrayList<>();
+  ArrayList<Student> students = new ArrayList<>();
 
   private ArrayList<String> readFromTextFile(String file)
       throws FileNotFoundException
@@ -36,7 +38,7 @@ public class ImportData
       throws FileNotFoundException
   {
     var data = readFromTextFile(file);
-    ArrayList<VIAClass> classes = new ArrayList<>();
+
     for (int i = 0; i < data.size(); i++)
     {
       String[] info = data.get(i).split(separator);
@@ -47,6 +49,27 @@ public class ImportData
       }
     }
     return classes;
+  }
+
+  public ArrayList<Student> readStudent(String filename)
+      throws FileNotFoundException
+  {
+    var data = readFromTextFile(filename);
+    for (int i = 0; i < data.size(); i++)
+    {
+      var info = data.get(i).split(separator);
+      for (int j = 0; j < classes.size(); j++)
+      {
+        if((info[0] + info[1]).equals(classes.get(j).getClassName()))
+        {
+          Student student = new Student(info[3],Integer.parseInt(info[2]),classes.get(j));
+          classes.get(j).addStudent(student);
+          students.add(student);
+          break;
+        }
+      }
+    }
+    return students;
   }
 }
 

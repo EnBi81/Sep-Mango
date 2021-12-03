@@ -111,7 +111,7 @@ public class Student
    */
   public boolean isExchange()
   {
-      return this instanceof ExchangeStudent;
+      return this   instanceof ExchangeStudent;
   }
 
   /**
