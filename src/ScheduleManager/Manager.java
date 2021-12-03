@@ -87,10 +87,15 @@ public class Manager
   {
     for (int i = 0; i < students.size(); i++)
     {
-      ArrayList<Course> studentsCourses = new ArrayList<>();
 
-      students
+      for (int j = 0; j < courses.size(); j++)
+      {
 
+        if(courses.get(j).getViaClass().equals(students.get(i).getViaClass()))
+        {
+          students.get(i).addCourse(courses.get(j));
+        }
+      }
     }
   }
 
