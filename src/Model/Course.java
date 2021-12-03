@@ -13,14 +13,14 @@ public class Course {
   private ArrayList<Student> students;
   private VIAClass viaClass;
 
-  public Course(String courseName, int ects, VIAClass viaClass){
+  public Course(String courseName, int ects, ArrayList<Teacher> teachers, VIAClass viaClass){
     this.courseName = courseName;
     this.ects = ects;
     this.teachers = new ArrayList<>();
     lessons = new ArrayList<>();
     this.viaClass = viaClass;
     students = viaClass.getAllStudents();
-    //idk is this legal?? lol
+    assignCourseToTeacher();
   }
 
   public String getCourseName()
@@ -39,7 +39,6 @@ public class Course {
 
   public void addStudent(Student student) throws CollisionException
   {
-    //add attributes according to the Student constructor
     students.add(student);
   }
 
@@ -67,11 +66,6 @@ public class Course {
     }
   }
 
-  public void addTeacher(Teacher teacher) throws CollisionException{
-    teachers.add(teacher);
-    teacher.addCourse(this);
-  }
-
   public ArrayList<Teacher> getAllTeachers(){
     if (teachers == null){
       System.out.println("There are no teachers for the course " + getCourseName() + ".");
@@ -91,6 +85,14 @@ public class Course {
       System.out.println("There are no lessons for the course " + getCourseName() + ".");
     }
     return lessons;
+  }
+
+  public void assignCourseToTeacher(){
+    for (Teacher teacher: teachers
+         )
+    {
+      teacher.addCourse(this);
+    }
   }
 
 
