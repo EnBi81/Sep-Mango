@@ -1,9 +1,6 @@
 package utils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.annotation.Repeatable;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,46 +9,58 @@ import Model.*;
 
 public class FileHandler
 {
-
-  public static ArrayList<String> readFromTextFile(String textFile)
+  public static ArrayList<String> readFromTextFile(String filePath)
       throws FileNotFoundException
   {
-    ArrayList<String> data = new ArrayList<>();
+    ArrayList<String> list = new ArrayList<>();
+    Scanner scanner = new Scanner(new FileInputStream(filePath));
 
-    Scanner scanner = new Scanner(new FileInputStream(textFile));
-
-    while (scanner.hasNext())
-    {
-      String nextLine = scanner.nextLine();
-      if(nextLine.isEmpty())
-        continue;
-      data.add(nextLine);
-    }
+    while(scanner.hasNext())
+      list.add(scanner.nextLine());
 
     scanner.close();
 
-    return data;
+    return list;
   }
 
-  public static void writeToTextFile(String fileName, String content)
+  public static void writeToTextFile(String filePath, String content)
       throws FileNotFoundException
   {
-    PrintWriter writeToFile = null;
+    PrintWriter writer = new PrintWriter(new FileOutputStream(filePath));
+    writer.write(content);
+
+    writer.close();
+  }
+
+  public static Schedule readScheduleFromBinaryFile(String filePath)
+      throws IOException
+  {
+    ObjectInputStream input = new ObjectInputStream(new FileInputStream(filePath));
+    Schedule schedule = null;
 
     try
     {
-      FileOutputStream fileOutStream = new FileOutputStream(fileName);
-      writeToFile = new PrintWriter(fileOutStream);
-      writeToFile.println(content);
+      schedule = (Schedule) input.readObject();
+    }catch (ClassNotFoundException e)
+    {
+      e.printStackTrace();
     }
     finally
     {
-      if (writeToFile != null)
-      {
-        writeToFile.close();
-      }
+      input.close();
     }
+
+    return schedule;
   }
 
+  public static void writeScheduleToBinaryFile(String filePath, Schedule schedule)
+      throws IOException
+  {
+    ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(filePath));
+
+    output.writeObject(schedule);
+
+    output.close();
+  }
 
 }

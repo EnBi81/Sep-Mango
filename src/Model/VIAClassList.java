@@ -1,8 +1,9 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class VIAClassList
+public class VIAClassList implements Serializable
 {
   private ArrayList<VIAClass> classes;
 
