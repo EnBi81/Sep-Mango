@@ -10,6 +10,14 @@ public class TeacherList
     teachers = new ArrayList<>();
   }
 
+  public void addTeacher(Teacher teacher){
+    teachers.add(teacher);
+  }
+
+  public void removeTeacher(Teacher teacher){
+    teachers.remove(teacher);
+  }
+
   public Teacher getTeacherByName(String name){
     Teacher returnTeacher = null;
     for (Teacher teacher: teachers
@@ -27,13 +35,5 @@ public class TeacherList
 
   public ArrayList<Teacher> getAllTeachers(){
     return teachers;
-  }
-
-  public void addTeacher(Teacher teacher){
-    teachers.add(teacher);
-  }
-
-  public void removeTeacher(Teacher teacher){
-    teachers.remove(teacher);
   }
 }

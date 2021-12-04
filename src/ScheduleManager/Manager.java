@@ -3,9 +3,7 @@ package ScheduleManager;
 import Model.*;
 import utils.ImportData;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Manager
@@ -91,7 +89,7 @@ public class Manager
       for (int j = 0; j < courses.size(); j++)
       {
 
-        if(courses.get(j).getViaClass().equals(students.get(i).getViaClass()))
+        if(courses.get(j).getVIAClass().equals(students.get(i).getViaClass()))
         {
           students.get(i).addCourse(courses.get(j));
         }

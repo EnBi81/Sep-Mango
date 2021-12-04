@@ -4,7 +4,8 @@ import utils.CollisionException;
 
 import java.util.ArrayList;
 
-public class Course {
+public class Course
+{
 
   private String courseName;
   private int ects;
@@ -13,15 +14,14 @@ public class Course {
   private ArrayList<Student> students;
   private VIAClass viaClass;
 
-  public Course(String courseName, int ects, ArrayList<Teacher> teachers, VIAClass viaClass){
+  public Course(String courseName, int ects, VIAClass viaClass)
+  {
     this.courseName = courseName;
     this.ects = ects;
     this.teachers = new ArrayList<>();
-    lessons = new ArrayList<>();
+    this.lessons = new ArrayList<>();
+    this.students = new ArrayList<>();
     this.viaClass = viaClass;
-    students = new ArrayList<>();
-    students.addAll(viaClass.getAllStudents());
-    assignCourseToTeacher();
   }
 
   public String getCourseName()
@@ -34,111 +34,89 @@ public class Course {
     return ects;
   }
 
-  public VIAClass getViaClass(){
+  public VIAClass getVIAClass()
+  {
     return viaClass;
   }
 
-  public void addStudent(Student student) throws CollisionException
+  public void addStudent(Student student)
   {
     students.add(student);
   }
 
-  public void removeStudent(Student student){
-    if (students.contains(student)){
-      students.remove(student);
-
-    }
-    else {
-      System.out.println("Course " + getCourseName() + " does not contain this student.");
-    }
+  public void removeStudent(Student student)
+  {
+    students.remove(student);
   }
 
-  public void addLesson(Lesson lesson) throws CollisionException{
+  public void addLesson(Lesson lesson)
+  {
     lessons.add(lesson);
   }
 
-  public void removeLesson(Lesson lesson){
-    if (lessons.contains(lesson)){
-      lessons.remove(lesson);
-
-    }
-    else {
-      System.out.println("Course " + getCourseName() + " does not contain this lesson.");
-    }
+  public void removeLesson(Lesson lesson)
+  {
+    lessons.remove(lesson);
   }
 
-  public ArrayList<Teacher> getAllTeachers(){
-    if (teachers == null){
-      System.out.println("There are no teachers for the course " + getCourseName() + ".");
+  public ArrayList<Teacher> getAllTeachers()
+  {
+    if (teachers == null)
+    {
+      System.out.println(
+          "There are no teachers for the course " + getCourseName() + ".");
     }
     return teachers;
   }
 
-  public ArrayList<Student> getAllStudents(){
-    if (students == null){
-      System.out.println("There are no students for the course " + getCourseName() + ".");
+  public ArrayList<Student> getAllStudents()
+  {
+    if (students == null)
+    {
+      System.out.println(
+          "There are no students for the course " + getCourseName() + ".");
     }
     return students;
   }
 
-  public ArrayList<Lesson> getAllLessons(){
-    if (lessons == null){
-      System.out.println("There are no lessons for the course " + getCourseName() + ".");
+  public ArrayList<Lesson> getAllLessons()
+  {
+    if (lessons == null)
+    {
+      System.out.println(
+          "There are no lessons for the course " + getCourseName() + ".");
     }
     return lessons;
   }
 
-  public void assignCourseToTeacher(){
-    for (Teacher teacher: teachers
-         )
+  public String toString()
+  {
+    String str = "";
+
+    str += getCourseName() + " has " + getEcts() + " ECTS points.\nTeachers: ";
+
+    for (Teacher teacher : teachers)
     {
-      teacher.addCourse(this);
+      str += teacher.getName() + ", ";
     }
+    str += "\nClass: " + getVIAClass().getClassName() + ",";
+    str += "\nLessons: ";
+    for (Lesson lesson : lessons)
+    {
+      str += lesson.toString() + "\n";
+    }
+    return str;
   }
 
-
-  public boolean equals(Object obj){
-    if (!(obj instanceof Course)){
+  public boolean equals(Object obj)
+  {
+    if (!(obj instanceof Course))
+    {
       return false;
     }
 
     Course temp = (Course) obj;
 
-    if (this.teachers == null){
-      return this.courseName.equals(temp.courseName) && this.ects == temp.ects && this.viaClass.equals(temp.viaClass) && temp.teachers == null && this.lessons.equals(temp.lessons) && this.students.equals(temp.students);
-    }
-
-    if (this.lessons == null){
-      return this.courseName.equals(temp.courseName) && this.ects == temp.ects && this.viaClass.equals(temp.viaClass) && this.teachers.equals(temp.teachers) && temp.lessons == null && this.students.equals(temp.students);
-    }
-
-    if (this.students == null){
-      return this.courseName.equals(temp.courseName) && this.ects == temp.ects && this.viaClass.equals(temp.viaClass) && this.teachers.equals(temp.teachers) && this.lessons.equals(temp.lessons) && temp.students == null;
-    }
-
-    else {
-      return this.courseName.equals(temp.courseName) && this.ects == temp.ects && this.viaClass.equals(temp.viaClass) && this.teachers.equals(temp.teachers) && this.lessons.equals(temp.lessons) && this.students.equals(temp.students);
-
-    }
-    }
-
-    public String toString(){
-    String str= "";
-
-    str += getCourseName() + " has " + getEcts() + " ECTS points.\nTeachers: ";
-
-      for (Teacher teacher: teachers
-      )
-      {
-        str += teacher.getName() + ", ";
-      }
-      str+= "\nClass: " + getViaClass().getClassName();
-      str += "\nLessons: ";
-      for (Lesson lesson: lessons
-      )
-      {
-        str += lesson.toString() + "\n";
-      }
-      return str;
-    }
+    return this.courseName.equals(temp.courseName);
   }
+}
