@@ -1,19 +1,10 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class VIAClass
+public class VIAClass implements Serializable
 {
-  public static VIAClass getClassByName(String name)
-  {
-    return null;
-  }
-  public static ArrayList<VIAClass> getClassesBySemester(int semester)
-  {
-    return null;
-  }
-
-
   private final int semester;
   private final String className;
   private final ArrayList<Student> students;
@@ -29,18 +20,11 @@ public class VIAClass
   {
     this.semester = semester;
     this.className = className;
-    students = new ArrayList<Student>();
-    courses = new ArrayList<Course>();
+    students = new ArrayList<>();
+    courses = new ArrayList<>();
+    preferredRoom = null;
   }
 
-  public Room getPreferredRoom()
-  {
-    return preferredRoom;
-  }
-  public void setPreferredRoom(Room room)
-  {
-    preferredRoom = room;
-  }
 
 
   /**
@@ -56,9 +40,27 @@ public class VIAClass
    * Gets the name of the class
    * @return The name of the class
    */
-  public String getClassName()
+  public String getName()
   {
     return className;
+  }
+
+  /**
+   * Get the preferred room assigned to the current object
+   * @return The preferred room if it is assigned, else null
+   */
+  public Room getPreferredRoom()
+  {
+    return preferredRoom;
+  }
+
+  /**
+   * Set the preferred room for the current instance
+   * @param room Room to be set
+   */
+  public void setPreferredRoom(Room room)
+  {
+    preferredRoom = room;
   }
 
   /**
@@ -95,6 +97,11 @@ public class VIAClass
   public ArrayList<Course> getAllCourses()
   {
     return courses;
+  }
+
+  public String toString()
+  {
+    return getName();
   }
 
   /**
