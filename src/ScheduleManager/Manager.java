@@ -70,6 +70,10 @@ public class Manager
     }
   }
 
+  /**
+   * Calls the readFromTextFile method to read the file containing all students' data. Firstly, by reading the first rows of the file creates the class objects without duplicates. Afterwards, reads all the rest data and creates the student objects with it. Finally, the students are being enrolled into the corresponding classes.
+   * @param fileName the name of the file
+   */
   public void loadStudentData(String fileName)
   {
     ArrayList<String> studentData;
@@ -91,7 +95,8 @@ public class Manager
       for (int i = 0; i < studentData.size(); i++)
       {
         String[] infoStudent = studentData.get(i).split(separator);
-        Student student = new Student(infoStudent[3], Integer.parseInt(infoStudent[2]));
+        Student student = new Student(infoStudent[3],
+            Integer.parseInt(infoStudent[2]));
         schedule.getStudentList().addStudent(student);
 
         for (int j = 0;
@@ -101,7 +106,8 @@ public class Manager
               == Integer.parseInt(infoStudent[0]) && schedule.getVIAClassList()
               .getAllClasses().get(j).getName().equals(infoStudent[1]))
           {
-            schedule.getVIAClassList().getAllClasses().get(j).addStudent(student);
+            schedule.getVIAClassList().getAllClasses().get(j)
+                .addStudent(student);
           }
         }
       }
