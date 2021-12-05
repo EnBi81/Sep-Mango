@@ -14,7 +14,7 @@ public class Student
   private int id;
 
   /**
-   * Create an instance of the class ExchangeStudent
+   * Creates an instance of the class ExchangeStudent
    * @param name student's name
    * @param id object's id
    */
@@ -73,11 +73,10 @@ public class Student
     ArrayList<Course> allStudentCourses = new ArrayList<Course>();
     for (int i = 0; i < allCourses.size(); i++)
     {
-      if(allCourses.get)
+      if (allCourses.get(i).getAllStudents().contains(this))
+      allStudentCourses.add(allCourses.get(i));
     }
-    {
-
-    }
+    return allStudentCourses;
   }
 
   /**
@@ -86,7 +85,13 @@ public class Student
    */
   public VIAClass getViaClass()
   {
-    return viaClass;
+    ArrayList<VIAClass> allClasses = new ArrayList<>();
+    for (int i = 0; i < allClasses.size(); i++)
+    {
+      if (allClasses.get(i).getAllStudents().contains(this))
+      return allClasses.get(i);
+    }
+    return null;
   }
 
 
@@ -105,7 +110,7 @@ public class Student
    */
   public String toString()
   {
-    return name + ", id: " + id + ", " + VIAClass().toString;
+    return name + ", id: " + id;
   }
 
   /**

@@ -1,7 +1,6 @@
 import Model.Teacher;
 import Model.VIAClass;
 import ScheduleManager.Manager;
-import utils.ImportData;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
