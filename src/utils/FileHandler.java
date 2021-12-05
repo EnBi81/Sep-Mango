@@ -62,5 +62,4 @@ public class FileHandler
 
     output.close();
   }
-
 }
