@@ -10,13 +10,11 @@ public class ExchangeStudent extends Student
 {
   /**
    * Create an instance of the class ExchangeStudent
-   * @param firstName object's first name
-   * @param lastName object's last name
-   * @param id object's id
-   * @param viaClass the class to which the object is enrolled
+   * @param name student's name
+   * @param id student's id
    */
-  public ExchangeStudent(String firstName, String lastName, int id, VIAClass viaClass)
+  public ExchangeStudent(String name, int id, VIAClass viaClass)
   {
-    super(firstName,lastName,id,viaClass);
+    super(name,id);
   }
 }
