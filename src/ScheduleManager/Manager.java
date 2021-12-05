@@ -14,6 +14,10 @@ public class Manager
   private String separator = ",";
   private Schedule schedule;
 
+  /**
+   * Calls the readFromTextFile method to read the file containing all rooms' data. It reads one row at a time, creates a Room object with its parameters, and then adds the new Instance of the Room class to the RoomList, which is stored in the Schedule class.
+   * @param fileName the name of the file
+   */
   public void loadRoomData(String fileName)
   {
 
