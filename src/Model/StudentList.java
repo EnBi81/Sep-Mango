@@ -11,6 +11,9 @@ public class StudentList
 {
   private ArrayList<Student> students;
 
+  /**
+   * Creates a new list of students
+   */
   public StudentList(){
     students = new ArrayList<>();
   }
