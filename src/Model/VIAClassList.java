@@ -23,7 +23,7 @@ public class VIAClassList implements Serializable
     return null;
   }
 
-  public void addClass(VIAClass viaClass)
+  public void addVIAClass(VIAClass viaClass)
   {
     classes.add(viaClass);
   }

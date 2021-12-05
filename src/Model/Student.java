@@ -24,11 +24,10 @@ public class Student
    * @param viaClass the class to which the object is enrolled
    */
 
-  public Student(String name, int id, VIAClass viaClass)
+  public Student(String name, int id)
   {
     this.name = name;
     this.id = id;
-    this.viaClass = viaClass;
     courses = new ArrayList<Course>();
   }
 

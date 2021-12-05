@@ -24,16 +24,14 @@ public class Course
    * @version 1.0
    * @param courseName name of a course
    * @param ects number of ects a course has
-   * @param viaClass class which has the course
    */
-  public Course(String courseName, int ects, VIAClass viaClass)
+  public Course(String courseName, int ects)
   {
     this.courseName = courseName;
     this.ects = ects;
     this.teachers = new ArrayList<>();
     this.lessons = new ArrayList<>();
     this.students = new ArrayList<>();
-    this.viaClass = viaClass;
   }
 
   /**
