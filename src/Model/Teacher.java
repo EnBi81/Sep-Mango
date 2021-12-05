@@ -4,28 +4,33 @@ import java.util.ArrayList;
 
 /**
  * a class containing information about a Teacher object
+ *
  * @author Simon Mayer
  * @version 1.0
  */
-public class Teacher {
+public class Teacher
+{
 
   private String name;
   private ArrayList<Course> courses;
 
   /**
    * one parameter constructor which creates an instance of a class Teacher
-   * @version 1.0
+   *
    * @param name name of a teacher
+   * @version 1.0
    */
-  public Teacher(String name){
+  public Teacher(String name)
+  {
     this.name = name;
     courses = new ArrayList<>();
   }
 
   /**
    * return the name of a Teacher object
-   * @version 1.0
+   *
    * @return name of a teacher
+   * @version 1.0
    */
   public String getName()
   {
@@ -33,26 +38,43 @@ public class Teacher {
   }
 
   /**
-   *
+   * Compares the name of the teacher in each course with the name of the Teacher object. Return a list of courses which are taught by this teacher.
+   * @return ArrayList of Teacher objects (the ones which comply the conditions)
    * @version 1.0
-   * @return
    */
-  public ArrayList<Course> getAllCourses(){
-    return new ArrayList<>();
+  public ArrayList<Course> getAllCourses()
+  {
+    Schedule schedule = new Schedule();
+    ArrayList<Course> courses = new ArrayList<>();
+    ArrayList<Course> allCourses = schedule.getCourseList().getAllCourses();
+    for (Course course:allCourses
+         )
+    {
+      for (Teacher teacher:course.getAllTeachers()
+           )
+      {
+        if (teacher.getName().equals(name)){
+          courses.add(course);
+          break;
+        }
+      }
+    }
+    return courses;
   }
 
   /**
    * writes out the information about a Teacher object
-   * @version 1.0
+   *
    * @return String containing information about a teacher
+   * @version 1.0
    */
-  public String toString(){
+  public String toString()
+  {
     String str = "";
 
     str += getName() + " teaches these courses:\n";
 
-    for (Course course: courses
-         )
+    for (Course course : courses)
     {
       str += course.getCourseName() + "\n";
     }
@@ -62,12 +84,15 @@ public class Teacher {
 
   /**
    * compares two objects and returns true if they are identical
-   * @version 1.0
+   *
    * @param obj object that is compared
    * @return true (if the objects are the exact same) or false
+   * @version 1.0
    */
-  public boolean equals(Object obj){
-    if (!(obj instanceof Teacher)){
+  public boolean equals(Object obj)
+  {
+    if (!(obj instanceof Teacher))
+    {
       return false;
     }
 

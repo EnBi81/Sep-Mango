@@ -105,6 +105,16 @@ public class Course
   }
 
   /**
+   * adds a teacher to the ArrayList of teachers
+   * @version 1.0
+   * @param teacher teacher to be added
+   */
+  public void addTeacher(Teacher teacher)
+  {
+    teachers.add(teacher);
+  }
+
+  /**
    * returns a list of Teacher objects, if null prints out a message
    * @version 1.0
    * @return ArrayList<Teacher>
@@ -164,7 +174,7 @@ public class Course
     {
       str += teacher.getName() + ", ";
     }
-    str += "\nClass: " + getVIAClass().getClassName() + ",";
+    str += "\nClass: " + getVIAClass().getName() + ",";
     str += "\nLessons: ";
     for (Lesson lesson : lessons)
     {
