@@ -2,6 +2,7 @@ package Model;
 
 import utils.CollisionException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * @author Simon Mayer
  * @version 1.0
  */
-public class Course
+public class Course implements Serializable
 {
 
   private String courseName;
