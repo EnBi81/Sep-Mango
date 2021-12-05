@@ -39,6 +39,13 @@ public class Manager
     }
   }
 
+  /***
+   * Calls the readFromTextFile method to read the file containing all courses' data. It reads one row at a time,
+   * creates a Teacher object with its parameters if the teacher list it is not already containing that specific teacher.
+   * Then it reads one row at a time again from the courses file, and it creates a Course object with its parameters if
+   * the course list is not already containing that specific course.
+   * @param fileName the name of the file
+   */
   public void loadCourseData(String fileName)
   {
 
