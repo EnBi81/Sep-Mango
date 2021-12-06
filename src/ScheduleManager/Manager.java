@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public class Manager
 {
-  private String fileName;
-  private String separator = ",";
-  private Schedule schedule = null;
-  private String savedScheduleFile = "Files\\schedule.bin";
+  private static String fileName;
+  private static String separator = ",";
+  private static Schedule schedule = null;
+  private static String savedScheduleFile = "Files\\schedule.bin";
 
-  public Schedule getSchedule()
+  public static Schedule getSchedule()
   {
 
     if(schedule == null)
@@ -31,7 +31,7 @@ public class Manager
     return schedule;
   }
 
- public void importData()
+ public static void importData()
   {
     schedule = new Schedule();
 
@@ -60,7 +60,7 @@ public class Manager
    *
    * @param fileName the name of the file
    */
-  public void loadRoomData(String fileName)
+  public static void loadRoomData(String fileName)
   {
 
     ArrayList<String> roomData;
@@ -88,7 +88,7 @@ public class Manager
    * the course list is not already containing that specific course.
    * @param fileName the name of the file
    */
-  public void loadCourseData(String fileName)
+  public static void loadCourseData(String fileName)
   {
 
     ArrayList<String> courseData;
@@ -158,7 +158,7 @@ public class Manager
    *
    * @param fileName the name of the file
    */
-  public void loadStudentData(String fileName)
+  public static void loadStudentData(String fileName)
   {
     ArrayList<String> studentData;
     try

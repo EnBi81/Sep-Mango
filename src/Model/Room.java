@@ -1,5 +1,7 @@
 package Model;
 
+import ScheduleManager.Manager;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,8 +11,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class Room implements Serializable
-{
+public class Room implements Serializable {
     private String roomName;
     private int capacity;
 
@@ -41,9 +42,26 @@ public class Room implements Serializable
         return capacity;
     }
 
-    /*public Room getConnectedRoom() {
-
-       }*/
+    /***
+     * Gets the connected room
+     * @return the connected room as a Room object
+     */
+    public Room getConnectedRoom() {
+        if(!hasConnectedRoom())
+        {
+            return null;
+        }
+        String connectedRoomName;
+        if(roomName.endsWith("a"))
+        {
+            connectedRoomName = roomName.substring(0,roomName.length()-1)+"b";
+        }
+        else
+        {
+            connectedRoomName = roomName.substring(0,roomName.length()-1)+"a";
+        }
+        return Manager.getSchedule().getRoomList().getByRoomName(connectedRoomName);
+    }
 
     /***
      * Checks if the room has a connected room.
@@ -68,7 +86,7 @@ public class Room implements Serializable
      * @return a string representation of the room in the format: "roomName-capacity"
      */
     public String toString() {
-        return   roomName + "-" + capacity;
+        return roomName + "-" + capacity;
     }
 
     /***
@@ -76,13 +94,11 @@ public class Room implements Serializable
      * @param obj the object to compare with
      * @return true if the given object is equal to this room
      */
-    public boolean equals(Object obj)
-    {
-        if(!(obj instanceof Room))
-        {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Room)) {
             return false;
         }
-        Room other = (Room)obj;
+        Room other = (Room) obj;
         return roomName.equals(other.roomName);
     }
 }
