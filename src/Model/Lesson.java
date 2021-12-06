@@ -1,9 +1,10 @@
 package Model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Lesson
+public class Lesson implements Serializable
 {
   private LocalDateTime startTime;
   private LocalDateTime endTime;
@@ -114,11 +115,16 @@ public class Lesson
    * @author Uafa
    * @version 1.0
    */
-
-  public Room getSecondRoom()
+//Discuss This!!!//
+ /* public Room getSecondRoom()
   {
-    return room2;
-  }
+
+    if(room1.hasConnectedRoom())
+    {
+
+    }
+
+  }*/
 
   /**
    * sets the primary room (used for changing the primary room)
@@ -133,20 +139,6 @@ public class Lesson
     room1 = room;
   }
 
-  /**
-   * using a method from the Room class checks if the primary room has a secondary one and if it has it sets the room2 private variable to equal the room1 secondary room, which is obtained by another method from the Room CLass
-   *
-   * @author Uafa
-   * @version 1.0
-   */
-
-  public void setSecondRoom()
-  {
-    if (room1.hasConnectedRoom())
-    {
-      room2 = room1.getConnectedRoom();
-    }
-  }
 
   /**
    * returns the starting time of a lesson
