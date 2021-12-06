@@ -183,18 +183,6 @@ public class Manager
             Integer.parseInt(infoStudent[2]));
         schedule.getStudentList().addStudent(student);
 
-       /* for (int j = 0;
-             j < schedule.getVIAClassList().getAllClasses().size(); j++)
-        {
-          if (schedule.getVIAClassList().getAllClasses().get(j).getSemester()
-              == Integer.parseInt(infoStudent[0]) && schedule.getVIAClassList()
-              .getAllClasses().get(j).getName().equals(infoStudent[1]))
-          {
-            schedule.getVIAClassList().getAllClasses().get(j)
-                .addStudent(student);
-          }
-        }*/
-
         VIAClass viaClass = schedule.getVIAClassList().getClassByName(infoStudent[0] + infoStudent[1]);
         viaClass.addStudent(student);
       }

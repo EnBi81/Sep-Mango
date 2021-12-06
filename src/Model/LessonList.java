@@ -5,13 +5,14 @@ import java.util.ArrayList;
 
 public class LessonList implements Serializable
 {
+  /**
+   * LessonList class which stores all the Lessons
+   */
 
   private ArrayList<Lesson> lessons;
 
   /**
    * No arguments constructor
-   * @author Uafa
-   * @version 1.0
    */
   public LessonList()
   {
@@ -21,9 +22,7 @@ public class LessonList implements Serializable
 
   /**
    * Add a lesson to an ArrayList which holds all lessons
-   * @param lesson
-   * @author Uafa
-   * @version 1.0
+   * @param lesson the lesson to be added
    */
 
   public void addLesson(Lesson lesson)
@@ -33,9 +32,7 @@ public class LessonList implements Serializable
 
   /**
    * Remove a lesson from an the ArrayList which holds all lessons
-   * @param lesson
-   * @author Uafa
-   * @version 1.0
+   * @param lesson the lesson to be removed
    */
 
   public void removeLesson(Lesson lesson)
@@ -45,9 +42,7 @@ public class LessonList implements Serializable
 
   /**
    * Returns all the lessons held in the ArrayList
-   * @return
-   * @author Uafa
-   * @version 1.0
+   * @return an ArrayList with all Lesson objects inside it
    */
   public ArrayList<Lesson> getAllLessons()
   {
