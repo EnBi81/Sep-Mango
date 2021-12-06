@@ -65,9 +65,6 @@ public class RoomList implements Serializable {
      * @return all rooms
      */
     public ArrayList<Room> getAllRooms() {
-        for (int i = 0; i < rooms.size(); i++) {
-            System.out.println(rooms.get(i));
-        }
-        return null;
+   return rooms;
     }
 }

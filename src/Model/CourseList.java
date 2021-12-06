@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * a class containing a list of Course objects
+ *
  * @author Simon Mayer
  * @version 1.0
  */
@@ -14,6 +15,7 @@ public class CourseList implements Serializable
 
   /**
    * creates an instance of the class CourseList
+   *
    * @version 1.0
    */
   public CourseList()
@@ -23,8 +25,9 @@ public class CourseList implements Serializable
 
   /**
    * adds a Course to the list
-   * @version 1.0
+   *
    * @param course course to be added
+   * @version 1.0
    */
   public void addCourse(Course course)
   {
@@ -33,8 +36,9 @@ public class CourseList implements Serializable
 
   /**
    * removes a course from the list
-   * @version 1.0
+   *
    * @param course course to be removed
+   * @version 1.0
    */
   public void removeCourse(Course course)
   {
@@ -43,8 +47,9 @@ public class CourseList implements Serializable
 
   /**
    * returns a list of Course objects
-   * @version 1.0
+   *
    * @return ArrayList<Course>
+   * @version 1.0
    */
   public ArrayList<Course> getAllCourses()
   {
@@ -53,23 +58,21 @@ public class CourseList implements Serializable
 
   /**
    * returns a course with specific name
-   * @version 1.0
-   * @return a course
+   *
    * @param name the name of the returned course
+   * @return a course
+   * @version 1.0
    */
   public Course getCourseByName(String name)
   {
-    Course returnCourse = null;
-    for (Course course:courses
-         )
+
+    for (Course course : courses)
     {
-      if (course.getCourseName().equalsIgnoreCase(name)){
-        returnCourse = course;
-      }
-      else{
-        System.out.println("No course with name " + name);
+      if (course.getCourseName().equalsIgnoreCase(name))
+      {
+        return course;
       }
     }
-    return returnCourse;
+    return null;
   }
 }

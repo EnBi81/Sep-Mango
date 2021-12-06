@@ -45,7 +45,8 @@ public class Teacher implements Serializable
    */
   public ArrayList<Course> getAllCourses()
   {
-    Schedule schedule = new Schedule();
+    //made this into null//
+    Schedule schedule = null;
     ArrayList<Course> courses = new ArrayList<>();
     ArrayList<Course> allCourses = schedule.getCourseList().getAllCourses();
     for (Course course:allCourses

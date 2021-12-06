@@ -10,12 +10,54 @@ import java.util.ArrayList;
 public class Manager
 {
   private String fileName;
-  private String path = "Files\\";
   private String separator = ",";
-  private Schedule schedule;
+  private Schedule schedule = null;
+  private String savedScheduleFile = "Files\\schedule.bin";
+
+  public Schedule getSchedule()
+  {
+
+    if(schedule == null)
+    {
+      try
+      {
+        schedule = FileHandler.readScheduleFromBinaryFile(savedScheduleFile);
+      }
+      catch (IOException e)
+      {
+        importData();
+      }
+    }
+    return schedule;
+  }
+
+ public void importData()
+  {
+    schedule = new Schedule();
+
+    String folder = "Files\\",
+        coursesFile = folder + "courses.txt",
+        roomFile = folder + "rooms.txt",
+        studentFile = folder + "students.txt";
+
+    loadRoomData(roomFile);
+    loadStudentData(studentFile);
+    loadCourseData(coursesFile);
+
+    try
+    {
+      FileHandler.writeScheduleToBinaryFile(savedScheduleFile, schedule);
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+
+  }
 
   /**
    * Calls the readFromTextFile method to read the file containing all rooms' data. It reads one row at a time, creates a Room object with its parameters, and then adds the new Instance of the Room class to the RoomList, which is stored in the Schedule class.
+   *
    * @param fileName the name of the file
    */
   public void loadRoomData(String fileName)
@@ -24,7 +66,7 @@ public class Manager
     ArrayList<String> roomData;
     try
     {
-      roomData = FileHandler.readFromTextFile(path + fileName);
+      roomData = FileHandler.readFromTextFile(fileName);
       for (int i = 0; i < roomData.size(); i++)
       {
         String[] info = roomData.get(i).split(separator);
@@ -53,27 +95,53 @@ public class Manager
     try
     {
       courseData = FileHandler.readFromTextFile(fileName);
-      //loading teachers first
+      //loading viaclass
+
+      for (int i = 0; i < courseData.size(); i++)
+      {
+        String[] infoClass = courseData.get(i).split(separator);
+        VIAClass viaClass = new VIAClass(Integer.parseInt(infoClass[0]),
+            infoClass[0] + infoClass[1]);
+        if (!schedule.getVIAClassList().getAllClasses().contains(viaClass))
+        {
+          schedule.getVIAClassList().addVIAClass(viaClass);
+        }
+      }
+
+      //load course information, enroll students to courses autom.
+      for (int i = 0; i < courseData.size(); i++)
+      {
+        String[] info = courseData.get(i).split(separator);
+        VIAClass viaClass = schedule.getVIAClassList()
+            .getClassByName(info[0] + info[1]);
+        Course course = new Course(info[2] + info[0] + info[1],
+            Integer.parseInt(info[4]));
+        if (!schedule.getCourseList().getAllCourses().contains(course))
+        {
+          schedule.getCourseList().addCourse(course);
+          viaClass.addCourse(course);
+          course.getAllStudents().addAll(viaClass.getAllStudents());
+        }
+      }
+      //load teacher info
       for (int i = 0; i < courseData.size(); i++)
       {
         String[] infoTeachers = courseData.get(i).split(separator);
+        Course course = schedule.getCourseList().getCourseByName(infoTeachers[2] + infoTeachers[0] + infoTeachers[1]);
         Teacher teacher = new Teacher(infoTeachers[3]);
 
         if (!schedule.getTeacherList().getAllTeachers().contains(teacher))
         {
           schedule.getTeacherList().addTeacher(teacher);
         }
+        else
+        {
+          teacher = schedule.getTeacherList().getTeacherByName(infoTeachers[3]);
+        }
+
+        course.addTeacher(teacher);
       }
 
-      //load course information
-      for (int i = 0; i < courseData.size(); i++)
-      {
-        String[] info = courseData.get(i).split(separator);
-        Course course = new Course(info[2] + info[0] + info[1],
-            Integer.parseInt(info[4]));
-        if (!schedule.getCourseList().getAllCourses().contains(course))
-          schedule.getCourseList().addCourse(course);
-      }
     }
     catch (FileNotFoundException e)
     {
@@ -82,7 +150,12 @@ public class Manager
   }
 
   /**
-   * Calls the readFromTextFile method to read the file containing all students' data. Firstly, by reading the first rows of the file creates the class objects without duplicates. Afterwards, reads all the rest data and creates the student objects with it. Finally, the students are being enrolled into the corresponding classes.
+   * Calls the readFromTextFile method to read the file containing all students'
+   * data. Firstly, by reading the first rows of the file creates the class
+   * objects without duplicates. Afterwards, reads all the rest data and creates
+   * the student objects with it. Finally, the students are being enrolled into
+   * the corresponding classes.
+   *
    * @param fileName the name of the file
    */
   public void loadStudentData(String fileName)
@@ -90,13 +163,13 @@ public class Manager
     ArrayList<String> studentData;
     try
     {
-      studentData = FileHandler.readFromTextFile(path + fileName);
+      studentData = FileHandler.readFromTextFile(fileName);
       //creating a class
       for (int i = 0; i < studentData.size(); i++)
       {
         String[] infoClass = studentData.get(i).split(separator);
         VIAClass viaClass = new VIAClass(Integer.parseInt(infoClass[0]),
-            infoClass[1]);
+            infoClass[0] + infoClass[1]);
         if (!schedule.getVIAClassList().getAllClasses().contains(viaClass))
         {
           schedule.getVIAClassList().addVIAClass(viaClass);
@@ -110,7 +183,7 @@ public class Manager
             Integer.parseInt(infoStudent[2]));
         schedule.getStudentList().addStudent(student);
 
-        for (int j = 0;
+       /* for (int j = 0;
              j < schedule.getVIAClassList().getAllClasses().size(); j++)
         {
           if (schedule.getVIAClassList().getAllClasses().get(j).getSemester()
@@ -120,7 +193,10 @@ public class Manager
             schedule.getVIAClassList().getAllClasses().get(j)
                 .addStudent(student);
           }
-        }
+        }*/
+
+        VIAClass viaClass = schedule.getVIAClassList().getClassByName(infoStudent[0] + infoStudent[1]);
+        viaClass.addStudent(student);
       }
     }
     catch (FileNotFoundException e)

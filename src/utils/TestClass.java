@@ -1,6 +1,7 @@
 package utils;
 
 import Model.*;
+import ScheduleManager.Manager;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -14,26 +15,11 @@ public class TestClass
         roomFile = folder + "rooms.txt",
         studentFile = folder + "students.txt";
 
-    try
-    {
-      var outStream = System.out;
-      System.setOut(new PrintStream("Files\\test.txt"){
-        @Override public void println(String text)
-        {
-          // Prints nothing
-        }
-      });
+    Manager manager = new Manager();
 
-      Schedule schedule = ImportData.importFromFiles(roomFile, coursesFile, studentFile);
 
-      System.setOut(outStream);
 
-      test(schedule);
-
-    }catch (FileNotFoundException e)
-    {
-      e.printStackTrace();
-    }
+    test(manager.getSchedule());
   }
 
   public static void test(Schedule schedule)
@@ -51,7 +37,7 @@ public class TestClass
       writeSeparatorSpace();
       writeCourseList(schedule.getCourseList());
       writeSeparatorSpace();
-      writeClassList(schedule.getVIAClassList(), false);
+      writeClassList(schedule.getVIAClassList(), true);
 
     }catch (Exception e)
     {
