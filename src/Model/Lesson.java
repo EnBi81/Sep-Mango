@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * A Lesson class
+ * @author Uafa
+ * @version 1.0
+ */
+
 public class Lesson implements Serializable
 {
   private LocalDateTime startTime;
@@ -13,14 +19,12 @@ public class Lesson implements Serializable
   private Course course;
 
   /**
-   * creates an instance of the class Lesson
+   * creates an instance of the Lesson class
    *
    * @param course    the course assigned to the lesson
    * @param room      the room where the lesson will be held
    * @param startTime the start time of the lesson
    * @param endTime   the end time of the lesson
-   * @author Uafa
-   * @version 1.0
    */
   public Lesson(Course course, Room room, LocalDateTime startTime,
       LocalDateTime endTime)
@@ -85,10 +89,8 @@ public class Lesson implements Serializable
 
   /**
    * returns the curse of the lesson
-   *
-   * @return course
-   * @author Uafa
-   * @version 1.0
+   * @return course The course this lesson has
+
    */
   public Course getCourse()
   {
@@ -97,10 +99,7 @@ public class Lesson implements Serializable
 
   /**
    * returns the primary room where the lesson will be held
-   *
    * @return the primary room in which the lesson will be held
-   * @author Uafa
-   * @version 1.0
    */
 
   public Room getFirstRoom()
@@ -112,8 +111,6 @@ public class Lesson implements Serializable
    * returns the secondary room if there is one, else returns null
    *
    * @return the secondary room if there is one
-   * @author Uafa
-   * @version 1.0
    */
 //Discuss This!!!//
  /* public Room getSecondRoom()
@@ -129,9 +126,7 @@ public class Lesson implements Serializable
   /**
    * sets the primary room (used for changing the primary room)
    *
-   * @param room
-   * @author Uafa
-   * @version 1.0
+   * @param room the room that should be assigned
    */
 
   public void setFirstRoom(Room room)
@@ -142,10 +137,7 @@ public class Lesson implements Serializable
 
   /**
    * returns the starting time of a lesson
-   *
-   * @return start time
-   * @author Uafa
-   * @version 1.0
+   * @return start time of the lesson
    */
 
   public LocalDateTime getStartTime()
@@ -155,10 +147,8 @@ public class Lesson implements Serializable
 
   /**
    * returns the end time of a lesson
-   *
-   * @return end time
-   * @author Uafa
-   * @version 1.0
+   * @return end time of the lesson
+
    */
   public LocalDateTime getEndTime()
   {
@@ -167,10 +157,7 @@ public class Lesson implements Serializable
 
   /**
    * sets the start time of a lesson (used for making changes)
-   *
    * @param from indicates the start Time
-   * @author Uafa
-   * @version 1.0
    */
 
   public void setStartTime(LocalDateTime from)
@@ -186,8 +173,6 @@ public class Lesson implements Serializable
    * sets the end time of the lesson (used for making changes)
    *
    * @param endTime a LocalDateTime object
-   * @author Uafa
-   * @version 1.0
    */
   public void setEndTime(LocalDateTime endTime)
   {
@@ -200,10 +185,7 @@ public class Lesson implements Serializable
 
   /**
    * returns the information about the lesson in a String if the room2 variable is null, it is not returned
-   *
    * @return string that hold the information about the lesson
-   * @author Uafa
-   * @version 1.0
    */
 
   public String toString()
@@ -223,8 +205,6 @@ public class Lesson implements Serializable
    *
    * @param obj
    * @return true if the objects are the same, false if they aren't
-   * @author Uafa
-   * @version 1.0
    */
   public boolean equals(Object obj)
   {

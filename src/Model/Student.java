@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class Student
+public class Student implements Serializable
 {
   private String name;
   private int id;
