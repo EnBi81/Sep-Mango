@@ -112,16 +112,15 @@ public class Lesson implements Serializable
    *
    * @return the secondary room if there is one
    */
-//Discuss This!!!//
- /* public Room getSecondRoom()
+  public Room getSecondRoom()
   {
 
     if(room1.hasConnectedRoom())
     {
-
+       room1.getConnectedRoom();
     }
-
-  }*/
+    return null;
+  }
 
   /**
    * sets the primary room (used for changing the primary room)
