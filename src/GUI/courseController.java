@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class courseControler
+public class courseController
 {
   @FXML private AnchorPane mainAnchorPaneCourse;
   @FXML private Pane addTeacherPaneCourse;
