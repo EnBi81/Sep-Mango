@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class VIAClass implements Serializable
 {
   private final int semester;
-  private final String className;
+  public final String className;
   private final ArrayList<Student> students;
   private final ArrayList<Course> courses;
   private Room preferredRoom;
