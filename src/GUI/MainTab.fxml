@@ -21,35 +21,34 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="411.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="411.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar fx:id="menuBar" prefHeight="22.0" prefWidth="611.0">
+      <MenuBar prefHeight="22.0" prefWidth="611.0">
         <menus>
-          <Menu fx:id="fileMenuButton" mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem fx:id="importMenuItem" mnemonicParsing="false" text="Import" />
-                  <MenuItem fx:id="exportMenuItem" mnemonicParsing="false" text="Export" />
+              <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu fx:id="editMenuButton" mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem fx:id="extendMenuItem" mnemonicParsing="false" text="Extend" />
+              <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
-          <Menu fx:id="helpMenuButton" mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem fx:id="aboutUsMenuItem" mnemonicParsing="false" text="About us" />
+              <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
-      <TabPane fx:id="tabPane" prefHeight="374.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="374.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="scheduleTab" text="Schedule">
+          <Tab text="Schedule">
             <content>
-              <AnchorPane fx:id="anchorPaneSchedule" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane fx:id="gridPaneSchedule" layoutY="39.0" prefHeight="308.0" prefWidth="627.0">
+                        <GridPane layoutY="39.0" prefHeight="308.0" prefWidth="627.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.60003662109375" minWidth="10.0" prefWidth="220.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="385.60003662109375" minWidth="10.0" prefWidth="380.0" />
@@ -60,78 +59,92 @@
                             <RowConstraints maxHeight="60.799963378906284" minHeight="10.0" prefHeight="32.799963378906284" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <HBox fx:id="hBoxFilterLessonSchedule" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <children>
-                                    <ComboBox fx:id="courseFilterLessonSchedule" prefHeight="26.0" prefWidth="78.0" promptText="Courses">
+                                    <ComboBox prefHeight="26.0" prefWidth="78.0" promptText="Courses">
                                        <HBox.margin>
                                           <Insets right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </ComboBox>
-                                    <DatePicker fx:id="startTimeFilterLessonSchedule" prefHeight="26.0" prefWidth="72.0">
+                                    <DatePicker prefHeight="26.0" prefWidth="72.0">
                                        <HBox.margin>
                                           <Insets right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </DatePicker>
-                                    <DatePicker fx:id="endTimeFilterLessonSchedule" prefHeight="26.0" prefWidth="70.0">
+                                    <DatePicker prefHeight="26.0" prefWidth="70.0">
                                        <HBox.margin>
                                           <Insets right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </DatePicker>
-                                    <ComboBox fx:id="roomFilterLessonSchedule" prefHeight="26.0" prefWidth="63.0" promptText="Rooms">
+                                    <ComboBox prefHeight="26.0" prefWidth="63.0" promptText="Rooms">
                                        <HBox.margin>
                                           <Insets right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </ComboBox>
-                                    <ComboBox fx:id="classFilterLessonSchedule" prefHeight="26.0" prefWidth="73.0" promptText="Classes">
+                                    <ComboBox prefHeight="26.0" prefWidth="73.0" promptText="Classes">
                                        <HBox.margin>
                                           <Insets top="5.0" />
                                        </HBox.margin>
                                     </ComboBox>
                                  </children>
                               </HBox>
-                              <TableView fx:id="tableViewSchedule" prefHeight="242.0" prefWidth="432.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <TableView prefHeight="242.0" prefWidth="432.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                 <columns>
-                                  <TableColumn fx:id="tableCourseSchedule" prefWidth="75.0" text="Course" />
-                                  <TableColumn fx:id="tableStartTimeSchedule" prefWidth="75.0" text="Start " />
-                                    <TableColumn fx:id="tableEndTimeSchedule" prefWidth="75.0" text="End" />
-                                    <TableColumn fx:id="tableRoomSchedule" prefWidth="75.0" text="Room" />
-                                    <TableColumn fx:id="tableClassSchedule" prefWidth="75.0" text="Class" />
+                                  <TableColumn prefWidth="75.0" text="Course" />
+                                  <TableColumn prefWidth="75.0" text="Start " />
+                                    <TableColumn prefWidth="75.0" text="End" />
+                                    <TableColumn prefWidth="75.0" text="Room" />
+                                    <TableColumn prefWidth="75.0" text="Class" />
                                 </columns>
                               </TableView>
-                              <VBox fx:id="vBoxAddLessonSchedule" prefHeight="182.0" prefWidth="220.0" GridPane.rowIndex="1">
+                              <VBox prefHeight="182.0" prefWidth="220.0" GridPane.rowIndex="1">
                                  <children>
-                                    <ComboBox fx:id="selectCourseToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0" promptText="Select Course">
+                                    <ComboBox prefHeight="26.0" prefWidth="106.0" promptText="Select Course">
                                        <VBox.margin>
                                           <Insets bottom="5.0" left="10.0" top="10.0" />
                                        </VBox.margin>
                                     </ComboBox>
-                                    <ComboBox fx:id="selectRoomToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0" promptText="Select Room">
+                                    <ComboBox prefHeight="26.0" prefWidth="106.0" promptText="Select Room">
                                        <VBox.margin>
                                           <Insets bottom="5.0" left="10.0" top="5.0" />
                                        </VBox.margin>
                                     </ComboBox>
-                                    <DatePicker fx:id="startTimeToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0">
+                                    <DatePicker prefHeight="26.0" prefWidth="106.0">
                                        <VBox.margin>
                                           <Insets bottom="5.0" left="10.0" top="5.0" />
                                        </VBox.margin>
                                     </DatePicker>
-                                    <DatePicker fx:id="endTimeToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0">
+                                    <DatePicker prefHeight="26.0" prefWidth="106.0">
                                        <VBox.margin>
                                           <Insets bottom="5.0" left="10.0" top="5.0" />
                                        </VBox.margin>
                                     </DatePicker>
-                                    <Button fx:id="buttonToAddLessonSchedule" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Add Lesson">
+                                    <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Add Lesson">
                                        <VBox.margin>
                                           <Insets left="120.0" />
                                        </VBox.margin>
                                     </Button>
                                  </children>
                               </VBox>
-                              <HBox fx:id="hBoxRemoveLessonSchedule" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="buttonRemoveLessonSchedule" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Remove Lesson">
+                                    <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Remove Lesson">
                                        <HBox.margin>
                                           <Insets left="270.0" top="7.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Export">
+                                       <HBox.margin>
+                                          <Insets left="80.0" top="7.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" text="Extend">
+                                       <HBox.margin>
+                                          <Insets left="30.0" top="7.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>
@@ -142,7 +155,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="studentsTab" text="Students">
+          <Tab text="Students">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="364.0" prefWidth="634.0">
                      <children>
@@ -177,12 +190,12 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="classesTab" text="Classes">
+            <Tab text="Classes">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
-            <Tab fx:id="coursesTab" text="Courses">
+            <Tab text="Courses">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="615.0">
                      <children>
@@ -223,7 +236,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="roomsTab" text="Rooms">
+            <Tab text="Rooms">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

@@ -1,5 +1,7 @@
 package Model;
 
+import ScheduleManager.Manager;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -46,7 +48,7 @@ public class Teacher implements Serializable
   public ArrayList<Course> getAllCourses()
   {
     //made this into null//
-    Schedule schedule = null;
+    Schedule schedule = Manager.getSchedule();
     ArrayList<Course> courses = new ArrayList<>();
     ArrayList<Course> allCourses = schedule.getCourseList().getAllCourses();
     for (Course course:allCourses
