@@ -18,7 +18,6 @@ public class Course implements Serializable
   private ArrayList<Teacher> teachers;
   private ArrayList<Lesson> lessons;
   private ArrayList<Student> students;
-  private VIAClass viaClass;
 
   /**
    * three parameter constructor which creates an instance of a class Course
@@ -62,6 +61,17 @@ public class Course implements Serializable
    */
   public VIAClass getVIAClass()
   {
+    VIAClass viaClass = null;
+    Schedule schedule = new Schedule();
+    String classInCourse = (Integer.toString(getCourseName().charAt(getCourseName().length()-2)) + getCourseName().charAt(getCourseName().length()-1));
+
+    for (VIAClass className: schedule.getVIAClassList().getAllClasses()
+         )
+    {
+      if (className.getName().equals(classInCourse)){
+        viaClass = className;
+      }
+    }
     return viaClass;
   }
 
