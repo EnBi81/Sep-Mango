@@ -1,5 +1,6 @@
 package Model;
 
+import ScheduleManager.Manager;
 import utils.CollisionException;
 
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class Course implements Serializable
   private ArrayList<Teacher> teachers;
   private ArrayList<Lesson> lessons;
   private ArrayList<Student> students;
+  private Schedule schedule = Manager.getSchedule();
 
   /**
    * three parameter constructor which creates an instance of a class Course
@@ -62,7 +64,7 @@ public class Course implements Serializable
   public VIAClass getVIAClass()
   {
     VIAClass viaClass = null;
-    Schedule schedule = new Schedule();
+    Schedule schedule = Manager.getSchedule();
     String classInCourse = (Integer.toString(getCourseName().charAt(getCourseName().length()-2)) + getCourseName().charAt(getCourseName().length()-1));
 
     for (VIAClass className: schedule.getVIAClassList().getAllClasses()
@@ -132,11 +134,6 @@ public class Course implements Serializable
    */
   public ArrayList<Teacher> getAllTeachers()
   {
-    if (teachers == null)
-    {
-      System.out.println(
-          "There are no teachers for the course " + getCourseName() + ".");
-    }
     return teachers;
   }
 
@@ -147,11 +144,6 @@ public class Course implements Serializable
    */
   public ArrayList<Student> getAllStudents()
   {
-    if (students == null)
-    {
-      System.out.println(
-          "There are no students for the course " + getCourseName() + ".");
-    }
     return students;
   }
 
@@ -162,11 +154,6 @@ public class Course implements Serializable
    */
   public ArrayList<Lesson> getAllLessons()
   {
-    if (lessons == null)
-    {
-      System.out.println(
-          "There are no lessons for the course " + getCourseName() + ".");
-    }
     return lessons;
   }
 
