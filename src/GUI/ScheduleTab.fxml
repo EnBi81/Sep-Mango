@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane fx:id="gridPaneSchedule" prefHeight="308.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControllerSchedule">
+<columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.60003662109375" minWidth="10.0" prefWidth="220.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="385.60003662109375" minWidth="10.0" prefWidth="380.0" />
+</columnConstraints>
+<rowConstraints>
+    <RowConstraints maxHeight="97.00000610351563" minHeight="0.0" prefHeight="32.39998779296875" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="240.80003662109374" minHeight="10.0" prefHeight="239.60001220703126" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="60.799963378906284" minHeight="10.0" prefHeight="32.799963378906284" vgrow="SOMETIMES" />
+</rowConstraints>
+<children>
+    <HBox fx:id="hBoxFilterLessonSchedule" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+        <children>
+            <ComboBox fx:id="courseFilterLessonSchedule" prefHeight="26.0" prefWidth="78.0" promptText="Courses">
+                <HBox.margin>
+                    <Insets right="5.0" top="5.0" />
+                </HBox.margin>
+            </ComboBox>
+            <DatePicker fx:id="startTimeFilterLessonSchedule" prefHeight="26.0" prefWidth="72.0">
+                <HBox.margin>
+                    <Insets right="5.0" top="5.0" />
+                </HBox.margin>
+            </DatePicker>
+            <DatePicker fx:id="endTimeFilterLessonSchedule" prefHeight="26.0" prefWidth="70.0">
+                <HBox.margin>
+                    <Insets right="5.0" top="5.0" />
+                </HBox.margin>
+            </DatePicker>
+            <ComboBox fx:id="roomFilterLessonSchedule" prefHeight="26.0" prefWidth="63.0" promptText="Rooms">
+                <HBox.margin>
+                    <Insets right="5.0" top="5.0" />
+                </HBox.margin>
+            </ComboBox>
+            <ComboBox fx:id="classFilterLessonSchedule" prefHeight="26.0" prefWidth="73.0" promptText="Classes">
+                <HBox.margin>
+                    <Insets top="5.0" />
+                </HBox.margin>
+            </ComboBox>
+        </children>
+    </HBox>
+    <TableView fx:id="tableViewSchedule" prefHeight="242.0" prefWidth="432.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <columns>
+            <TableColumn fx:id="tableCourseSchedule" prefWidth="75.0" text="Course" />
+            <TableColumn fx:id="tableStartTimeSchedule" prefWidth="75.0" text="Start " />
+            <TableColumn fx:id="tableEndTimeSchedule" prefWidth="75.0" text="End" />
+            <TableColumn fx:id="tableRoomSchedule" prefWidth="75.0" text="Room" />
+            <TableColumn fx:id="tableClassSchedule" prefWidth="75.0" text="Class" />
+        </columns>
+    </TableView>
+    <VBox fx:id="vBoxAddLessonSchedule" prefHeight="182.0" prefWidth="220.0" GridPane.rowIndex="1">
+        <children>
+            <ComboBox fx:id="selectCourseToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0" promptText="Select Course">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="10.0" top="30.0" />
+                </VBox.margin>
+            </ComboBox>
+            <ComboBox fx:id="selectRoomToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0" promptText="Select Room">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="10.0" top="5.0" />
+                </VBox.margin>
+            </ComboBox>
+            <DatePicker fx:id="startTimeToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0" showWeekNumbers="true">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="10.0" top="5.0" />
+                </VBox.margin>
+            </DatePicker>
+            <DatePicker fx:id="endTimeToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="10.0" top="5.0" />
+                </VBox.margin>
+            </DatePicker>
+            <Button fx:id="buttonToAddLessonSchedule" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Add Lesson">
+                <VBox.margin>
+                    <Insets left="120.0" />
+                </VBox.margin>
+            </Button>
+        </children>
+    </VBox>
+    <HBox fx:id="hBoxRemoveLessonSchedule" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <children>
+            <Button fx:id="buttonRemoveLessonSchedule" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Remove Lesson">
+                <HBox.margin>
+                    <Insets left="270.0" top="7.0" />
+                </HBox.margin>
+            </Button>
+        </children>
+    </HBox>
+</children>
+</GridPane>
