@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 
+import java.awt.event.ActionEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -40,25 +41,25 @@ public class ControllerSchedule
   //Filter Lesson
   @FXML private HBox hBoxFilterLessonSchedule;
   @FXML private ComboBox<Course> courseFilterLessonSchedule;
-  @FXML private DatePicker startTimeFilterLessonSchedule;
-  @FXML private DatePicker endTimeFilterLessonSchedule;
+  @FXML private TextField startTimeFilterLessonSchedule;
+  @FXML private TextField endTimeFilterLessonSchedule;
   @FXML private ComboBox<Room> roomFilterLessonSchedule;
   @FXML private ComboBox<VIAClass> classFilterLessonSchedule;
 
   //TableView
   @FXML private TableView<Lesson> tableViewSchedule;
-  @FXML private TableColumn<Course, String> tableCourseSchedule;
-  @FXML private TableColumn<LocalDateTime,String> tableStartTimeSchedule;
-  @FXML private TableColumn<LocalDateTime,String> tableEndTimeSchedule;
-  @FXML private TableColumn<Room, String> tableRoomSchedule;
-  @FXML private TableColumn<Course, String> tableClassSchedule;
+  @FXML private TableColumn<Lesson, String> tableCourseSchedule;
+  @FXML private TableColumn<Lesson,String> tableStartTimeSchedule;
+  @FXML private TableColumn<Lesson,String> tableEndTimeSchedule;
+  @FXML private TableColumn<Lesson, String> tableRoomSchedule;
+  @FXML private TableColumn<Lesson, String> tableClassSchedule;
 
   //Add Lesson
   @FXML private VBox vBoxAddLessonSchedule;
   @FXML private ComboBox<Course> selectCourseToAddLessonSchedule;
   @FXML private ComboBox<Room> selectRoomToAddLessonSchedule;
-  @FXML private DatePicker startTimeToAddLessonSchedule;
-  @FXML private DatePicker endTimeToAddLessonSchedule;
+  @FXML private TextField startTimeToAddLessonSchedule;
+  @FXML private TextField endTimeToAddLessonSchedule;
   @FXML private Button buttonToAddLessonSchedule;
 
   //Remove Lesson
@@ -106,24 +107,68 @@ public class ControllerSchedule
 
   public void initializeTableData()
   {
+      //has to be tested!!!
+
     tableViewSchedule.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
     tableCourseSchedule.setCellValueFactory(
-        obj -> new SimpleStringProperty(obj.getValue().getCourseName())
+        obj -> new SimpleStringProperty(obj.getValue().getCourse().getCourseName())
     );
 
     tableRoomSchedule.setCellValueFactory(
-        obj -> new SimpleStringProperty(obj.getValue().getRoomName())
+        obj -> new SimpleStringProperty(obj.getValue().getFirstRoom().getRoomName()) ////come back here
     );
 
     tableClassSchedule.setCellValueFactory(
-        obj -> new SimpleStringProperty(obj.getValue().getVIAClass().toString())
+        obj -> new SimpleStringProperty(obj.getValue().getCourse().getVIAClass().toString())
     );
+
+    tableStartTimeSchedule.setCellValueFactory(
+        obj -> new SimpleStringProperty(obj.getValue().getStartTime().toString())
+    );
+    tableEndTimeSchedule.setCellValueFactory(
+        obj -> new SimpleStringProperty(obj.getValue().getEndTime().toString())
+    );
+
 
   }
 
-  public void removeLesson()
-  {}
+  public LocalDateTime startTimeAddLesson()
+  {
+    String startTime = startTimeToAddLessonSchedule.getText();
+
+    startTime = startTime.replace(" ", "T");
+    LocalDateTime start = LocalDateTime.parse(startTime);
+
+    return start;
+  }
+  public LocalDateTime endTimeAddLesson()
+  {
+    String endTime = endTimeToAddLessonSchedule.getText();
+
+    endTime = endTime.replace(" ", "T");
+    LocalDateTime end = LocalDateTime.parse(endTime);
+
+    return end;
+  }
+  public LocalDateTime startTimeFilter()
+  {
+    String startTimeFilter = startTimeFilterLessonSchedule.getText();
+
+    startTimeFilter = startTimeFilter.replace(" ", "T");
+    LocalDateTime startFilter = LocalDateTime.parse(startTimeFilter);
+
+    return startFilter;
+  }
+  public LocalDateTime endTimeFilter()
+  {
+    String endTimeFilter = endTimeFilterLessonSchedule.getText();
+
+    endTimeFilter = endTimeFilter.replace(" ", "T");
+    LocalDateTime endFilter = LocalDateTime.parse(endTimeFilter);
+
+    return endFilter;
+  }
 
 
 }
