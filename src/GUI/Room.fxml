@@ -7,26 +7,26 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="913.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="357.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControllerRoom">
     <children>
-        <Pane layoutX="8.0" layoutY="8.0" prefHeight="568.0" prefWidth="898.0">
+        <Pane fx:id="mainRoomPane" prefHeight="357.0" prefWidth="634.0">
             <children>
-                <Pane layoutX="27.0" layoutY="79.0" prefHeight="173.0" prefWidth="200.0">
+                <Pane layoutY="14.0" prefHeight="151.0" prefWidth="177.0">
                     <children>
-                        <Button layoutX="100.0" layoutY="138.0" mnemonicParsing="false" text="Add Room" />
-                        <TextField layoutX="20.0" layoutY="37.0" text="Room Name" />
-                        <TextField layoutX="20.0" layoutY="82.0" text="Capacity" />
+                        <Button fx:id="addRoomButton" layoutX="100.0" layoutY="113.0" mnemonicParsing="false" onAction="#handle" text="Add Room" />
+                        <TextField fx:id="roomNameTextField" layoutX="20.0" layoutY="35.0" text="Room Name" />
+                        <TextField fx:id="roomCapacityTextField" layoutX="20.0" layoutY="74.0" text="Capacity" />
                     </children>
                 </Pane>
-                <CheckBox layoutX="731.0" layoutY="33.0" mnemonicParsing="false" text="Connected room" />
-                <Button layoutX="766.0" layoutY="518.0" mnemonicParsing="false" text="Remove Room" />
-                <TextField layoutX="367.0" layoutY="29.0" prefHeight="25.0" prefWidth="94.0" text="Filter by name" />
-                <TextField layoutX="569.0" layoutY="29.0" prefHeight="25.0" prefWidth="101.0" text="Filter by capacity" />
-                <TableView layoutX="307.0" layoutY="61.0" prefHeight="443.0" prefWidth="569.0">
+                <CheckBox fx:id="connectedRoomCheckBox" layoutX="489.0" layoutY="18.0" mnemonicParsing="false" text="Connected room" />
+                <Button fx:id="removeRoomButton" layoutX="513.0" layoutY="318.0" mnemonicParsing="false" onAction="#handle" text="Remove Room" />
+                <TextField fx:id="filterRoomNameTextField" layoutX="223.0" layoutY="14.0" prefHeight="25.0" prefWidth="94.0" text="Filter by name" />
+                <TextField fx:id="filterRoomCapacityTextField" layoutX="340.0" layoutY="14.0" prefHeight="25.0" prefWidth="111.0" text="Filter by capacity" />
+                <TableView fx:id="roomTableView" layoutX="209.0" layoutY="51.0" prefHeight="255.0" prefWidth="398.0">
                     <columns>
-                        <TableColumn prefWidth="197.99996948242188" text="Room name" />
-                        <TableColumn prefWidth="224.0" text="Capacity" />
-                        <TableColumn prefWidth="110.0" text="Connected room" />
+                        <TableColumn fx:id="roomNameColumn" prefWidth="122.66665649414062" text="Room name" />
+                        <TableColumn fx:id="roomCapacityColumn" prefWidth="137.33328247070312" text="Capacity" />
+                        <TableColumn fx:id="roomConnectedColumn" prefWidth="135.3333740234375" text="Connected room" />
                     </columns>
                 </TableView>
             </children>
