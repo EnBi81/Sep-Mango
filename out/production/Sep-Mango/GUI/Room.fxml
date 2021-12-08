@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="913.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Pane layoutX="8.0" layoutY="8.0" prefHeight="568.0" prefWidth="898.0">
+            <children>
+                <Pane layoutX="27.0" layoutY="79.0" prefHeight="173.0" prefWidth="200.0">
+                    <children>
+                        <Button layoutX="100.0" layoutY="138.0" mnemonicParsing="false" text="Add Room" />
+                        <TextField layoutX="20.0" layoutY="37.0" text="Room Name" />
+                        <TextField layoutX="20.0" layoutY="82.0" text="Capacity" />
+                    </children>
+                </Pane>
+                <CheckBox layoutX="731.0" layoutY="33.0" mnemonicParsing="false" text="Connected room" />
+                <Button layoutX="766.0" layoutY="518.0" mnemonicParsing="false" text="Remove Room" />
+                <TextField layoutX="367.0" layoutY="29.0" prefHeight="25.0" prefWidth="94.0" text="Filter by name" />
+                <TextField layoutX="569.0" layoutY="29.0" prefHeight="25.0" prefWidth="101.0" text="Filter by capacity" />
+                <TableView layoutX="307.0" layoutY="61.0" prefHeight="443.0" prefWidth="569.0">
+                    <columns>
+                        <TableColumn prefWidth="197.99996948242188" text="Room name" />
+                        <TableColumn prefWidth="224.0" text="Capacity" />
+                        <TableColumn prefWidth="110.0" text="Connected room" />
+                    </columns>
+                </TableView>
+            </children>
+        </Pane>
+    </children>
+</Pane>
