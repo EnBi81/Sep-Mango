@@ -23,7 +23,6 @@ public class Course implements Serializable
 
   /**
    * three parameter constructor which creates an instance of a class Course
-   * @version 1.0
    * @param courseName name of a course
    * @param ects number of ects a course has
    */
@@ -38,7 +37,6 @@ public class Course implements Serializable
 
   /**
    * return the name of a Course object
-   * @version 1.0
    * @return name of a course
    */
   public String getCourseName()
@@ -48,7 +46,6 @@ public class Course implements Serializable
 
   /**
    * return the ects points of a Course object
-   * @version 1.0
    * @return number of ects points
    */
   public int getEcts()
@@ -58,7 +55,6 @@ public class Course implements Serializable
 
   /**
    * return the class of a Course object
-   * @version 1.0
    * @return class which has the course
    */
   public VIAClass getVIAClass()
@@ -79,7 +75,6 @@ public class Course implements Serializable
 
   /**
    * adds a student to the ArrayList of students
-   * @version 1.0
    * @param student student to be added
    */
   public void addStudent(Student student)
@@ -89,7 +84,6 @@ public class Course implements Serializable
 
   /**
    * removes a student from the ArrayList of students
-   * @version 1.0
    * @param student student to be removed
    */
   public void removeStudent(Student student)
@@ -99,7 +93,6 @@ public class Course implements Serializable
 
   /**
    * adds a lesson to the ArrayList of lessons
-   * @version 1.0
    * @param lesson lesson to be added
    */
   public void addLesson(Lesson lesson)
@@ -109,7 +102,6 @@ public class Course implements Serializable
 
   /**
    * removes a lesson from the ArrayList of lessons
-   * @version 1.0
    * @param lesson lesson to be removed
    */
   public void removeLesson(Lesson lesson)
@@ -119,7 +111,6 @@ public class Course implements Serializable
 
   /**
    * adds a teacher to the ArrayList of teachers
-   * @version 1.0
    * @param teacher teacher to be added
    */
   public void addTeacher(Teacher teacher)
@@ -128,9 +119,8 @@ public class Course implements Serializable
   }
 
   /**
-   * returns a list of Teacher objects, if null prints out a message
-   * @version 1.0
-   * @return ArrayList<Teacher>
+   * returns a list of Teacher objects
+   * @return teachers who teach one particular course
    */
   public ArrayList<Teacher> getAllTeachers()
   {
@@ -138,9 +128,8 @@ public class Course implements Serializable
   }
 
   /**
-   * returns a list of Student objects, if null prints out a message
-   * @version 1.0
-   * @return ArrayList<Student>
+   * returns a list of Student objects
+   * @return students who o are enrolled in one particular course
    */
   public ArrayList<Student> getAllStudents()
   {
@@ -148,9 +137,8 @@ public class Course implements Serializable
   }
 
   /**
-   * returns a list of Lesson objects, if null prints out a message
-   * @version 1.0
-   * @return ArrayList<Lesson>
+   * returns a list of Lesson objects
+   * @return lesson of one particular course
    */
   public ArrayList<Lesson> getAllLessons()
   {
@@ -159,7 +147,6 @@ public class Course implements Serializable
 
   /**
    * writes out the information about a Course object
-   * @version 1.0
    * @return String containing information about a course
    */
   public String toString()
@@ -183,7 +170,6 @@ public class Course implements Serializable
 
   /**
    * compares two objects and returns true if they are identical, in this case only name is required since each course has unique name e.g. SEP1X
-   * @version 1.0
    * @param obj object that is compared
    * @return true (if the objects are the exact same) or false
    */
