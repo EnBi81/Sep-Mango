@@ -24,7 +24,7 @@ public class MainController
       pane = getPaneFromFile("StudentsTab.fxml");
       studentsTab.setContent(pane);
 
-      pane = getPaneFromFile("VIAClassTest.fxml");
+      pane = getPaneFromFile("VIAClassTab.fxml");
       classTab.setContent(pane);
 
       pane = getPaneFromFile("Course.fxml");

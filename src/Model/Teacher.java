@@ -19,9 +19,7 @@ public class Teacher implements Serializable
 
   /**
    * one parameter constructor which creates an instance of a class Teacher
-   *
    * @param name name of a teacher
-   * @version 1.0
    */
   public Teacher(String name)
   {
@@ -31,9 +29,7 @@ public class Teacher implements Serializable
 
   /**
    * return the name of a Teacher object
-   *
    * @return name of a teacher
-   * @version 1.0
    */
   public String getName()
   {
@@ -41,9 +37,8 @@ public class Teacher implements Serializable
   }
 
   /**
-   * Compares the name of the teacher in each course with the name of the Teacher object. Return a list of courses which are taught by this teacher.
-   * @return ArrayList of Teacher objects (the ones which comply the conditions)
-   * @version 1.0
+   * compares the name of this teacher object with the names of teachers stored in courses. If same, adds teacher to the locally stored array list of teachers.
+   * @return all teachers who teach this particular course
    */
   public ArrayList<Course> getAllCourses()
   {
@@ -68,9 +63,7 @@ public class Teacher implements Serializable
 
   /**
    * writes out the information about a Teacher object
-   *
    * @return String containing information about a teacher
-   * @version 1.0
    */
   public String toString()
   {
@@ -88,10 +81,8 @@ public class Teacher implements Serializable
 
   /**
    * compares two objects and returns true if they are identical
-   *
    * @param obj object that is compared
    * @return true (if the objects are the exact same) or false
-   * @version 1.0
    */
   public boolean equals(Object obj)
   {

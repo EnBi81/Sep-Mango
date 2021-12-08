@@ -14,15 +14,13 @@ public class TeacherList implements Serializable
 
   /**
    * creates an instance of the class TeacherList
-   * @version 1.0
-   */
+   * */
   public TeacherList(){
     teachers = new ArrayList<>();
   }
 
   /**
    * adds a teacher to the list
-   * @version 1.0
    * @param teacher teacher to be added
    */
   public void addTeacher(Teacher teacher){
@@ -31,7 +29,6 @@ public class TeacherList implements Serializable
 
   /**
    * removes a teacher from the list
-   * @version 1.0
    * @param teacher teacher to be removed
    */
   public void removeTeacher(Teacher teacher){
@@ -40,7 +37,6 @@ public class TeacherList implements Serializable
 
   /**
    * returns a teacher with specific name
-   * @version 1.0
    * @return a teacher
    * @param name the name of the returned teacher
    */
@@ -61,8 +57,7 @@ public class TeacherList implements Serializable
 
   /**
    * returns a list of Teacher objects
-   * @version 1.0
-   * @return ArrayList<Teacher>
+   * @return list of all teachers who teach a course
    */
   public ArrayList<Teacher> getAllTeachers(){
     return teachers;

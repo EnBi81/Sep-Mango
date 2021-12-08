@@ -15,8 +15,6 @@ public class CourseList implements Serializable
 
   /**
    * creates an instance of the class CourseList
-   *
-   * @version 1.0
    */
   public CourseList()
   {
@@ -25,9 +23,7 @@ public class CourseList implements Serializable
 
   /**
    * adds a Course to the list
-   *
    * @param course course to be added
-   * @version 1.0
    */
   public void addCourse(Course course)
   {
@@ -36,9 +32,7 @@ public class CourseList implements Serializable
 
   /**
    * removes a course from the list
-   *
    * @param course course to be removed
-   * @version 1.0
    */
   public void removeCourse(Course course)
   {
@@ -47,10 +41,8 @@ public class CourseList implements Serializable
 
   /**
    * returns a list of Course objects
-   *
-   * @return ArrayList<Course>
-   * @version 1.0
-   */
+   * @return all courses that are taught
+   *   */
   public ArrayList<Course> getAllCourses()
   {
     return courses;
@@ -58,11 +50,9 @@ public class CourseList implements Serializable
 
   /**
    * returns a course with specific name
-   *
    * @param name the name of the returned course
-   * @return a course
-   * @version 1.0
-   */
+   * @return one course from the course list
+   * */
   public Course getCourseByName(String name)
   {
 
