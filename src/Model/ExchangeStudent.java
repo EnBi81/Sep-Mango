@@ -13,7 +13,7 @@ public class ExchangeStudent extends Student
    * @param name student's name
    * @param id student's id
    */
-  public ExchangeStudent(String name, int id, VIAClass viaClass)
+  public ExchangeStudent(String name, int id)
   {
     super(name,id);
   }
