@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class ViaClassTabController
 {
-
+  //region Fields
   @FXML private ComboBox<VIAClass> preferredClassCombo;
   @FXML private ComboBox<Room> preferredRoomCombo;
   @FXML private Button setPreferredRoomButton;
@@ -36,6 +36,7 @@ public class ViaClassTabController
   @FXML private TableColumn<VIAClass, String> preferredRoomColumn;
 
   private VIAClass selectedClass;
+  //endregion
 
   public void initialize()
   {
@@ -60,7 +61,7 @@ public class ViaClassTabController
   }
 
   //region Other Initialization
-  public void initializeFilterSide()
+  private void initializeFilterSide()
   {
     filterBySemester.getItems().add(null);
     for (VIAClass viaClass : Manager.getSchedule().getVIAClassList()
@@ -73,7 +74,7 @@ public class ViaClassTabController
     filterByName.textProperty().addListener(obj -> refreshTableData());
   }
 
-  public void initializePreferredRoomPane()
+  private void initializePreferredRoomPane()
   {
     ArrayList<VIAClass> classes = new ArrayList<>(
         Manager.getSchedule().getVIAClassList().getAllClasses());
@@ -85,7 +86,7 @@ public class ViaClassTabController
     preferredRoomCombo.setDisable(true);
   }
 
-  public void eventsInitialization()
+  private void eventsInitialization()
   {
     classTableView.getSelectionModel().selectedItemProperty()
         .addListener((obs, oldClass, newClass) -> setSelectedClass(newClass));
@@ -107,8 +108,16 @@ public class ViaClassTabController
   }
   //endregion
 
+  //region Update
+  private void refreshPane()
+  {
+    refreshTableData();
+    updateList();
+    updateRoomCombo();
+  }
+
   //region UpdateTable
-  public boolean checkRemoveData(VIAClass viaClass)
+  private boolean checkRemoveData(VIAClass viaClass)
   {
     String nameFilter = filterByName.getText().toLowerCase(Locale.ROOT);
 
@@ -125,7 +134,7 @@ public class ViaClassTabController
     return !(viaClass.getSemester() + "").equals(semesterFilter);
   }
 
-  public void refreshTableData()
+  private void refreshTableData()
   {
     ArrayList<VIAClass> classes = new ArrayList<>(
         Manager.getSchedule().getVIAClassList().getAllClasses());
@@ -141,7 +150,7 @@ public class ViaClassTabController
   //endregion
 
   //region Update Lists and Room Combobox
-  public void updateList()
+  private void updateList()
   {
     VIAClass viaClass = selectedClass;
 
@@ -153,14 +162,12 @@ public class ViaClassTabController
       ArrayList<Student> students = viaClass.getAllStudents();
       ArrayList<Course> courses = viaClass.getAllCourses();
 
-      studentsListView.getItems().clear();
       students.forEach(student -> studentsListView.getItems().add(student.getName()));
-      courseListView.getItems().clear();
       courses.forEach(course -> courseListView.getItems().add(course.getCourseName()));
     }
   }
 
-  public void updateRoomCombo()
+  private void updateRoomCombo()
   {
     ArrayList<Room> rooms = new ArrayList<>();
     rooms.add(null);
@@ -182,8 +189,9 @@ public class ViaClassTabController
       preferredRoomCombo.getSelectionModel().select(selectedClass.getPreferredRoom());
   }
   //endregion
+  //endregion
 
-  public void setSelectedClass(VIAClass viaClass)
+  private void setSelectedClass(VIAClass viaClass)
   {
     if (viaClass == null || selectedClass == viaClass)
       return;
@@ -192,9 +200,7 @@ public class ViaClassTabController
     preferredRoomCombo.setDisable(false);
 
     selectedClass = viaClass;
-    refreshTableData();
-    updateList();
-    updateRoomCombo();
+    refreshPane();
     preferredClassCombo.getSelectionModel().select(viaClass);
   }
 }
