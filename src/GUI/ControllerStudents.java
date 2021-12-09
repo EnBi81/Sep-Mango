@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ControllerStudents
 {
@@ -45,7 +46,9 @@ Schedule schedule = Manager.getSchedule();
 public void initialize()
 {
   ArrayList<VIAClass> classes = schedule.getVIAClassList().getAllClasses();
+  classToCreateStudent.getItems().add(null);
   classToCreateStudent.getItems().addAll(classes);
+  classToFindStudent.getItems().add(null);
   classToFindStudent.getItems().addAll(classes);
 
   ArrayList<String> semester = new ArrayList<>();
@@ -56,6 +59,7 @@ public void initialize()
       semester.add(schedule.getVIAClassList().getAllClasses().get(i).getSemester() + "");
     }
   }
+  semesterToFindStudent.getItems().add(null);
   semesterToFindStudent.getItems().addAll(semester);
   tableView();
 }
@@ -110,7 +114,7 @@ public void tableView()
   {
     if (obj.getValue().isExchange())
     {
-      return new SimpleStringProperty("X");
+      return new SimpleStringProperty("Exchange");
     }
     else
     {
@@ -123,10 +127,18 @@ public void tableView()
 
 public void refreshTable()
 {
-  ArrayList<Student> students = new ArrayList<>(Manager.getSchedule().getStudentList().getAllStudents());
+    ArrayList<Student> students = new ArrayList<>(Manager.getSchedule().getStudentList().getAllStudents());
 
-  tableStudent.getItems().clear();
-  tableStudent.getItems().addAll(students);
+    tableStudent.getItems().clear();
+    tableStudent.getItems().addAll(students);
 }
 
+public void removingStudent(ActionEvent e)
+{
+  if(e.getSource().equals(removeStudent))
+  {
+    schedule.getStudentList().getAllStudents().remove(tableStudent.getSelectionModel().getSelectedItem());
+    refreshTable();
+  }
+}
 }
