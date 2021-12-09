@@ -151,21 +151,7 @@ public class Course implements Serializable
    */
   public String toString()
   {
-    String str = "";
-
-    str += getCourseName() + " has " + getEcts() + " ECTS points.\nTeachers: ";
-
-    for (Teacher teacher : teachers)
-    {
-      str += teacher.getName() + ", ";
-    }
-    str += "\nClass: " + getVIAClass().getName() + ",";
-    str += "\nLessons: ";
-    for (Lesson lesson : lessons)
-    {
-      str += lesson.toString() + "\n";
-    }
-    return str;
+    return getCourseName();
   }
 
   /**
