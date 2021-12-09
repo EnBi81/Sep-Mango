@@ -14,14 +14,14 @@
                 <Pane layoutY="14.0" prefHeight="151.0" prefWidth="177.0">
                     <children>
                         <Button fx:id="addRoomButton" layoutX="100.0" layoutY="113.0" mnemonicParsing="false" onAction="#handle" text="Add Room" />
-                        <TextField fx:id="roomNameTextField" layoutX="20.0" layoutY="35.0" text="Room Name" />
-                        <TextField fx:id="roomCapacityTextField" layoutX="20.0" layoutY="74.0" text="Capacity" />
+                        <TextField fx:id="roomNameTextField" layoutX="20.0" layoutY="35.0" onKeyReleased="#jumpToCapacity" promptText="Room Name" />
+                        <TextField fx:id="roomCapacityTextField" layoutX="20.0" layoutY="74.0" onKeyReleased="#createRoomKeyEvent" promptText="Capacity" />
                     </children>
                 </Pane>
-                <CheckBox fx:id="connectedRoomCheckBox" layoutX="489.0" layoutY="18.0" mnemonicParsing="false" text="Connected room" />
+                <CheckBox fx:id="connectedRoomCheckBox" layoutX="489.0" layoutY="18.0" mnemonicParsing="false" onAction="#filterHandler" text="Connected room" />
                 <Button fx:id="removeRoomButton" layoutX="513.0" layoutY="318.0" mnemonicParsing="false" onAction="#handle" text="Remove Room" />
-                <TextField fx:id="filterRoomNameTextField" layoutX="223.0" layoutY="14.0" prefHeight="25.0" prefWidth="94.0" text="Filter by name" />
-                <TextField fx:id="filterRoomCapacityTextField" layoutX="340.0" layoutY="14.0" prefHeight="25.0" prefWidth="111.0" text="Filter by capacity" />
+                <TextField fx:id="filterRoomNameTextField" layoutX="223.0" layoutY="14.0" onAction="#filterHandler" prefHeight="25.0" prefWidth="94.0" promptText="Filter by name" />
+                <TextField fx:id="filterRoomCapacityTextField" layoutX="340.0" layoutY="14.0" prefHeight="25.0" prefWidth="111.0" promptText="Filter by capacity" />
                 <TableView fx:id="roomTableView" layoutX="209.0" layoutY="51.0" prefHeight="255.0" prefWidth="398.0">
                     <columns>
                         <TableColumn fx:id="roomNameColumn" prefWidth="122.66665649414062" text="Room name" />
