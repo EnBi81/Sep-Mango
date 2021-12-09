@@ -33,7 +33,7 @@ public class MainController
       pane = getPaneFromFile("Room.fxml");
       roomsTab.setContent(pane);
 
-      pane = getPaneFromFile("Schedule.fxml");
+      pane = getPaneFromFile("ScheduleTab.fxml");
       scheduleTab.setContent(pane);
 
     }
