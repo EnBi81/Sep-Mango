@@ -206,7 +206,10 @@ public class Lesson implements Serializable
    * @param obj
    * @return true if the objects are the same, false if they aren't
    */
-  public boolean equals(Object obj)
+
+
+  //todo look at the method (makes selecting from the table impossible)
+ /* public boolean equals(Object obj)
   {
 
     if (!(obj instanceof Lesson))
@@ -219,5 +222,5 @@ public class Lesson implements Serializable
     return this.room1.equals(other.room1) && this.startTime.equals(
         other.startTime) && this.endTime.equals(other.endTime)
         && this.course.equals(other.course) && this.room2.equals(other.room2);
-  }
+  }*/
 }
