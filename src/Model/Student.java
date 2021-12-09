@@ -1,5 +1,7 @@
 package Model;
 
+import ScheduleManager.Manager;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -69,7 +71,7 @@ public class Student implements Serializable
    */
   public ArrayList<Course> getAllCourses()
   {
-    ArrayList<Course> allCourses = new ArrayList<Course>();
+    ArrayList<Course> allCourses = Manager.getSchedule().getCourseList().getAllCourses();
 
     ArrayList<Course> allStudentCourses = new ArrayList<Course>();
     for (int i = 0; i < allCourses.size(); i++)
@@ -86,7 +88,7 @@ public class Student implements Serializable
    */
   public VIAClass getViaClass()
   {
-    ArrayList<VIAClass> allClasses = new ArrayList<>();
+    ArrayList<VIAClass> allClasses = Manager.getSchedule().getVIAClassList().getAllClasses();
     for (int i = 0; i < allClasses.size(); i++)
     {
       if (allClasses.get(i).getAllStudents().contains(this))

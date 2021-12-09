@@ -41,18 +41,14 @@ public class TeacherList implements Serializable
    * @param name the name of the returned teacher
    */
   public Teacher getTeacherByName(String name){
-    Teacher returnTeacher = null;
     for (Teacher teacher: teachers
          )
     {
       if (teacher.getName().equalsIgnoreCase(name)){
-        returnTeacher = teacher;
-      }
-      else{
-        System.out.println("No teacher with this name.");
+        return teacher;
       }
     }
-    return returnTeacher;
+    return null;
   }
 
   /**
