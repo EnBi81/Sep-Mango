@@ -16,16 +16,16 @@
             <TextField fx:id="idToCreateStudent" layoutX="14.0" layoutY="55.0" promptText="Id" />
             <ComboBox fx:id="classToCreateStudent" layoutX="13.0" layoutY="100.0" prefHeight="25.0" prefWidth="73.0" promptText="Class" />
             <CheckBox fx:id="isExchangeToCreateStudent" layoutX="13.0" layoutY="143.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="115.0" text="Exchange" />
-            <Button fx:id="buttonToAddStudent" layoutX="118.0" layoutY="174.0" mnemonicParsing="false" text="Add student" />
+            <Button fx:id="buttonToAddStudent" layoutX="118.0" layoutY="174.0" mnemonicParsing="false" onAction="#creatingStudent" text="Add student" />
          </children>
       </Pane>
-      <TableView layoutX="230.0" layoutY="79.0" prefHeight="209.0" prefWidth="393.0">
+      <TableView fx:id="tableStudent" layoutX="230.0" layoutY="79.0" prefHeight="209.0" prefWidth="393.0">
          <columns>
-            <TableColumn fx:id="nameStudent" prefWidth="91.99998474121094" text="Name" />
-            <TableColumn fx:id="idStudent" prefWidth="58.4000244140625" text="Id" />
-            <TableColumn fx:id="classStudent" prefWidth="98.39996337890625" text="Class" />
-            <TableColumn fx:id="semesterStudent" prefWidth="72.0" text="Semester" />
-            <TableColumn fx:id="isExchangeStudent" prefWidth="72.79998779296875" text="Exchange" />
+            <TableColumn fx:id="nameStudent" prefWidth="136.7999725341797" text="Name" />
+            <TableColumn fx:id="idStudent" prefWidth="74.4000244140625" text="Id" />
+            <TableColumn fx:id="classStudent" prefWidth="54.39996337890625" style="-fx-alignment: CENTER-RIGHT;" text="Class" />
+            <TableColumn fx:id="semesterStudent" prefWidth="61.5999755859375" style="-fx-alignment: CENTER-RIGHT;" text="Semester" />
+            <TableColumn fx:id="isExchangeStudent" prefWidth="68.800048828125" style="fx-alignment: CENTER-RIGHT;" text="Exchange" />
          </columns>
       </TableView>
       <Button fx:id="removeStudent" layoutX="506.0" layoutY="310.0" mnemonicParsing="false" text="Remove student" />
