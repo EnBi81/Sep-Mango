@@ -13,31 +13,14 @@ import javafx.scene.layout.GridPane;
 
 import java.awt.event.ActionEvent;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ControllerSchedule
 {
-
-  /*//Main Pain and menu bar
-  @FXML private  VBox mainPane;
-  @FXML private MenuBar menuBar;
-  @FXML private MenuButton fileMenuButton;
-  @FXML private MenuButton editMenuButton;
-  @FXML private MenuButton helpMenuButton;
-  @FXML private MenuItem importMenuItem;
-  @FXML private MenuItem exportMenuItem;
-  @FXML private MenuItem extendMenuItem;
-  @FXML private MenuItem aboutUsMenuItem;*/
-
-
-  /*// Tab pane with all Tabs
-  @FXML private TabPane tabPane;
-  @FXML private Tab scheduleTab;
-  @FXML private Tab studentsTab;
-  @FXML private Tab classesTab;
-  @FXML private Tab coursesTab;
-  @FXML private Tab roomsTab;*/
-
   //Filter Lesson
   @FXML private HBox hBoxFilterLessonSchedule;
   @FXML private ComboBox<Course> courseFilterLessonSchedule;
@@ -73,6 +56,7 @@ public class ControllerSchedule
   Schedule schedule = Manager.getSchedule();
 
   private Course course;
+  private Lesson lesson;
 
   //initialize every data except the table data
   public void initialize()
@@ -108,11 +92,14 @@ public class ControllerSchedule
     startTimeToAddLessonSchedule.setDisable(true);
     endTimeToAddLessonSchedule.setDisable(true);
     buttonToAddLessonSchedule.setDisable(true);
+    buttonRemoveLessonSchedule.setDisable(true);
 
+    initializeTableData();
   }
 
   public void initializeTableData()
   {
+
       //has to be tested!!!
 
     tableViewSchedule.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -126,7 +113,7 @@ public class ControllerSchedule
     );
 
     tableClassSchedule.setCellValueFactory(
-        obj -> new SimpleStringProperty(obj.getValue().getCourse().getVIAClass().toString())
+        obj -> new SimpleStringProperty(obj.getValue().getCourse().getVIAClass().getName())
     );
 
     tableStartTimeSchedule.setCellValueFactory(
@@ -135,7 +122,8 @@ public class ControllerSchedule
     tableEndTimeSchedule.setCellValueFactory(
         obj -> new SimpleStringProperty(obj.getValue().getEndTime().toString())
     );
-
+    ArrayList<Lesson> lessons = Manager.getSchedule().getLessonList().getAllLessons();
+    tableViewSchedule.getItems().addAll(lessons);
 
   }
 
@@ -144,6 +132,8 @@ public class ControllerSchedule
     String startTime = startTimeToAddLessonSchedule.getText();
 
     startTime = startTime.replace(" ", "T");
+    //Todo check if it works
+    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
     LocalDateTime start = LocalDateTime.parse(startTime);
 
     return start;
@@ -178,17 +168,53 @@ public class ControllerSchedule
 
   public void addALesson()
   {
+      //Enable fields one by one
+    Pattern pattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}");
+
     if(!selectCourseToAddLessonSchedule.getSelectionModel().isEmpty())
     {
-
-    }
-    /*if(e.getSource() == selectCourseToAddLessonSchedule)
-    {
-      course = selectCourseToAddLessonSchedule.getValue();
       selectRoomToAddLessonSchedule.setDisable(false);
-    }*/
+    }
+
+    if(!selectRoomToAddLessonSchedule.getSelectionModel().isEmpty())
+    {
+      startTimeToAddLessonSchedule.setDisable(false);
+    }
+
+    //Check if pattern matches to enable next field
+    Matcher matcherS = pattern.matcher(startTimeToAddLessonSchedule.getText());
+    boolean matchesStart = matcherS.matches();
+
+    if(matchesStart)
+    {
+      endTimeToAddLessonSchedule.setDisable(false);
+    }
+  //CHECK AGAIN FOR THE END TIME
+    Matcher matcherE = pattern.matcher(endTimeToAddLessonSchedule.getText());
+    boolean matchesEnd = matcherE.matches();
+
+    if(matchesEnd)
+    {
+      buttonToAddLessonSchedule.setDisable(false);
+    }
 
   }
 
+  public void selectLesson()
+  {
+    //On mouse click in SceneBuilder
+      buttonRemoveLessonSchedule.setDisable(false);
 
+  }
+
+  public void removeLesson()
+  {
+    Lesson lessonToBeRemoved = tableViewSchedule.getSelectionModel().getSelectedItem();
+
+    tableViewSchedule.getItems().remove(lessonToBeRemoved);
+
+    //todo : remove from LessonList!!!
+
+
+  }
 }
