@@ -151,7 +151,7 @@ public class Course implements Serializable
    */
   public String toString()
   {
-    String str = "";
+    /*String str = "";
 
     str += getCourseName() + " has " + getEcts() + " ECTS points.\nTeachers: ";
 
@@ -165,7 +165,7 @@ public class Course implements Serializable
     {
       str += lesson.toString() + "\n";
     }
-    return str;
+    return str;*/ return courseName;
   }
 
   /**

@@ -72,6 +72,8 @@ public class ControllerSchedule
 
   Schedule schedule = Manager.getSchedule();
 
+  private Course course;
+
   //initialize every data except the table data
   public void initialize()
   {
@@ -102,6 +104,10 @@ public class ControllerSchedule
     classFilterLessonSchedule.getItems().clear();
     classFilterLessonSchedule.getItems().addAll(classes);
 
+    selectRoomToAddLessonSchedule.setDisable(true);
+    startTimeToAddLessonSchedule.setDisable(true);
+    endTimeToAddLessonSchedule.setDisable(true);
+    buttonToAddLessonSchedule.setDisable(true);
 
   }
 
@@ -168,6 +174,20 @@ public class ControllerSchedule
     LocalDateTime endFilter = LocalDateTime.parse(endTimeFilter);
 
     return endFilter;
+  }
+
+  public void addALesson()
+  {
+    if(!selectCourseToAddLessonSchedule.getSelectionModel().isEmpty())
+    {
+
+    }
+    /*if(e.getSource() == selectCourseToAddLessonSchedule)
+    {
+      course = selectCourseToAddLessonSchedule.getValue();
+      selectRoomToAddLessonSchedule.setDisable(false);
+    }*/
+
   }
 
 

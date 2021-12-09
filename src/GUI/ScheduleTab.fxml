@@ -64,12 +64,12 @@
     </TableView>
     <VBox fx:id="vBoxAddLessonSchedule" prefHeight="182.0" prefWidth="220.0" GridPane.rowIndex="1">
         <children>
-            <ComboBox fx:id="selectCourseToAddLessonSchedule" onAction="#selectCourseToAdd" prefHeight="26.0" prefWidth="106.0" promptText="Select Course">
+            <ComboBox fx:id="selectCourseToAddLessonSchedule" onAction="#selectCourseToAddLesson" prefHeight="26.0" prefWidth="106.0" promptText="Select Course">
                 <VBox.margin>
                     <Insets bottom="5.0" left="10.0" top="30.0" />
                 </VBox.margin>
             </ComboBox>
-            <ComboBox fx:id="selectRoomToAddLessonSchedule" disable="true" prefHeight="26.0" prefWidth="106.0" promptText="Select Room">
+            <ComboBox fx:id="selectRoomToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0" promptText="Select Room">
                 <VBox.margin>
                     <Insets bottom="5.0" left="10.0" top="5.0" />
                 </VBox.margin>
@@ -79,7 +79,7 @@
                   <Insets left="10.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="startTimeToAddLessonSchedule" disable="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="133.0" promptText="yyyy-mm-dd hh:mm">
+            <TextField fx:id="startTimeToAddLessonSchedule" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="133.0" promptText="yyyy-mm-dd hh:mm">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
@@ -89,12 +89,12 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="endTimeToAddLessonSchedule" disable="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="133.0" promptText="yyyy-mm-dd hh:mm">
+            <TextField fx:id="endTimeToAddLessonSchedule" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="133.0" promptText="yyyy-mm-dd hh:mm">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="buttonToAddLessonSchedule" disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Add Lesson">
+            <Button fx:id="buttonToAddLessonSchedule" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Add Lesson">
                 <VBox.margin>
                     <Insets left="120.0" top="7.0" />
                 </VBox.margin>
