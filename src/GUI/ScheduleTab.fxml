@@ -64,7 +64,7 @@
     </TableView>
     <VBox fx:id="vBoxAddLessonSchedule" prefHeight="182.0" prefWidth="220.0" GridPane.rowIndex="1">
         <children>
-            <ComboBox fx:id="selectCourseToAddLessonSchedule" onAction="#selectCourseToAdd" prefHeight="26.0" prefWidth="106.0" promptText="Select Course">
+           <ComboBox fx:id="selectCourseToAddLessonSchedule" prefHeight="26.0" prefWidth="106.0" promptText="Select Course">  <!-- onAction="#selectCourseToAdd"-->
                 <VBox.margin>
                     <Insets bottom="5.0" left="10.0" top="30.0" />
                 </VBox.margin>

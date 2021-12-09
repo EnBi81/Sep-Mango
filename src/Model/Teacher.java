@@ -67,16 +67,7 @@ public class Teacher implements Serializable
    */
   public String toString()
   {
-    String str = "";
-
-    str += getName() + " teaches these courses:\n";
-
-    for (Course course : courses)
-    {
-      str += course.getCourseName() + "\n";
-    }
-
-    return str;
+    return getName();
   }
 
   /**
