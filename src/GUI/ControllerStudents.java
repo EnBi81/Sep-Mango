@@ -5,10 +5,15 @@ import Model.Schedule;
 import Model.Student;
 import Model.VIAClass;
 import ScheduleManager.Manager;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class ControllerStudents
@@ -26,18 +31,16 @@ public class ControllerStudents
 @FXML private ComboBox<String> semesterToFindStudent;
 @FXML private CheckBox isExchangeToFindStudent;
 
-@FXML private TableColumn nameStudent;
-@FXML private TableColumn idStudent;
-@FXML private TableColumn classStudent;
-@FXML private TableColumn semesterStudent;
-@FXML private TableColumn isExchangeStudent;
+@FXML private TableColumn<Student,String> nameStudent;
+@FXML private TableColumn<Student,String> idStudent;
+@FXML private TableColumn<Student,String> classStudent;
+@FXML private TableColumn<Student,String> semesterStudent;
+@FXML private TableColumn<Student,String> isExchangeStudent;
 @FXML private TableView<Student> tableStudent;
 
 @FXML private Button removeStudent;
 
 Schedule schedule = Manager.getSchedule();
-
-
 
 public void initialize()
 {
@@ -45,36 +48,85 @@ public void initialize()
   classToCreateStudent.getItems().addAll(classes);
   classToFindStudent.getItems().addAll(classes);
 
-  String[] semester = {"1","2","3","4","5","6","7"};
+  ArrayList<String> semester = new ArrayList<>();
+  for (int i = 0; i < schedule.getVIAClassList().getAllClasses().size(); i++)
+  {
+    if(!(semester.contains(schedule.getVIAClassList().getAllClasses().get(i).getSemester() + "")))
+    {
+      semester.add(schedule.getVIAClassList().getAllClasses().get(i).getSemester() + "");
+    }
+  }
   semesterToFindStudent.getItems().addAll(semester);
+  tableView();
 }
+
 
 public void creatingStudent (ActionEvent e)
 {
-  if(nameToCreateStudent.getText().equals(null) || idToCreateStudent.getText().equals(null)|| classToCreateStudent.getSelectionModel().isEmpty())
+  if(e.getSource() == buttonToAddStudent)
   {
-    buttonToAddStudent.setDisable(false);
-  }
-  else if(e.getSource() == buttonToAddStudent)
-  {
-    String name = nameToCreateStudent.getText();
-    String idString = idToCreateStudent.getText();
-    int id = Integer.parseInt(idString);
-
-    if(isExchangeToCreateStudent.isSelected())
+    if(nameToCreateStudent.getText().isEmpty() || idToCreateStudent.getText().isEmpty() ||
+        classToCreateStudent.getValue() == null)
     {
-      ExchangeStudent one = new ExchangeStudent(name,id);
-      schedule.getStudentList().addStudent(one);
+      buttonToAddStudent.setDisable(false);
     }
     else
     {
-      Student one = new Student(name,id);
-      schedule.getStudentList().addStudent(one);
-    }
+      String name = nameToCreateStudent.getText();
+      String idString = idToCreateStudent.getText();
+      int id = Integer.parseInt(idString);
+      VIAClass viaClass = classToCreateStudent.getValue();
+      Student one;
 
-    nameToCreateStudent = null;
-    idToCreateStudent = null;
-    classToCreateStudent.setSelectionModel(null);
+      if(isExchangeToCreateStudent.isSelected())
+      {
+        one = new ExchangeStudent(name,id);
+        schedule.getStudentList().addStudent(one);
+      }
+      else
+      {
+        one = new Student(name,id);
+        schedule.getStudentList().addStudent(one);
+      }
+
+      viaClass.addStudent(one);
+
+      nameToCreateStudent.setText("");
+      idToCreateStudent.setText("");
+      classToCreateStudent.getSelectionModel().clearSelection();
+      isExchangeToCreateStudent.setSelected(false);
+      refreshTable();
+    }
   }
 }
+
+public void tableView()
+{
+  nameStudent.setCellValueFactory(obj -> new SimpleStringProperty(obj.getValue().getName()));
+  idStudent.setCellValueFactory(obj -> new SimpleStringProperty(obj.getValue().getId()+""));
+  classStudent.setCellValueFactory(obj -> new SimpleStringProperty(obj.getValue().getViaClass()+""));
+  semesterStudent.setCellValueFactory(obj -> new SimpleStringProperty(obj.getValue().getViaClass().getSemester()+""));
+  isExchangeStudent.setCellValueFactory(obj ->
+  {
+    if (obj.getValue().isExchange())
+    {
+      return new SimpleStringProperty("X");
+    }
+    else
+    {
+      return new SimpleStringProperty("");
+    }
+  });
+
+  refreshTable();
+}
+
+public void refreshTable()
+{
+  ArrayList<Student> students = new ArrayList<>(Manager.getSchedule().getStudentList().getAllStudents());
+
+  tableStudent.getItems().clear();
+  tableStudent.getItems().addAll(students);
+}
+
 }
