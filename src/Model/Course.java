@@ -59,18 +59,28 @@ public class Course implements Serializable
    */
   public VIAClass getVIAClass()
   {
-    VIAClass viaClass = null;
     Schedule schedule = Manager.getSchedule();
-    String classInCourse = (Integer.toString(getCourseName().charAt(getCourseName().length()-2)) + getCourseName().charAt(getCourseName().length()-1));
+    String classInCourse = getCourseName().charAt(getCourseName().length()-2) + "" + getCourseName().charAt(getCourseName().length()-1);
+    String dkClassInCourse = getCourseName().charAt(getCourseName().length()-3) + "" + getCourseName().charAt(getCourseName().length()-2) + getCourseName().charAt(getCourseName().length()-1);
 
     for (VIAClass className: schedule.getVIAClassList().getAllClasses()
          )
     {
+      if (className.getName().charAt(className.getName().length() -1 ) == 'K'){
+        if (className.getName().equals(dkClassInCourse)){
+          return className;
+        }
+      }
       if (className.getName().equals(classInCourse)){
-        viaClass = className;
+        return className;
       }
     }
-    return viaClass;
+    return null;
+  }
+
+  //delete this when it works
+  public String getVIACLassName(){
+    return getCourseName().charAt(getCourseName().length()-2) + "" + getCourseName().charAt(getCourseName().length()-1);
   }
 
   /**
