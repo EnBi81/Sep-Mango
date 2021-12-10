@@ -25,7 +25,7 @@
             <TableColumn fx:id="idStudent" prefWidth="74.4000244140625" text="Id" />
             <TableColumn fx:id="classStudent" prefWidth="45.60003662109375" style="-fx-alignment: CENTER-RIGHT;" text="Class" />
             <TableColumn fx:id="semesterStudent" prefWidth="58.39996337890625" style="-fx-alignment: CENTER-RIGHT;" text="Semester" />
-            <TableColumn fx:id="isExchangeStudent" prefWidth="60.79998779296875" style="-fx-alignment: CENTRE;" text="Exchange" />
+            <TableColumn fx:id="isExchangeStudent" prefWidth="60.79998779296875" style="-fx-alignment: CENTER;" text="Exchange" />
          </columns>
       </TableView>
       <Button fx:id="removeStudent" layoutX="506.0" layoutY="310.0" mnemonicParsing="false" onAction="#removingStudent" text="Remove student" />

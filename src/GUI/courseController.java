@@ -10,14 +10,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class courseController
 {
-  @FXML private AnchorPane mainAnchorPaneCourse;
-  @FXML private Pane addTeacherPaneCourse;
-  @FXML private ComboBox<String> selectCourseInAddTeacherPaneCourse;
-  @FXML private ComboBox<String> selectTeacherInAddTeacherPaneCourse;
+  @FXML private ComboBox<Course> selectCourseCourse;
+  @FXML private ComboBox<Teacher> selectTeacherCourse;
   @FXML private Button addTeacherCourse;
+  @FXML private Button removeTeacherCourse;
   @FXML private TableView<Course> tableViewCourse;
   @FXML private TableColumn<Course, String> tableColumnNameCourse;
   @FXML private TableColumn<Course, String> tableColumnECTSCourse;
@@ -25,26 +25,14 @@ public class courseController
   @FXML private TableColumn<Course, String> tableColumnTeachersCourse;
   @FXML private TextField textFieldFilterByNameCourse;
   @FXML private TextField textFieldFilterByTeacherCourse;
-  @FXML private Pane addStudentPaneCourse;
-  @FXML private ComboBox<String> selectCourseInAddStudentPaneCourse;
-  @FXML private ComboBox<String> selectStudentInAddStudentPaneCourse;
+  @FXML private ComboBox<Student> selectStudentCourse;
   @FXML private Button addStudentCourse;
-  @FXML private Pane removeStudentPaneCourse;
-  @FXML private ComboBox<String> selectCourseInRemoveStudentPaneCourse;
-  @FXML private ComboBox<String> selectStudentInRemoveStudentPaneCourse;
   @FXML private Button removeStudentCourse;
   @FXML private ComboBox<String> chooseECTSCourse;
-  @FXML private ComboBox<String> chooseClassCourse;
-
-  Course selectedCourse;
+  @FXML private ComboBox<VIAClass> chooseClassCourse;
+  @FXML private ListView<Student> listOfStudents;
 
   // methods
-
-  //tryout - delete afterwards
-  public void handleClickMe(ActionEvent e)
-  {
-    System.out.println("Hi");
-  }
 
   // main initialization
   public void initialize()
@@ -70,9 +58,9 @@ public class courseController
     tableViewCourse.getItems().addAll(courses);
 
     initializeFilterSide();
-    initializeAddTeacherPane();
-    initializeAddStudentPane();
-    initializeRemoveStudentPane();
+    initializeTeacherPane();
+    initializeStudentPane();
+    comboBoxSelectInitialization();
   }
 
   //dont judge me this is the easiest way I was able to come with lol
@@ -105,74 +93,165 @@ public class courseController
     for (Course course : Manager.getSchedule().getCourseList()
         .getAllCourses())
     {
-      if (!chooseClassCourse.getItems().contains(course.getVIAClass().getName()))
-        chooseClassCourse.getItems().add(course.getVIAClass().getName());
+      if (!chooseClassCourse.getItems().contains(course.getVIAClass()))
+        chooseClassCourse.getItems().add(course.getVIAClass());
     }
-    /*chooseClassCourse.valueProperty().addListener(obj -> refreshTableData());
+    chooseClassCourse.valueProperty().addListener(obj -> refreshTableData());
     chooseECTSCourse.valueProperty().addListener(obj -> refreshTableData());
     textFieldFilterByNameCourse.textProperty().addListener(obj -> refreshTableData());
-    textFieldFilterByTeacherCourse.textProperty().addListener(obj -> refreshTableData());*/
+    textFieldFilterByTeacherCourse.textProperty().addListener(obj -> refreshTableData());
   }
 
   //pane initialization
-  private void initializeAddTeacherPane(){
-    selectCourseInAddTeacherPaneCourse.getItems().add(null);
+  private void initializeTeacherPane(){
     for (Course course : Manager.getSchedule().getCourseList()
         .getAllCourses())
     {
-      if (!selectCourseInAddTeacherPaneCourse.getItems().contains(course.getCourseName()))
-        selectCourseInAddTeacherPaneCourse.getItems().add(course.getCourseName());
+      if (!selectCourseCourse.getItems().contains(course))
+        selectCourseCourse.getItems().add(course);
     }
-    selectTeacherInAddTeacherPaneCourse.getItems().add(null);
     for (Teacher teacher : Manager.getSchedule().getTeacherList()
         .getAllTeachers())
     {
-      if (!selectTeacherInAddTeacherPaneCourse.getItems().contains(teacher.getName()))
-        selectTeacherInAddTeacherPaneCourse.getItems().add(teacher.getName());
+      if (!selectTeacherCourse.getItems().contains(teacher))
+        selectTeacherCourse.getItems().add(teacher);
     }
 
+    selectTeacherCourse.setDisable(true);
     addTeacherCourse.setDisable(true);
+    removeTeacherCourse.setDisable(true);
     //refresh missing
   }
 
-  public void initializeAddStudentPane(){
-    selectCourseInAddStudentPaneCourse.getItems().add(null);
-    for (Course course : Manager.getSchedule().getCourseList()
-        .getAllCourses())
-    {
-      if (!selectCourseInAddStudentPaneCourse.getItems().contains(course.getCourseName()))
-        selectCourseInAddStudentPaneCourse.getItems().add(course.getCourseName());
-    }
-    selectStudentInAddStudentPaneCourse.getItems().add(null);
+  public void initializeStudentPane(){
     for (Student student : Manager.getSchedule().getStudentList()
         .getAllStudents())
     {
-      if (!selectStudentInAddStudentPaneCourse.getItems().contains(student.getName()))
-        selectStudentInAddStudentPaneCourse.getItems().add(student.getName());
+      if (!selectStudentCourse.getItems().contains(student))
+        selectStudentCourse.getItems().add(student);
     }
 
+    selectStudentCourse.setDisable(true);
     addStudentCourse.setDisable(true);
-    //refresh missing
-  }
-
-  public void initializeRemoveStudentPane(){
-    selectCourseInRemoveStudentPaneCourse.getItems().add(null);
-    for (Course course : Manager.getSchedule().getCourseList()
-        .getAllCourses())
-    {
-      if (!selectCourseInRemoveStudentPaneCourse.getItems().contains(course.getCourseName()))
-        selectCourseInRemoveStudentPaneCourse.getItems().add(course.getCourseName());
-    }
-    selectStudentInRemoveStudentPaneCourse.getItems().add(null);
-    for (Student student : Manager.getSchedule().getStudentList()
-        .getAllStudents())
-    {
-      if (!selectStudentInRemoveStudentPaneCourse.getItems().contains(student.getName()))
-        selectStudentInRemoveStudentPaneCourse.getItems().add(student.getName());
-    }
-
     removeStudentCourse.setDisable(true);
     //refresh missing
   }
+
+  public void comboBoxSelectInitialization(){
+    selectCourseCourse.valueProperty().addListener(obj -> {
+      selectStudentCourse.setDisable(false);
+      selectTeacherCourse.setDisable(false);
+      refreshStudentList();
+    });
+
+    selectTeacherCourse.valueProperty().addListener(obj -> {
+      addTeacherCourse.setDisable(false);
+      removeTeacherCourse.setDisable(false);
+    });
+
+    selectStudentCourse.valueProperty().addListener(obj -> {
+      addStudentCourse.setDisable(false);
+      removeStudentCourse.setDisable(false);
+    });
+
+  }
+
+  public void handleClickMe(ActionEvent e)
+  {
+    Course course = selectCourseCourse.getValue();
+    if (e.getSource() == addTeacherCourse){
+      Teacher teacher = selectTeacherCourse.getValue();
+      course.addTeacher(teacher);
+    }
+
+    else if (e.getSource() == removeTeacherCourse){
+      Teacher teacher = selectTeacherCourse.getValue();
+      course.removeTeacher(teacher);
+    }
+
+    else if (e.getSource() == addStudentCourse){
+      Student student = selectStudentCourse.getValue();
+      course.addStudent(student);
+      refreshStudentList();
+    }
+
+    else if (e.getSource() == removeStudentCourse){
+      Student student = selectStudentCourse.getValue();
+      course.removeStudent(student);
+      refreshStudentList();
+    }
+
+    refreshTableData();
+  }
+
+  public void refreshStudentList(){
+    listOfStudents.getItems().clear();
+
+    ArrayList<Student> students = selectCourseCourse.getValue().getAllStudents();
+
+    listOfStudents.getItems().addAll(students);
+  }
+
+  private void refreshTableData(){
+    ArrayList<Course> courses = new ArrayList<>(Manager.getSchedule().getCourseList().getAllCourses());
+
+    for (int i = 0; i < courses.size(); i++)
+    {
+      if (checkRemoveData(courses.get(i))){
+        courses.remove(i--);
+      }
+    }
+
+    tableViewCourse.getItems().clear();
+    tableViewCourse.getItems().addAll(courses);
+  }
+
+  private boolean checkRemoveData(Course course){
+    String valueFilterName = textFieldFilterByNameCourse.getText().toLowerCase(
+        Locale.ROOT);
+    String valueFilterECTS = chooseECTSCourse.getValue();
+    VIAClass valueFilterClass = chooseClassCourse.getValue();
+    String valueFilterTeacher = textFieldFilterByTeacherCourse.getText().toLowerCase(
+        Locale.ROOT);
+
+    if (course == null){
+      return false;
+    }
+
+    if (!course.getCourseName().toLowerCase(Locale.ROOT).contains(valueFilterName)){
+      return true;
+    }
+
+    try{
+      valueFilterECTS = valueFilterECTS.toLowerCase(Locale.ROOT);
+      if (!(Integer.parseInt(valueFilterECTS) == course.getEcts())){
+        return true;
+      }
+    }
+    catch (NullPointerException e){}
+
+
+
+    if (valueFilterClass != null){
+      if (!(valueFilterClass.equals(course.getVIAClass()))){
+        return true;
+      }
+    }
+
+
+    if (valueFilterTeacher.isEmpty() && course.getAllTeachers().size() == 0){
+      return false;
+    }
+
+    for (Teacher teacher: course.getAllTeachers()
+         )
+    {
+      if (teacher.getName().toLowerCase(Locale.ROOT).contains(valueFilterTeacher)){
+        return false;
+      }
+    }
+    return true;
+  }
+
 
 }

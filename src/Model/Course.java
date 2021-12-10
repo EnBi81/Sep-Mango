@@ -60,19 +60,12 @@ public class Course implements Serializable
   public VIAClass getVIAClass()
   {
     Schedule schedule = Manager.getSchedule();
-    String classInCourse = getCourseName().charAt(getCourseName().length()-2) + "" + getCourseName().charAt(getCourseName().length()-1);
-    String dkClassInCourse = getCourseName().charAt(getCourseName().length()-3) + "" + getCourseName().charAt(getCourseName().length()-2) + getCourseName().charAt(getCourseName().length()-1);
 
-    for (VIAClass className: schedule.getVIAClassList().getAllClasses()
+    for (VIAClass viaClass: schedule.getVIAClassList().getAllClasses()
          )
     {
-      if (className.getName().charAt(className.getName().length() -1 ) == 'K'){
-        if (className.getName().equals(dkClassInCourse)){
-          return className;
-        }
-      }
-      if (className.getName().equals(classInCourse)){
-        return className;
+      if (courseName.endsWith(viaClass.getName())){
+        return viaClass;
       }
     }
     return null;
@@ -84,12 +77,14 @@ public class Course implements Serializable
   }
 
   /**
-   * adds a student to the ArrayList of students
+   * adds a student to the ArrayList of students, if the list already contains the student, does nothing
    * @param student student to be added
    */
   public void addStudent(Student student)
   {
-    students.add(student);
+    if (!students.contains(student)){
+      students.add(student);
+    }
   }
 
   /**
@@ -120,12 +115,22 @@ public class Course implements Serializable
   }
 
   /**
-   * adds a teacher to the ArrayList of teachers
+   * adds a teacher to the ArrayList of teachers, if the list already contains the teacher, does nothing
    * @param teacher teacher to be added
    */
   public void addTeacher(Teacher teacher)
   {
-    teachers.add(teacher);
+    if (!teachers.contains(teacher)){
+      teachers.add(teacher);
+    }
+  }
+
+  /**
+   * removes a teacher from the ArrayList of teachers
+   * @param teacher teacher to be removed
+   */
+  public void removeTeacher(Teacher teacher){
+    teachers.remove(teacher);
   }
 
   /**
