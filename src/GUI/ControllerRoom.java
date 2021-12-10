@@ -53,8 +53,8 @@ public class ControllerRoom {
             return new SimpleStringProperty(obj.getValue().getConnectedRoom().getRoomName() + "");// it will display the connected room s name
         });
 
-        filterRoomNameTextField.textProperty().addListener(obj->refreshTable());//adds the listener so everytime I am typing something it refreshes the table automatically, i don t have to press enter when i am looking for a rooom name
-        filterRoomCapacityTextField.textProperty().addListener(obj->refreshTable());
+        filterRoomNameTextField.textProperty().addListener(obj->refresh());//adds the listener so everytime I am typing something it refreshes the table automatically, i don t have to press enter when i am looking for a rooom name
+        filterRoomCapacityTextField.textProperty().addListener(obj->refresh());
 
         ArrayList<Room> rooms = new ArrayList<>();
         rooms = Manager.getSchedule().getRoomList().getAllRooms();
@@ -154,10 +154,10 @@ public class ControllerRoom {
                    }
                }
            }
-           refreshTable();
+           refresh();
        }
 
-       public void refreshTable()
+       public void refresh()
        {
            ArrayList<Room> rooms = new ArrayList<>(Manager.getSchedule().getRoomList().getAllRooms());
            for (int i = 0; i < rooms.size(); i++) {
@@ -199,7 +199,7 @@ public class ControllerRoom {
        public void filterHandler(ActionEvent e)// the event handler for filters
        {
            System.out.println("hihihihihi");
-           refreshTable(); // when we are searching for a room name for example it goes to refresh table method
+           refresh(); // when we are searching for a room name for example it goes to refresh table method
        }
 
     public void createRoomKeyEvent(KeyEvent keyEvent)
@@ -218,10 +218,3 @@ public class ControllerRoom {
     }
 }
 
-class NegativeNumberException extends Exception
-{
-    public NegativeNumberException(String message)
-    {
-        super(message);
-    }
-}
