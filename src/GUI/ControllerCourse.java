@@ -187,6 +187,19 @@ public class ControllerCourse extends AbstractController
   public void refresh(){
     refreshStudentList();
     refreshTableData();
+    refreshStudentsComboBox();
+  }
+
+  public void refreshStudentsComboBox(){
+    selectStudentCourse.getItems().clear();
+
+    for (Student student : Manager.getSchedule().getStudentList()
+        .getAllStudents())
+    {
+      if (!selectStudentCourse.getItems().contains(student))
+        selectStudentCourse.getItems().add(student);
+    }
+
   }
 
   public void refreshStudentList(){
