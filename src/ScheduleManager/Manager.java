@@ -32,6 +32,19 @@ public class Manager
     return schedule;
   }
 
+  public static void saveSchedule()
+  {
+    try
+    {
+      FileHandler.writeScheduleToBinaryFile(savedScheduleFile,schedule);
+    }
+    catch (IOException e)
+    {
+      System.out.println(e.getMessage());
+    }
+
+  }
+
  public static void importData()
   {
     schedule = new Schedule();
