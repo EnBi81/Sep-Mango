@@ -12,11 +12,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
-public class ViaClassTabController
+public class ControllerViaClassTab
 {
   //region Fields
   @FXML private ComboBox<VIAClass> preferredClassCombo;
