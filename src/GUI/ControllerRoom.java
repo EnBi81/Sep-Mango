@@ -18,7 +18,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ControllerRoom {
+public class ControllerRoom extends AbstractController{
 
     @FXML private Pane mainRoomPane;
 
@@ -97,7 +97,7 @@ public class ControllerRoom {
                }
                if (lessonCount>0) {
                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                   alert.setContentText("This room is assign to " + lessonCount + " lessons. To remove this room please change the assigned room for the lessons.");
+                   alert.setContentText("This room is assign to " + lessonCount + " lessons. To remove this room \nplease change the assigned room for the lessons.");
                    alert.show();
                    return;
                }
