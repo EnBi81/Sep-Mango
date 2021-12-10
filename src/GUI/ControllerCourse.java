@@ -185,6 +185,10 @@ public class ControllerCourse extends AbstractController
   }
 
   public void refresh(){
+
+    if (selectCourseCourse == null){
+      return;
+    }
     refreshStudentList();
     refreshTableData();
     refreshStudentsComboBox();
