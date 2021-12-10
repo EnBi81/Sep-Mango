@@ -63,7 +63,8 @@ public class ControllerSchedule extends AbstractController
   private Room selectedRoom;
   private VIAClass selectedClass;
 
-  //initialize every data except the table data
+  //todo JavaDocs
+  //todo create lesson
   public void initialize()
   {
     //Add course names to the dropdown menus
@@ -123,47 +124,26 @@ public class ControllerSchedule extends AbstractController
 
   }
 
-  // remove one
-  public LocalDateTime startTimeAddLesson()
+  public void refresh()
   {
-    String startTime = startTimeToAddLessonSchedule.getText();
+    refreshRoomComboBox();
+    refreshTable();
 
-    startTime = startTime.replace(" ", "T");
-
-    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
-    LocalDateTime start = LocalDateTime.parse(startTime);
-
-    return start;
   }
 
-  public LocalDateTime endTimeAddLesson()
+  public void refreshRoomComboBox()
   {
-    String endTime = endTimeToAddLessonSchedule.getText();
+    //Add rooms to the dropdown menus
+    ArrayList<Room> rooms = new ArrayList<>(
+        Manager.getSchedule().getRoomList().getAllRooms());
 
-    endTime = endTime.replace(" ", "T");
-    LocalDateTime end = LocalDateTime.parse(endTime);
+    roomFilterLessonSchedule.getItems().clear();
+    roomFilterLessonSchedule.getItems().add(null);
+    roomFilterLessonSchedule.getItems().addAll(rooms);
 
-    return end;
-  }
+    selectRoomToAddLessonSchedule.getItems().clear();
+    selectRoomToAddLessonSchedule.getItems().addAll(rooms);
 
-  public LocalDateTime startTimeFilter(String string)
-  {
-    string = startTimeFilterLessonSchedule.getText();
-
-    string = string.replace(" ", "T");
-    LocalDateTime startFilter = LocalDateTime.parse(string);
-
-    return startFilter;
-  }
-
-  public LocalDateTime endTimeFilter()
-  {
-    String endTimeFilter = endTimeFilterLessonSchedule.getText();
-
-    endTimeFilter = endTimeFilter.replace(" ", "T");
-    LocalDateTime endFilter = LocalDateTime.parse(endTimeFilter);
-
-    return endFilter;
   }
 
   public void addALesson()
@@ -231,21 +211,6 @@ public class ControllerSchedule extends AbstractController
 
 }
 
-  public void refreshRoomComboBox()
-  {
-    //Add rooms to the dropdown menus
-    ArrayList<Room> rooms = new ArrayList<>(
-        Manager.getSchedule().getRoomList().getAllRooms());
-
-    roomFilterLessonSchedule.getItems().clear();
-    roomFilterLessonSchedule.getItems().add(null);
-    roomFilterLessonSchedule.getItems().addAll(rooms);
-
-      selectRoomToAddLessonSchedule.getItems().clear();
-      selectRoomToAddLessonSchedule.getItems().addAll(rooms);
-
-  }
-
   public void selectLesson()
   {
     //On mouse click in SceneBuilder
@@ -268,13 +233,6 @@ public class ControllerSchedule extends AbstractController
 
     startTimeFilterLessonSchedule.setText(
         schedule.getLessonList().getAllLessons().size() + "");
-
-  }
-
-  public void refresh()
-  {
-    refreshRoomComboBox();
-    refreshTable();
 
   }
 
@@ -339,4 +297,12 @@ public class ControllerSchedule extends AbstractController
     return false;
   }
 
+  public LocalDateTime timeFilter(String string)
+  {
+    string = startTimeFilterLessonSchedule.getText();
+
+    string = string.replace(" ", "T");
+
+    return LocalDateTime.parse(string);
+  }
 }
