@@ -15,6 +15,7 @@ public class MainGUI
 {
   public static void main(String[] args)
   {
+    // just testing
     Course course = Manager.getSchedule().getCourseList().getAllCourses().get(2);
     Course course1 = Manager.getSchedule().getCourseList().getAllCourses().get(3);
     Room room = Manager.getSchedule().getRoomList().getAllRooms().get(1);
@@ -31,6 +32,7 @@ public class MainGUI
     Manager.getSchedule().getLessonList().addLesson(lesson);
     Manager.getSchedule().getLessonList().addLesson(lesson2);
     Manager.getSchedule().getLessonList().addLesson(lesson3);
+    //
 
     Application.launch(StartMainTab.class);
   }
