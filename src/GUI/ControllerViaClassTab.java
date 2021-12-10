@@ -14,7 +14,7 @@ import javafx.scene.control.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ControllerViaClassTab
+public class ControllerViaClassTab extends AbstractController
 {
   //region Fields
   @FXML private ComboBox<VIAClass> preferredClassCombo;
@@ -59,7 +59,7 @@ public class ControllerViaClassTab
   }
 
   //region Other Initialization
-  private void initializeFilterSide() //Basic initialization for the filters
+  public void initializeFilterSide() //Basic initialization for the filters
   {
     filterBySemester.getItems().add(null);
     for (VIAClass viaClass : Manager.getSchedule().getVIAClassList()
@@ -107,8 +107,10 @@ public class ControllerViaClassTab
   //endregion
 
   //region Update
-  private void refreshPane() //Refresh everything
+  public void refresh() //Refresh everything
   {
+    if(selectedClass == null)
+      return;
     refreshTableData();
     updateList();
     updateRoomCombo();
@@ -210,7 +212,7 @@ public class ControllerViaClassTab
     preferredRoomCombo.setDisable(false);
 
     selectedClass = viaClass;
-    refreshPane();
+    refresh();
     preferredClassCombo.getSelectionModel().select(viaClass);
   }
 }
