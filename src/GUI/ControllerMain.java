@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainController
+public class ControllerMain
 {
   @FXML private Tab scheduleTab;
   @FXML private Tab studentsTab;
