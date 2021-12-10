@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControllerCourse">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControllerCourse">
    <children>
       <Pane layoutX="6.0" layoutY="22.0" prefHeight="173.0" prefWidth="199.0">
          <children>
@@ -23,7 +23,7 @@
             </Pane>
          </children>
       </Pane>
-      <TableView fx:id="tableViewCourse" layoutX="217.0" layoutY="54.0" prefHeight="378.0" prefWidth="409.0" style="-fx-border-color: black;">
+      <TableView fx:id="tableViewCourse" layoutX="217.0" layoutY="54.0" prefHeight="285.0" prefWidth="410.0">
          <columns>
             <TableColumn fx:id="tableColumnNameCourse" prefWidth="178.0" text="Name" />
             <TableColumn fx:id="tableColumnECTSCourse" prefWidth="50.0" text="ECTS" />
@@ -42,6 +42,6 @@
       </Pane>
       <ComboBox fx:id="chooseECTSCourse" layoutX="346.0" layoutY="22.0" prefHeight="26.0" prefWidth="76.0" promptText="ECTS" />
       <ComboBox fx:id="chooseClassCourse" layoutX="433.0" layoutY="22.0" prefHeight="26.0" prefWidth="74.0" promptText="Class" />
-      <ListView fx:id="listOfStudents" layoutX="6.0" layoutY="258.0" prefHeight="173.0" prefWidth="200.0" />
+      <ListView fx:id="listOfStudents" layoutX="6.0" layoutY="258.0" prefHeight="82.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
