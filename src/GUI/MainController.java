@@ -54,7 +54,6 @@ public class MainController
   {
     FXMLLoader loader = new FXMLLoader();
     Pane p = loader.load(getClass().getResource(fileName).openStream());
-    if(fileName.equals("VIAClassTab.fxml"))
     controllers.add(loader.getController());
     return p;
   }

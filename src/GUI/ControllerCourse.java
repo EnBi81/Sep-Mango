@@ -209,7 +209,13 @@ public class ControllerCourse extends AbstractController
   public void refreshStudentList(){
     listOfStudents.getItems().clear();
 
+    if (selectCourseCourse.getValue() == null)
+    {
+      return;
+    }
     ArrayList<Student> students = selectCourseCourse.getValue().getAllStudents();
+    for (var s : students)
+      System.out.println(s.getName());
 
     listOfStudents.getItems().addAll(students);
   }
