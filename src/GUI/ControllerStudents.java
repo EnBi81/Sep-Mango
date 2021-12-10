@@ -1,9 +1,6 @@
 package GUI;
 
-import Model.ExchangeStudent;
-import Model.Schedule;
-import Model.Student;
-import Model.VIAClass;
+import Model.*;
 import ScheduleManager.Manager;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
@@ -66,6 +63,11 @@ public class ControllerStudents extends AbstractController
     semesterToFindStudent.getItems().add(null);
     semesterToFindStudent.getItems().addAll(semester);
     tableView();
+
+    nameToFindStudent.textProperty().addListener(obj -> refreshTable());
+    idToFindStudent.textProperty().addListener(obj -> refreshTable());
+    classToFindStudent.valueProperty().addListener(obj->refreshTable());
+    semesterToFindStudent.valueProperty().addListener(obj -> refreshTable());
   }
 
   public void creatingStudent(ActionEvent e)
@@ -152,135 +154,63 @@ public class ControllerStudents extends AbstractController
           .remove(tableStudent.getSelectionModel().getSelectedItem());
       VIAClass viaClass = tableStudent.getSelectionModel().getSelectedItem().getViaClass();
       viaClass.getAllStudents().remove(tableStudent.getSelectionModel().getSelectedItem());
-      refresh();
-    }
-  }
 
-  public void filterStudentName(ActionEvent e)
-  {
-    String name = nameToFindStudent.getText();
-    ArrayList<Student> students = new ArrayList<>();
-
-    if (!(name.equals(" ")))
-    {
-      for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
+      ArrayList<Course> courses = tableStudent.getSelectionModel().getSelectedItem().getAllCourses();
+      for (int i = 0; i < courses.size(); i++)
       {
-        if (schedule.getStudentList().getAllStudents().get(i).getName().startsWith(name))
-        {
-          students.add(schedule.getStudentList().getAllStudents().get(i));
-        }
+        courses.get(i).getAllStudents().remove(tableStudent.getSelectionModel().getSelectedItem());
       }
-      tableStudent.getItems().clear();
-      tableStudent.getItems().addAll(students);
-    }
-    else
-    {
+
       refresh();
     }
   }
 
-  public void filterStudentId(ActionEvent e)
-  {
-    String id = idToFindStudent.getText();
-    ArrayList<Student> students = new ArrayList<>();
-
-    if (!(id.equals("")))
-    {
-      for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
-      {
-        if ((schedule.getStudentList().getAllStudents().get(i).getId() + "").startsWith(id))
-        {
-          students.add(schedule.getStudentList().getAllStudents().get(i));
-        }
-      }
-      tableStudent.getItems().clear();
-      tableStudent.getItems().addAll(students);
-    }
-    else
-    {
-      refresh();
-    }
-  }
-
-  public void filterStudentsClass(ActionEvent e)
-  {
-    SingleSelectionModel<VIAClass> model = classToFindStudent.getSelectionModel();
-    selectedClass = model.getSelectedItem();
-
-    ArrayList<Student> students = new ArrayList<>();
-
-    if (selectedClass != null)
-    {
-      for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
-      {
-        if (schedule.getStudentList().getAllStudents().get(i).getViaClass().equals(selectedClass))
-        {
-          students.add(schedule.getStudentList().getAllStudents().get(i));
-        }
-      }
-      tableStudent.getItems().clear();
-      tableStudent.getItems().addAll(students);
-    }
-    else
-    {
-      refresh();
-    }
-  }
-
-  public void filterStudentSemester(ActionEvent e)
-  {
-    SingleSelectionModel<String> model = semesterToFindStudent.getSelectionModel();
-    selectedSemester = model.getSelectedItem();
-
-    ArrayList<Student> students = new ArrayList<>();
-
-    if (selectedSemester != null)
-    {
-      for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
-      {
-        if ((schedule.getStudentList().getAllStudents().get(i).getViaClass().getSemester()
-            + "").equals(selectedSemester))
-        {
-          students.add(schedule.getStudentList().getAllStudents().get(i));
-        }
-      }
-      tableStudent.getItems().clear();
-      tableStudent.getItems().addAll(students);
-    }
-    else
-    {
-      refresh();
-    }
-  }
-
-  public void isExchange(ActionEvent e)
-  {
-    ArrayList<Student> students = new ArrayList<>();
-
-    if (isExchangeToFindStudent.isSelected())
-    {
-      for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
-      {
-        if (schedule.getStudentList().getAllStudents().get(i).isExchange())
-        {
-          students.add(schedule.getStudentList().getAllStudents().get(i));
-        }
-      }
-      tableStudent.getItems().clear();
-      tableStudent.getItems().addAll(students);
-    }
-    else
-    {
-      refresh();
-    }
-  }
-
-  /*public void refreshTable()
+  public void refreshTable()
   {
     ArrayList<Student> students = new ArrayList<>(schedule.getStudentList().getAllStudents());
 
     for (int i = 0; i < students.size(); i++)
     {
+      if(!filterStudent(students.get(i)))
+      {
+        students.remove(i--);
+      }
     }
-  }*/
+    tableStudent.getItems().clear();
+    tableStudent.getItems().addAll(students);
+  }
+
+  public boolean filterStudent(Student student)
+  {
+    String inputName = nameToFindStudent.getText().toLowerCase(Locale.ROOT);
+    String inputId = idToFindStudent.getText();
+    VIAClass viaClass = classToFindStudent.getSelectionModel().getSelectedItem();
+    String semester = semesterToFindStudent.getValue();
+
+    if(!student.getName().toLowerCase(Locale.ROOT).contains(inputName))
+    {
+      return false;
+    }
+
+    if(!inputId.isEmpty() && !(student.getId()+"").startsWith(inputId))
+    {
+      return false;
+    }
+
+    if(viaClass != null && !(student.getViaClass().equals(viaClass)))
+    {
+      return false;
+    }
+
+    if(semester != null && !(student.getViaClass().getSemester() == Integer.parseInt(semester)))
+    {
+      return false;
+    }
+
+    if(isExchangeToFindStudent.isSelected())
+    {
+      return student.isExchange();
+    }
+    return true;
+  }
 }
