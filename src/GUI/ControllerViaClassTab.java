@@ -49,7 +49,8 @@ public class ControllerViaClassTab extends AbstractController
         obj.getValue().getAllStudents().size() + ""));
     preferredRoomColumn.setCellValueFactory(obj -> new SimpleStringProperty(
         obj.getValue().getPreferredRoom() == null ?
-            "" : obj.getValue().getPreferredRoom().getRoomName()));
+            "" :
+            obj.getValue().getPreferredRoom().getRoomName()));
     //endregion
 
     initializeFilterSide();
@@ -95,8 +96,8 @@ public class ControllerViaClassTab extends AbstractController
       setSelectedClass(selected);
     });
 
-    setPreferredRoomButton.setOnAction(obj ->{
-      if(selectedClass != null)
+    setPreferredRoomButton.setOnAction(obj -> {
+      if (selectedClass != null)
       {
         selectedClass.setPreferredRoom(preferredRoomCombo.getValue());
         refreshTableData();
@@ -109,7 +110,7 @@ public class ControllerViaClassTab extends AbstractController
   //region Update
   public void refresh() //Refresh everything
   {
-    if(selectedClass == null)
+    if (selectedClass == null)
       return;
     refreshTableData();
     updateList();
@@ -117,7 +118,8 @@ public class ControllerViaClassTab extends AbstractController
   }
 
   //region UpdateTable
-  private boolean checkRemoveData(VIAClass viaClass) //check for a VIAClass if the filters apply for it
+  private boolean checkRemoveData(
+      VIAClass viaClass) //check for a VIAClass if the filters apply for it
   {
     String nameFilter = filterByName.getText().toLowerCase(Locale.ROOT);
 
@@ -141,10 +143,9 @@ public class ControllerViaClassTab extends AbstractController
 
     for (int i = 0; i < classes.size(); i++)
     {
-      if(checkRemoveData(classes.get(i)))
+      if (checkRemoveData(classes.get(i)))
         classes.remove(i--);
     }
-
 
     classTableView.getItems().clear();
     classTableView.getItems().addAll(classes);
@@ -179,12 +180,14 @@ public class ControllerViaClassTab extends AbstractController
     ArrayList<Room> rooms = new ArrayList<>();
     rooms.add(null);
     rooms.addAll(Manager.getSchedule().getRoomList().getAllRooms());
-    ArrayList<VIAClass> viaClasses = Manager.getSchedule().getVIAClassList().getAllClasses();
+    ArrayList<VIAClass> viaClasses = Manager.getSchedule().getVIAClassList()
+        .getAllClasses();
 
     for (int i = 0; i < rooms.size(); i++)
     {
       Room room = rooms.get(i);
-      if(room != null && room.getCapacity() < selectedClass.getAllStudents().size())
+      if (room != null && room.getCapacity() < selectedClass.getAllStudents()
+          .size())
         rooms.remove(i--);
     }
     for (VIAClass viaClass : viaClasses)
@@ -193,17 +196,18 @@ public class ControllerViaClassTab extends AbstractController
         rooms.remove(viaClass.getPreferredRoom());
     }
 
-
     preferredRoomCombo.getItems().clear();
     preferredRoomCombo.getItems().addAll(rooms);
 
-    if(selectedClass.getPreferredRoom() != null)
-      preferredRoomCombo.getSelectionModel().select(selectedClass.getPreferredRoom());
+    if (selectedClass.getPreferredRoom() != null)
+      preferredRoomCombo.getSelectionModel()
+          .select(selectedClass.getPreferredRoom());
   }
   //endregion
   //endregion
 
-  private void setSelectedClass(VIAClass viaClass) //This method runs everytime you select a class either in the
+  private void setSelectedClass(
+      VIAClass viaClass) //This method runs everytime you select a class either in the
   {                                                //table or in the combobox
     if (viaClass == null || selectedClass == viaClass)
       return;

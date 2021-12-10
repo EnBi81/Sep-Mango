@@ -133,7 +133,12 @@ public class Lesson implements Serializable
     room1 = room;
   }
 
+  /**
+   * sets the secondary room (used when room capacity is not enough and the room has a connected room)
+   * @param room the room that should be assigned as second room
+   */
 
+  public void setSecondRoom(Room room){room2 = room;}
   /**
    * returns the starting time of a lesson
    * @return start time of the lesson
