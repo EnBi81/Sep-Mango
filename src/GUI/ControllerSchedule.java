@@ -74,16 +74,7 @@ public class ControllerSchedule extends AbstractController
     courseFilterLessonSchedule.getItems().add(null);
     courseFilterLessonSchedule.getItems().addAll(courses);
 
-    //Add rooms to the dropdown menus
-    ArrayList<Room> rooms = new ArrayList<>(
-        Manager.getSchedule().getRoomList().getAllRooms());
 
-    selectRoomToAddLessonSchedule.getItems().clear();
-    selectRoomToAddLessonSchedule.getItems().addAll(rooms);
-
-    roomFilterLessonSchedule.getItems().clear();
-    roomFilterLessonSchedule.getItems().add(null);
-    roomFilterLessonSchedule.getItems().addAll(rooms);
 
     //Add classes to the dropdown menu
 
@@ -100,6 +91,7 @@ public class ControllerSchedule extends AbstractController
     buttonToAddLessonSchedule.setDisable(true);
     buttonRemoveLessonSchedule.setDisable(true);
 
+    refreshRoomComboBox();
     initializeTableData();
   }
 
@@ -180,6 +172,7 @@ public class ControllerSchedule extends AbstractController
 
     if (!selectCourseToAddLessonSchedule.getSelectionModel().isEmpty())
     {
+      refreshRoomComboBox();
       selectRoomToAddLessonSchedule.setDisable(false);
     }
 
@@ -206,6 +199,36 @@ public class ControllerSchedule extends AbstractController
     }
 
   }
+  public void refreshRoomComboBox()
+  {
+    //Add rooms to the dropdown menus
+    ArrayList<Room> rooms = new ArrayList<>(
+        Manager.getSchedule().getRoomList().getAllRooms());
+
+    roomFilterLessonSchedule.getItems().clear();
+    roomFilterLessonSchedule.getItems().add(null);
+    roomFilterLessonSchedule.getItems().addAll(rooms);
+
+    selectedCourse = selectCourseToAddLessonSchedule.getValue();
+    if (selectedCourse != null)
+    {
+
+      for (int i = 0; i < rooms.size(); i++)
+      {
+        Room room = rooms.get(i);
+        if (room != null && room.getCapacity() < selectedCourse.getAllStudents().size())
+        {
+          rooms.remove(i--);
+        }
+
+
+      }
+    }
+    selectRoomToAddLessonSchedule.getItems().clear();
+    selectRoomToAddLessonSchedule.getItems().addAll(rooms);
+  }
+
+
 
   public void selectLesson()
   {
@@ -235,6 +258,7 @@ public class ControllerSchedule extends AbstractController
   public void refresh()
   {
     refreshTable();
+    refreshRoomComboBox();
   }
 
   public void refreshTable()
