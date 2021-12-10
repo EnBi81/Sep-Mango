@@ -42,6 +42,9 @@ public class ControllerStudents
 @FXML private Button removeStudent;
 
 Schedule schedule = Manager.getSchedule();
+VIAClass selectedClass;
+String selectedSemester;
+
 
 public void initialize()
 {
@@ -141,4 +144,123 @@ public void removingStudent(ActionEvent e)
     refreshTable();
   }
 }
+
+public void filterStudentName(ActionEvent e)
+{
+  String name = nameToFindStudent.getText();
+  ArrayList<Student> students = new ArrayList<>();
+
+  if(!(name.equals(" ")))
+  {
+    for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
+    {
+      if(schedule.getStudentList().getAllStudents().get(i).getName().startsWith(name))
+      {
+        students.add(schedule.getStudentList().getAllStudents().get(i));
+      }
+    }
+    tableStudent.getItems().clear();
+    tableStudent.getItems().addAll(students);
+  }
+  else
+  {
+    refreshTable();
+  }
+}
+
+  public void filterStudentId(ActionEvent e)
+  {
+    String id = idToFindStudent.getText();
+    ArrayList<Student> students = new ArrayList<>();
+
+    if(!(id.equals("")))
+    {
+      for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
+      {
+        if((schedule.getStudentList().getAllStudents().get(i).getId()+"").startsWith(id))
+        {
+          students.add(schedule.getStudentList().getAllStudents().get(i));
+        }
+      }
+      tableStudent.getItems().clear();
+      tableStudent.getItems().addAll(students);
+    }
+    else
+    {
+      refreshTable();
+    }
+  }
+
+public void filterStudentsClass (ActionEvent e)
+{
+  SingleSelectionModel<VIAClass> model = classToFindStudent.getSelectionModel();
+  selectedClass = model.getSelectedItem();
+
+  ArrayList<Student> students = new ArrayList<>();
+
+  if (selectedClass != null)
+  {
+    for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
+    {
+      if(schedule.getStudentList().getAllStudents().get(i).getViaClass().equals(selectedClass))
+      {
+        students.add(schedule.getStudentList().getAllStudents().get(i));
+      }
+    }
+    tableStudent.getItems().clear();
+    tableStudent.getItems().addAll(students);
+  }
+  else
+  {
+    refreshTable();
+  }
+}
+
+public void filterStudentSemester(ActionEvent e)
+{
+  SingleSelectionModel<String> model = semesterToFindStudent.getSelectionModel();
+  selectedSemester = model.getSelectedItem();
+
+  ArrayList<Student> students = new ArrayList<>();
+
+  if(selectedSemester != null)
+  {
+    for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
+    {
+      if((schedule.getStudentList().getAllStudents().get(i).getViaClass().getSemester()+"").equals(selectedSemester))
+      {
+        students.add(schedule.getStudentList().getAllStudents().get(i));
+      }
+    }
+    tableStudent.getItems().clear();
+    tableStudent.getItems().addAll(students);
+  }
+  else
+  {
+    refreshTable();
+  }
+}
+
+public void isExchange(ActionEvent e)
+{
+  ArrayList<Student> students = new ArrayList<>();
+
+  if(isExchangeToFindStudent.isSelected())
+  {
+    for (int i = 0; i < schedule.getStudentList().getAllStudents().size(); i++)
+    {
+      if (schedule.getStudentList().getAllStudents().get(i).isExchange())
+      {
+        students.add(schedule.getStudentList().getAllStudents().get(i));
+      }
+    }
+    tableStudent.getItems().clear();
+    tableStudent.getItems().addAll(students);
+  }
+  else
+  {
+    refreshTable();
+  }
+}
+
 }

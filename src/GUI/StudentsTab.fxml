@@ -25,14 +25,14 @@
             <TableColumn fx:id="idStudent" prefWidth="74.4000244140625" text="Id" />
             <TableColumn fx:id="classStudent" prefWidth="45.60003662109375" style="-fx-alignment: CENTER-RIGHT;" text="Class" />
             <TableColumn fx:id="semesterStudent" prefWidth="58.39996337890625" style="-fx-alignment: CENTER-RIGHT;" text="Semester" />
-            <TableColumn fx:id="isExchangeStudent" prefWidth="60.79998779296875" style="-fx-alignment: CENTRE;" text="Exchange" />
+            <TableColumn fx:id="isExchangeStudent" prefWidth="60.79998779296875" style="-fx-alignment: CENTER;" text="Exchange" />
          </columns>
       </TableView>
       <Button fx:id="removeStudent" layoutX="506.0" layoutY="310.0" mnemonicParsing="false" onAction="#removingStudent" text="Remove student" />
-      <TextField fx:id="nameToFindStudent" layoutX="226.0" layoutY="41.0" prefHeight="25.0" prefWidth="91.0" promptText="Filter by name" />
-      <TextField fx:id="idToFindStudent" layoutX="325.0" layoutY="41.0" prefHeight="25.0" prefWidth="73.0" promptText="Filter by id" />
-      <ComboBox fx:id="classToFindStudent" layoutX="405.0" layoutY="41.0" prefHeight="25.0" prefWidth="81.0" promptText="Class filter" />
-      <ComboBox fx:id="semesterToFindStudent" layoutX="495.0" layoutY="41.0" prefHeight="25.0" prefWidth="125.0" promptText="Semester filter" />
-      <CheckBox fx:id="isExchangeToFindStudent" layoutX="534.0" layoutY="18.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="81.0" text="Exchange" />
+      <TextField fx:id="nameToFindStudent" layoutX="226.0" layoutY="41.0" onAction="#filterStudentName" prefHeight="25.0" prefWidth="91.0" promptText="Filter by name" />
+      <TextField fx:id="idToFindStudent" layoutX="325.0" layoutY="41.0" onAction="#filterStudentId" prefHeight="25.0" prefWidth="73.0" promptText="Filter by id" />
+      <ComboBox fx:id="classToFindStudent" layoutX="405.0" layoutY="41.0" onAction="#filterStudentsClass" prefHeight="25.0" prefWidth="81.0" promptText="Class filter" />
+      <ComboBox fx:id="semesterToFindStudent" layoutX="495.0" layoutY="41.0" onAction="#filterStudentSemester" prefHeight="25.0" prefWidth="125.0" promptText="Semester filter" />
+      <CheckBox fx:id="isExchangeToFindStudent" layoutX="534.0" layoutY="18.0" mnemonicParsing="false" onAction="#isExchange" prefHeight="17.0" prefWidth="81.0" text="Exchange" />
    </children>
 </Pane>
