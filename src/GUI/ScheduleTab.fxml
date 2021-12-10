@@ -26,27 +26,27 @@
 <children>
     <HBox fx:id="hBoxFilterLessonSchedule" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
         <children>
-            <ComboBox fx:id="courseFilterLessonSchedule" prefHeight="26.0" prefWidth="73.0" promptText="Courses">
+            <ComboBox fx:id="courseFilterLessonSchedule" onAction="#refreshTable" prefHeight="26.0" prefWidth="73.0" promptText="Courses">
                 <HBox.margin>
                     <Insets right="5.0" top="5.0" />
                 </HBox.margin>
             </ComboBox>
-            <TextField fx:id="startTimeFilterLessonSchedule" prefHeight="26.0" prefWidth="70.0">
+            <TextField fx:id="startTimeFilterLessonSchedule" onAction="#refreshTable" prefHeight="26.0" prefWidth="70.0">
                <HBox.margin>
                   <Insets right="5.0" top="5.0" />
                </HBox.margin>
             </TextField>
-            <TextField fx:id="endTimeFilterLessonSchedule" prefHeight="26.0" prefWidth="70.0">
+            <TextField fx:id="endTimeFilterLessonSchedule" onAction="#refreshTable" prefHeight="26.0" prefWidth="70.0">
                <HBox.margin>
                   <Insets right="5.0" top="5.0" />
                </HBox.margin>
             </TextField>
-            <ComboBox fx:id="roomFilterLessonSchedule" prefHeight="26.0" prefWidth="63.0" promptText="Rooms">
+            <ComboBox fx:id="roomFilterLessonSchedule" onAction="#refreshTable" prefHeight="26.0" prefWidth="63.0" promptText="Rooms">
                 <HBox.margin>
                     <Insets right="5.0" top="5.0" />
                 </HBox.margin>
             </ComboBox>
-            <ComboBox fx:id="classFilterLessonSchedule" prefHeight="26.0" prefWidth="73.0" promptText="Classes">
+            <ComboBox fx:id="classFilterLessonSchedule" onAction="#refreshTable" prefHeight="26.0" prefWidth="73.0" promptText="Classes">
                 <HBox.margin>
                     <Insets top="5.0" />
                 </HBox.margin>

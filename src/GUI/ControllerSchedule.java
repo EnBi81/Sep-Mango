@@ -32,8 +32,8 @@ public class ControllerSchedule
   //TableView
   @FXML private TableView<Lesson> tableViewSchedule;
   @FXML private TableColumn<Lesson, String> tableCourseSchedule;
-  @FXML private TableColumn<Lesson,String> tableStartTimeSchedule;
-  @FXML private TableColumn<Lesson,String> tableEndTimeSchedule;
+  @FXML private TableColumn<Lesson, String> tableStartTimeSchedule;
+  @FXML private TableColumn<Lesson, String> tableEndTimeSchedule;
   @FXML private TableColumn<Lesson, String> tableRoomSchedule;
   @FXML private TableColumn<Lesson, String> tableClassSchedule;
 
@@ -55,8 +55,10 @@ public class ControllerSchedule
 
   Schedule schedule = Manager.getSchedule();
 
-  private Course course;
+  private Course selectedCourse;
   private Lesson lesson;
+  private Room selectedRoom;
+  private VIAClass selectedClass;
 
   //initialize every data except the table data
   public void initialize()
@@ -69,6 +71,7 @@ public class ControllerSchedule
     selectCourseToAddLessonSchedule.getItems().addAll(courses);
 
     courseFilterLessonSchedule.getItems().clear();
+    courseFilterLessonSchedule.getItems().add(null);
     courseFilterLessonSchedule.getItems().addAll(courses);
 
     //Add rooms to the dropdown menus
@@ -79,13 +82,16 @@ public class ControllerSchedule
     selectRoomToAddLessonSchedule.getItems().addAll(rooms);
 
     roomFilterLessonSchedule.getItems().clear();
+    roomFilterLessonSchedule.getItems().add(null);
     roomFilterLessonSchedule.getItems().addAll(rooms);
 
     //Add classes to the dropdown menu
 
-    ArrayList<VIAClass> classes = new ArrayList<>(Manager.getSchedule().getVIAClassList().getAllClasses());
+    ArrayList<VIAClass> classes = new ArrayList<>(
+        Manager.getSchedule().getVIAClassList().getAllClasses());
 
     classFilterLessonSchedule.getItems().clear();
+    classFilterLessonSchedule.getItems().add(null);
     classFilterLessonSchedule.getItems().addAll(classes);
 
     selectRoomToAddLessonSchedule.setDisable(true);
@@ -100,33 +106,31 @@ public class ControllerSchedule
   public void initializeTableData()
   {
 
-      //has to be tested!!!
+    //has to be tested!!!
 
-    tableViewSchedule.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    tableViewSchedule.getSelectionModel()
+        .setSelectionMode(SelectionMode.SINGLE);
 
-    tableCourseSchedule.setCellValueFactory(
-        obj -> new SimpleStringProperty(obj.getValue().getCourse().getCourseName())
+    tableCourseSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
+        obj.getValue().getCourse().getCourseName()));
+
+    tableRoomSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
+        obj.getValue().getFirstRoom().getRoomName()) ////come back here
     );
 
-    tableRoomSchedule.setCellValueFactory(
-        obj -> new SimpleStringProperty(obj.getValue().getFirstRoom().getRoomName()) ////come back here
-    );
+    tableClassSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
+        obj.getValue().getCourse().getVIAClass().getName()));
 
-    tableClassSchedule.setCellValueFactory(
-        obj -> new SimpleStringProperty(obj.getValue().getCourse().getVIAClass().getName())
-    );
-
-    tableStartTimeSchedule.setCellValueFactory(
-        obj -> new SimpleStringProperty(obj.getValue().getStartTime().toString())
-    );
-    tableEndTimeSchedule.setCellValueFactory(
-        obj -> new SimpleStringProperty(obj.getValue().getEndTime().toString())
-    );
-    ArrayList<Lesson> lessons = Manager.getSchedule().getLessonList().getAllLessons();
+    tableStartTimeSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
+        obj.getValue().getStartTime().toString()));
+    tableEndTimeSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
+        obj.getValue().getEndTime().toString()));
+    ArrayList<Lesson> lessons = Manager.getSchedule().getLessonList()
+        .getAllLessons();
     tableViewSchedule.getItems().addAll(lessons);
 
   }
-
+// remove one
   public LocalDateTime startTimeAddLesson()
   {
     String startTime = startTimeToAddLessonSchedule.getText();
@@ -138,6 +142,7 @@ public class ControllerSchedule
 
     return start;
   }
+
   public LocalDateTime endTimeAddLesson()
   {
     String endTime = endTimeToAddLessonSchedule.getText();
@@ -147,15 +152,17 @@ public class ControllerSchedule
 
     return end;
   }
-  public LocalDateTime startTimeFilter()
-  {
-    String startTimeFilter = startTimeFilterLessonSchedule.getText();
 
-    startTimeFilter = startTimeFilter.replace(" ", "T");
-    LocalDateTime startFilter = LocalDateTime.parse(startTimeFilter);
+  public LocalDateTime startTimeFilter(String string)
+  {
+    string = startTimeFilterLessonSchedule.getText();
+
+    string = string.replace(" ", "T");
+    LocalDateTime startFilter = LocalDateTime.parse(string);
 
     return startFilter;
   }
+
   public LocalDateTime endTimeFilter()
   {
     String endTimeFilter = endTimeFilterLessonSchedule.getText();
@@ -168,15 +175,15 @@ public class ControllerSchedule
 
   public void addALesson()
   {
-      //Enable fields one by one
+    //Enable fields one by one
     Pattern pattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}");
 
-    if(!selectCourseToAddLessonSchedule.getSelectionModel().isEmpty())
+    if (!selectCourseToAddLessonSchedule.getSelectionModel().isEmpty())
     {
       selectRoomToAddLessonSchedule.setDisable(false);
     }
 
-    if(!selectRoomToAddLessonSchedule.getSelectionModel().isEmpty())
+    if (!selectRoomToAddLessonSchedule.getSelectionModel().isEmpty())
     {
       startTimeToAddLessonSchedule.setDisable(false);
     }
@@ -185,15 +192,15 @@ public class ControllerSchedule
     Matcher matcherS = pattern.matcher(startTimeToAddLessonSchedule.getText());
     boolean matchesStart = matcherS.matches();
 
-    if(matchesStart)
+    if (matchesStart)
     {
       endTimeToAddLessonSchedule.setDisable(false);
     }
-  //CHECK AGAIN FOR THE END TIME
+    //CHECK AGAIN FOR THE END TIME
     Matcher matcherE = pattern.matcher(endTimeToAddLessonSchedule.getText());
     boolean matchesEnd = matcherE.matches();
 
-    if(matchesEnd)
+    if (matchesEnd)
     {
       buttonToAddLessonSchedule.setDisable(false);
     }
@@ -203,18 +210,88 @@ public class ControllerSchedule
   public void selectLesson()
   {
     //On mouse click in SceneBuilder
+
+    if(tableViewSchedule.getSelectionModel().getSelectedItem() != null)
+    {
       buttonRemoveLessonSchedule.setDisable(false);
+    }
 
   }
 
   public void removeLesson()
   {
-    Lesson lessonToBeRemoved = tableViewSchedule.getSelectionModel().getSelectedItem();
 
-    tableViewSchedule.getItems().remove(lessonToBeRemoved);
+    Lesson lessonToBeRemoved = tableViewSchedule.getSelectionModel()
+        .getSelectedItem();
+
+    schedule.getLessonList().removeLesson(lessonToBeRemoved);
+    refreshTable();
 
     //todo : remove from LessonList!!!
-
+    startTimeFilterLessonSchedule.setText(
+        schedule.getLessonList().getAllLessons().size() + "");
 
   }
+
+  public void refreshTable()
+  {
+    ArrayList<Lesson> lessons = new ArrayList<>(
+        Manager.getSchedule().getLessonList().getAllLessons());
+
+    for (int i = 0; i < lessons.size(); i++)
+    {
+      if(checkData(lessons.get(i)))
+        lessons.remove(i--);
+    }
+
+
+    tableViewSchedule.getItems().clear();
+    tableViewSchedule.getItems().addAll(lessons);
+  }
+
+  public boolean checkData(Lesson lesson)
+  {
+    selectedCourse = courseFilterLessonSchedule.getValue();
+    selectedRoom = roomFilterLessonSchedule.getValue();
+    selectedClass = classFilterLessonSchedule.getValue();
+
+    String startTime = startTimeFilterLessonSchedule.getText().replace(" ", "T");
+    String endTime = endTimeFilterLessonSchedule.getText().replace(" ", "T");
+
+    if(selectedCourse != null)
+    {
+      if (lesson.getCourse() != selectedCourse)
+      {
+        return true;
+      }
+    }
+    if( selectedRoom != null)
+    {
+      if(lesson.getFirstRoom() != selectedRoom && lesson.getSecondRoom() != selectedRoom) ///come back here
+      {
+        return true;
+      }
+    }
+
+    if( selectedClass != null)
+    {
+      if (lesson.getCourse().getVIAClass() != selectedClass)
+      {
+        return true;
+      }
+    }
+
+    if(!lesson.getStartTime().toString().contains(startTime))
+    {
+      return true;
+    }
+    if(!lesson.getEndTime().toString().contains(endTime))
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+
 }
