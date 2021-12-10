@@ -82,7 +82,7 @@ public class ControllerMain
 
   public void export()
   {
-    String xml = "<courses>";
+    String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?><courses>";
     ArrayList<Course> courses = Manager.getSchedule().getCourseList().getAllCourses();
     for (int i = 0; i < courses.size(); i++)
     {
@@ -102,27 +102,22 @@ public class ControllerMain
 
   public String studentToXML(Student student)
   {
-    String xml = "<student><id>" + student.getId() + "</id>";
-    xml += "<name>" + student.getName() + "</name></student>";
-
-    return xml;
+    return "<student id=\"" + student.getId() + "\" name=\"" + student.getName() + "\"/>";
   }
 
   public String teacherToXML(Teacher teacher)
   {
-    return "<teacher>" +teacher.getName() + "</teacher>";
+    return "<teacher name=\"" + teacher.getName() + "\"/>";
   }
   public String lessonToXML(Lesson lesson)
   {
-    String xml = "<lesson><startTime>" + lesson.getStartTime() + "</startTime>";
-    xml += "<endTime>" + lesson.getEndTime() + "</endTime>";
-    xml += "<room1>" + lesson.getFirstRoom() + "</room1>";
-    xml += "<room2>" + lesson.getSecondRoom() + "</room2></lesson>";
-    return xml;
+    return "<lesson startTime=\"" + lesson.getStartTime() + "\" endTime=\"" + lesson.getEndTime() + "\""
+        + " primaryRoom=\"" + lesson.getFirstRoom().getRoomName() + "\""
+        + " secondaryRoom=\"" + (lesson.getSecondRoom() == null ? null : lesson.getSecondRoom().getRoomName()) + "\"/>";
   }
   public String courseToXML(Course course)
   {
-    String xml = "<course><name>" + course.getCourseName() + "</name>";
+    String xml = "<course name=\"" + course.getCourseName() + "\">";
     xml += "<teachers>";
     for (int i = 0; i < course.getAllTeachers().size(); i++)
     {

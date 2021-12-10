@@ -29,6 +29,10 @@ public class MainGUI
     Lesson lesson2 = new Lesson(course1 , room, start2, end2 );
     Lesson lesson3 = new Lesson(course , room1, start, end3 );
 
+    course.getAllLessons().add(lesson);
+    course.getAllLessons().add(lesson2);
+    course.getAllLessons().add(lesson3);
+
     Manager.getSchedule().getLessonList().addLesson(lesson);
     Manager.getSchedule().getLessonList().addLesson(lesson2);
     Manager.getSchedule().getLessonList().addLesson(lesson3);

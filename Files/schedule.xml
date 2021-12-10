@@ -1,1 +1,303 @@
-<courses><course><name>SDJ1X</name><teachers><teacher>ALHE</teacher></teachers><students><student><id>315233</id><name>Agata Rudol</name></student><student><id>239096</id><name>Aiga Kalneja</name></student><student><id>315213</id><name>Alexandru Vasile Cimpan</name></student><student><id>315240</id><name>Alex-Septimius Iortoman</name></student><student><id>315241</id><name>András Kovács</name></student><student><id>315217</id><name>Andrei Ghiriti</name></student><student><id>315210</id><name>Andrejs Davis Umbrovskis</name></student><student><id>315184</id><name>Anton Durcak</name></student><student><id>315226</id><name>Arturs Silins</name></student><student><id>315186</id><name>Beatricia Nagit</name></student><student><id>306411</id><name>Bhupas Gautam</name></student><student><id>315170</id><name>Catalin Filip</name></student><student><id>315166</id><name>Darius-Stefan Piros</name></student><student><id>315227</id><name>Darko Goluza</name></student><student><id>315251</id><name>David Kocur</name></student><student><id>315163</id><name>Diana Antoniuc</name></student><student><id>315280</id><name>Filip Bartoszewski</name></student><student><id>315204</id><name>Gabriel Horzic</name></student><student><id>315279</id><name>Gergo Nador</name></student><student><id>315252</id><name>Jakub Nowak</name></student><student><id>315203</id><name>James Robert Cullen</name></student><student><id>315232</id><name>Jan Rohweder</name></student><student><id>315218</id><name>Julia Papiernik</name></student><student><id>315214</id><name>Klaudia Fanni Balog</name></student><student><id>315245</id><name>Kristians Eglitis</name></student><student><id>315198</id><name>Marius Babin</name></student><student><id>315192</id><name>Mateusz Damian Zbyslaw</name></student><student><id>315268</id><name>Maximillian Marius Wallin</name></student><student><id>315167</id><name>Mikkel Bjørn Hansen</name></student><student><id>315275</id><name>Natalia Koziara</name></student><student><id>315255</id><name>Ondrej Klimek</name></student><student><id>315211</id><name>Ouafa Djamal Hammoun</name></student><student><id>315230</id><name>Roberts Zustars</name></student><student><id>315278</id><name>Siddhartha Jonathan Grasse</name></student><student><id>315183</id><name>Simon Mayer</name></student><student><id>315209</id><name>Sofia Augustínová</name></student><student><id>315165</id><name>Tamás Hegedus</name></student><student><id>315271</id><name>Viktor Vegh</name></student><student><id>315195</id><name>Vladimir Prodan</name></student></students><lessons></lessons></course><course><name>SDJ1Y</name><teachers><teacher>SVA</teacher></teachers><students><student><id>123456</id><name>Bob Bobson</name></student></students><lessons></lessons></course><course><name>SDJ1Z</name><teachers><teacher>SVA</teacher><teacher>KLAB</teacher></teachers><students><student><id>123457</id><name>Carl Carlson</name></student></students><lessons></lessons></course><course><name>SDJ1DK</name><teachers><teacher>MIVI</teacher></teachers><students></students><lessons></lessons></course><course><name>RWD1X</name><teachers><teacher>KASR</teacher></teachers><students><student><id>315233</id><name>Agata Rudol</name></student><student><id>239096</id><name>Aiga Kalneja</name></student><student><id>315213</id><name>Alexandru Vasile Cimpan</name></student><student><id>315240</id><name>Alex-Septimius Iortoman</name></student><student><id>315241</id><name>András Kovács</name></student><student><id>315217</id><name>Andrei Ghiriti</name></student><student><id>315210</id><name>Andrejs Davis Umbrovskis</name></student><student><id>315184</id><name>Anton Durcak</name></student><student><id>315226</id><name>Arturs Silins</name></student><student><id>315186</id><name>Beatricia Nagit</name></student><student><id>306411</id><name>Bhupas Gautam</name></student><student><id>315170</id><name>Catalin Filip</name></student><student><id>315166</id><name>Darius-Stefan Piros</name></student><student><id>315227</id><name>Darko Goluza</name></student><student><id>315251</id><name>David Kocur</name></student><student><id>315163</id><name>Diana Antoniuc</name></student><student><id>315280</id><name>Filip Bartoszewski</name></student><student><id>315204</id><name>Gabriel Horzic</name></student><student><id>315279</id><name>Gergo Nador</name></student><student><id>315252</id><name>Jakub Nowak</name></student><student><id>315203</id><name>James Robert Cullen</name></student><student><id>315232</id><name>Jan Rohweder</name></student><student><id>315218</id><name>Julia Papiernik</name></student><student><id>315214</id><name>Klaudia Fanni Balog</name></student><student><id>315245</id><name>Kristians Eglitis</name></student><student><id>315198</id><name>Marius Babin</name></student><student><id>315192</id><name>Mateusz Damian Zbyslaw</name></student><student><id>315268</id><name>Maximillian Marius Wallin</name></student><student><id>315167</id><name>Mikkel Bjørn Hansen</name></student><student><id>315275</id><name>Natalia Koziara</name></student><student><id>315255</id><name>Ondrej Klimek</name></student><student><id>315211</id><name>Ouafa Djamal Hammoun</name></student><student><id>315230</id><name>Roberts Zustars</name></student><student><id>315278</id><name>Siddhartha Jonathan Grasse</name></student><student><id>315183</id><name>Simon Mayer</name></student><student><id>315209</id><name>Sofia Augustínová</name></student><student><id>315165</id><name>Tamás Hegedus</name></student><student><id>315271</id><name>Viktor Vegh</name></student><student><id>315195</id><name>Vladimir Prodan</name></student></students><lessons></lessons></course><course><name>RWD1Y</name><teachers><teacher>LILE</teacher></teachers><students><student><id>123456</id><name>Bob Bobson</name></student></students><lessons></lessons></course><course><name>RWD1Z</name><teachers><teacher>LILE</teacher></teachers><students><student><id>123457</id><name>Carl Carlson</name></student></students><lessons></lessons></course><course><name>RWD1DK</name><teachers><teacher>AHAN</teacher></teachers><students></students><lessons></lessons></course><course><name>DMA1X</name><teachers><teacher>RIB</teacher></teachers><students><student><id>315233</id><name>Agata Rudol</name></student><student><id>239096</id><name>Aiga Kalneja</name></student><student><id>315213</id><name>Alexandru Vasile Cimpan</name></student><student><id>315240</id><name>Alex-Septimius Iortoman</name></student><student><id>315241</id><name>András Kovács</name></student><student><id>315217</id><name>Andrei Ghiriti</name></student><student><id>315210</id><name>Andrejs Davis Umbrovskis</name></student><student><id>315184</id><name>Anton Durcak</name></student><student><id>315226</id><name>Arturs Silins</name></student><student><id>315186</id><name>Beatricia Nagit</name></student><student><id>306411</id><name>Bhupas Gautam</name></student><student><id>315170</id><name>Catalin Filip</name></student><student><id>315166</id><name>Darius-Stefan Piros</name></student><student><id>315227</id><name>Darko Goluza</name></student><student><id>315251</id><name>David Kocur</name></student><student><id>315163</id><name>Diana Antoniuc</name></student><student><id>315280</id><name>Filip Bartoszewski</name></student><student><id>315204</id><name>Gabriel Horzic</name></student><student><id>315279</id><name>Gergo Nador</name></student><student><id>315252</id><name>Jakub Nowak</name></student><student><id>315203</id><name>James Robert Cullen</name></student><student><id>315232</id><name>Jan Rohweder</name></student><student><id>315218</id><name>Julia Papiernik</name></student><student><id>315214</id><name>Klaudia Fanni Balog</name></student><student><id>315245</id><name>Kristians Eglitis</name></student><student><id>315198</id><name>Marius Babin</name></student><student><id>315192</id><name>Mateusz Damian Zbyslaw</name></student><student><id>315268</id><name>Maximillian Marius Wallin</name></student><student><id>315167</id><name>Mikkel Bjørn Hansen</name></student><student><id>315275</id><name>Natalia Koziara</name></student><student><id>315255</id><name>Ondrej Klimek</name></student><student><id>315211</id><name>Ouafa Djamal Hammoun</name></student><student><id>315230</id><name>Roberts Zustars</name></student><student><id>315278</id><name>Siddhartha Jonathan Grasse</name></student><student><id>315183</id><name>Simon Mayer</name></student><student><id>315209</id><name>Sofia Augustínová</name></student><student><id>315165</id><name>Tamás Hegedus</name></student><student><id>315271</id><name>Viktor Vegh</name></student><student><id>315195</id><name>Vladimir Prodan</name></student></students><lessons></lessons></course><course><name>DMA1Y</name><teachers><teacher>RIB</teacher></teachers><students><student><id>123456</id><name>Bob Bobson</name></student></students><lessons></lessons></course><course><name>DMA1Z</name><teachers><teacher>IOOD</teacher></teachers><students><student><id>123457</id><name>Carl Carlson</name></student></students><lessons></lessons></course><course><name>DMA1DK</name><teachers><teacher>IOOD</teacher></teachers><students></students><lessons></lessons></course><course><name>SEP1X</name><teachers><teacher>ALHE</teacher><teacher>MWA</teacher></teachers><students><student><id>315233</id><name>Agata Rudol</name></student><student><id>239096</id><name>Aiga Kalneja</name></student><student><id>315213</id><name>Alexandru Vasile Cimpan</name></student><student><id>315240</id><name>Alex-Septimius Iortoman</name></student><student><id>315241</id><name>András Kovács</name></student><student><id>315217</id><name>Andrei Ghiriti</name></student><student><id>315210</id><name>Andrejs Davis Umbrovskis</name></student><student><id>315184</id><name>Anton Durcak</name></student><student><id>315226</id><name>Arturs Silins</name></student><student><id>315186</id><name>Beatricia Nagit</name></student><student><id>306411</id><name>Bhupas Gautam</name></student><student><id>315170</id><name>Catalin Filip</name></student><student><id>315166</id><name>Darius-Stefan Piros</name></student><student><id>315227</id><name>Darko Goluza</name></student><student><id>315251</id><name>David Kocur</name></student><student><id>315163</id><name>Diana Antoniuc</name></student><student><id>315280</id><name>Filip Bartoszewski</name></student><student><id>315204</id><name>Gabriel Horzic</name></student><student><id>315279</id><name>Gergo Nador</name></student><student><id>315252</id><name>Jakub Nowak</name></student><student><id>315203</id><name>James Robert Cullen</name></student><student><id>315232</id><name>Jan Rohweder</name></student><student><id>315218</id><name>Julia Papiernik</name></student><student><id>315214</id><name>Klaudia Fanni Balog</name></student><student><id>315245</id><name>Kristians Eglitis</name></student><student><id>315198</id><name>Marius Babin</name></student><student><id>315192</id><name>Mateusz Damian Zbyslaw</name></student><student><id>315268</id><name>Maximillian Marius Wallin</name></student><student><id>315167</id><name>Mikkel Bjørn Hansen</name></student><student><id>315275</id><name>Natalia Koziara</name></student><student><id>315255</id><name>Ondrej Klimek</name></student><student><id>315211</id><name>Ouafa Djamal Hammoun</name></student><student><id>315230</id><name>Roberts Zustars</name></student><student><id>315278</id><name>Siddhartha Jonathan Grasse</name></student><student><id>315183</id><name>Simon Mayer</name></student><student><id>315209</id><name>Sofia Augustínová</name></student><student><id>315165</id><name>Tamás Hegedus</name></student><student><id>315271</id><name>Viktor Vegh</name></student><student><id>315195</id><name>Vladimir Prodan</name></student></students><lessons></lessons></course><course><name>SEP1Y</name><teachers><teacher>SVA</teacher><teacher>MWA</teacher></teachers><students><student><id>123456</id><name>Bob Bobson</name></student></students><lessons></lessons></course><course><name>SEP1Z</name><teachers><teacher>SVA</teacher><teacher>MWA</teacher></teachers><students><student><id>123457</id><name>Carl Carlson</name></student></students><lessons></lessons></course><course><name>SEP1DK</name><teachers><teacher>MIVI</teacher><teacher>AHAN</teacher></teachers><students></students><lessons></lessons></course></courses>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<courses>
+    <course name="SDJ1X">
+        <teachers>
+            <teacher name="ALHE"/>
+        </teachers>
+        <students>
+            <student id="315233" name="Agata Rudol"/>
+            <student id="239096" name="Aiga Kalneja"/>
+            <student id="315213" name="Alexandru Vasile Cimpan"/>
+            <student id="315240" name="Alex-Septimius Iortoman"/>
+            <student id="315241" name="András Kovács"/>
+            <student id="315217" name="Andrei Ghiriti"/>
+            <student id="315210" name="Andrejs Davis Umbrovskis"/>
+            <student id="315184" name="Anton Durcak"/>
+            <student id="315226" name="Arturs Silins"/>
+            <student id="315186" name="Beatricia Nagit"/>
+            <student id="306411" name="Bhupas Gautam"/>
+            <student id="315170" name="Catalin Filip"/>
+            <student id="315166" name="Darius-Stefan Piros"/>
+            <student id="315227" name="Darko Goluza"/>
+            <student id="315251" name="David Kocur"/>
+            <student id="315163" name="Diana Antoniuc"/>
+            <student id="315280" name="Filip Bartoszewski"/>
+            <student id="315204" name="Gabriel Horzic"/>
+            <student id="315279" name="Gergo Nador"/>
+            <student id="315252" name="Jakub Nowak"/>
+            <student id="315203" name="James Robert Cullen"/>
+            <student id="315232" name="Jan Rohweder"/>
+            <student id="315218" name="Julia Papiernik"/>
+            <student id="315214" name="Klaudia Fanni Balog"/>
+            <student id="315245" name="Kristians Eglitis"/>
+            <student id="315198" name="Marius Babin"/>
+            <student id="315192" name="Mateusz Damian Zbyslaw"/>
+            <student id="315268" name="Maximillian Marius Wallin"/>
+            <student id="315167" name="Mikkel Bjørn Hansen"/>
+            <student id="315275" name="Natalia Koziara"/>
+            <student id="315255" name="Ondrej Klimek"/>
+            <student id="315211" name="Ouafa Djamal Hammoun"/>
+            <student id="315230" name="Roberts Zustars"/>
+            <student id="315278" name="Siddhartha Jonathan Grasse"/>
+            <student id="315183" name="Simon Mayer"/>
+            <student id="315209" name="Sofia Augustínová"/>
+            <student id="315165" name="Tamás Hegedus"/>
+            <student id="315271" name="Viktor Vegh"/>
+            <student id="315195" name="Vladimir Prodan"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="SDJ1Y">
+        <teachers>
+            <teacher name="SVA"/>
+        </teachers>
+        <students>
+            <student id="123456" name="Bob Bobson"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="SDJ1Z">
+        <teachers>
+            <teacher name="SVA"/>
+            <teacher name="KLAB"/>
+        </teachers>
+        <students>
+            <student id="123457" name="Carl Carlson"/>
+        </students>
+        <lessons>
+            <lesson startTime="2000-12-11T23:12" endTime="2002-12-11T23:12"
+                    primaryRoom="C05.16a" secondaryRoom="null"/>
+            <lesson startTime="2003-12-11T23:12" endTime="2004-12-11T23:12"
+                    primaryRoom="C05.16a" secondaryRoom="null"/>
+            <lesson startTime="2000-12-11T23:12" endTime="2005-12-11T23:12"
+                    primaryRoom="C05.16b" secondaryRoom="null"/>
+        </lessons>
+    </course>
+    <course name="SDJ1DK">
+        <teachers>
+            <teacher name="MIVI"/>
+        </teachers>
+        <students></students>
+        <lessons></lessons>
+    </course>
+    <course name="RWD1X">
+        <teachers>
+            <teacher name="KASR"/>
+        </teachers>
+        <students>
+            <student id="315233" name="Agata Rudol"/>
+            <student id="239096" name="Aiga Kalneja"/>
+            <student id="315213" name="Alexandru Vasile Cimpan"/>
+            <student id="315240" name="Alex-Septimius Iortoman"/>
+            <student id="315241" name="András Kovács"/>
+            <student id="315217" name="Andrei Ghiriti"/>
+            <student id="315210" name="Andrejs Davis Umbrovskis"/>
+            <student id="315184" name="Anton Durcak"/>
+            <student id="315226" name="Arturs Silins"/>
+            <student id="315186" name="Beatricia Nagit"/>
+            <student id="306411" name="Bhupas Gautam"/>
+            <student id="315170" name="Catalin Filip"/>
+            <student id="315166" name="Darius-Stefan Piros"/>
+            <student id="315227" name="Darko Goluza"/>
+            <student id="315251" name="David Kocur"/>
+            <student id="315163" name="Diana Antoniuc"/>
+            <student id="315280" name="Filip Bartoszewski"/>
+            <student id="315204" name="Gabriel Horzic"/>
+            <student id="315279" name="Gergo Nador"/>
+            <student id="315252" name="Jakub Nowak"/>
+            <student id="315203" name="James Robert Cullen"/>
+            <student id="315232" name="Jan Rohweder"/>
+            <student id="315218" name="Julia Papiernik"/>
+            <student id="315214" name="Klaudia Fanni Balog"/>
+            <student id="315245" name="Kristians Eglitis"/>
+            <student id="315198" name="Marius Babin"/>
+            <student id="315192" name="Mateusz Damian Zbyslaw"/>
+            <student id="315268" name="Maximillian Marius Wallin"/>
+            <student id="315167" name="Mikkel Bjørn Hansen"/>
+            <student id="315275" name="Natalia Koziara"/>
+            <student id="315255" name="Ondrej Klimek"/>
+            <student id="315211" name="Ouafa Djamal Hammoun"/>
+            <student id="315230" name="Roberts Zustars"/>
+            <student id="315278" name="Siddhartha Jonathan Grasse"/>
+            <student id="315183" name="Simon Mayer"/>
+            <student id="315209" name="Sofia Augustínová"/>
+            <student id="315165" name="Tamás Hegedus"/>
+            <student id="315271" name="Viktor Vegh"/>
+            <student id="315195" name="Vladimir Prodan"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="RWD1Y">
+        <teachers>
+            <teacher name="LILE"/>
+        </teachers>
+        <students>
+            <student id="123456" name="Bob Bobson"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="RWD1Z">
+        <teachers>
+            <teacher name="LILE"/>
+        </teachers>
+        <students>
+            <student id="123457" name="Carl Carlson"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="RWD1DK">
+        <teachers>
+            <teacher name="AHAN"/>
+        </teachers>
+        <students></students>
+        <lessons></lessons>
+    </course>
+    <course name="DMA1X">
+        <teachers>
+            <teacher name="RIB"/>
+        </teachers>
+        <students>
+            <student id="315233" name="Agata Rudol"/>
+            <student id="239096" name="Aiga Kalneja"/>
+            <student id="315213" name="Alexandru Vasile Cimpan"/>
+            <student id="315240" name="Alex-Septimius Iortoman"/>
+            <student id="315241" name="András Kovács"/>
+            <student id="315217" name="Andrei Ghiriti"/>
+            <student id="315210" name="Andrejs Davis Umbrovskis"/>
+            <student id="315184" name="Anton Durcak"/>
+            <student id="315226" name="Arturs Silins"/>
+            <student id="315186" name="Beatricia Nagit"/>
+            <student id="306411" name="Bhupas Gautam"/>
+            <student id="315170" name="Catalin Filip"/>
+            <student id="315166" name="Darius-Stefan Piros"/>
+            <student id="315227" name="Darko Goluza"/>
+            <student id="315251" name="David Kocur"/>
+            <student id="315163" name="Diana Antoniuc"/>
+            <student id="315280" name="Filip Bartoszewski"/>
+            <student id="315204" name="Gabriel Horzic"/>
+            <student id="315279" name="Gergo Nador"/>
+            <student id="315252" name="Jakub Nowak"/>
+            <student id="315203" name="James Robert Cullen"/>
+            <student id="315232" name="Jan Rohweder"/>
+            <student id="315218" name="Julia Papiernik"/>
+            <student id="315214" name="Klaudia Fanni Balog"/>
+            <student id="315245" name="Kristians Eglitis"/>
+            <student id="315198" name="Marius Babin"/>
+            <student id="315192" name="Mateusz Damian Zbyslaw"/>
+            <student id="315268" name="Maximillian Marius Wallin"/>
+            <student id="315167" name="Mikkel Bjørn Hansen"/>
+            <student id="315275" name="Natalia Koziara"/>
+            <student id="315255" name="Ondrej Klimek"/>
+            <student id="315211" name="Ouafa Djamal Hammoun"/>
+            <student id="315230" name="Roberts Zustars"/>
+            <student id="315278" name="Siddhartha Jonathan Grasse"/>
+            <student id="315183" name="Simon Mayer"/>
+            <student id="315209" name="Sofia Augustínová"/>
+            <student id="315165" name="Tamás Hegedus"/>
+            <student id="315271" name="Viktor Vegh"/>
+            <student id="315195" name="Vladimir Prodan"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="DMA1Y">
+        <teachers>
+            <teacher name="RIB"/>
+        </teachers>
+        <students>
+            <student id="123456" name="Bob Bobson"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="DMA1Z">
+        <teachers>
+            <teacher name="IOOD"/>
+        </teachers>
+        <students>
+            <student id="123457" name="Carl Carlson"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="DMA1DK">
+        <teachers>
+            <teacher name="IOOD"/>
+        </teachers>
+        <students></students>
+        <lessons></lessons>
+    </course>
+    <course name="SEP1X">
+        <teachers>
+            <teacher name="ALHE"/>
+            <teacher name="MWA"/>
+        </teachers>
+        <students>
+            <student id="315233" name="Agata Rudol"/>
+            <student id="239096" name="Aiga Kalneja"/>
+            <student id="315213" name="Alexandru Vasile Cimpan"/>
+            <student id="315240" name="Alex-Septimius Iortoman"/>
+            <student id="315241" name="András Kovács"/>
+            <student id="315217" name="Andrei Ghiriti"/>
+            <student id="315210" name="Andrejs Davis Umbrovskis"/>
+            <student id="315184" name="Anton Durcak"/>
+            <student id="315226" name="Arturs Silins"/>
+            <student id="315186" name="Beatricia Nagit"/>
+            <student id="306411" name="Bhupas Gautam"/>
+            <student id="315170" name="Catalin Filip"/>
+            <student id="315166" name="Darius-Stefan Piros"/>
+            <student id="315227" name="Darko Goluza"/>
+            <student id="315251" name="David Kocur"/>
+            <student id="315163" name="Diana Antoniuc"/>
+            <student id="315280" name="Filip Bartoszewski"/>
+            <student id="315204" name="Gabriel Horzic"/>
+            <student id="315279" name="Gergo Nador"/>
+            <student id="315252" name="Jakub Nowak"/>
+            <student id="315203" name="James Robert Cullen"/>
+            <student id="315232" name="Jan Rohweder"/>
+            <student id="315218" name="Julia Papiernik"/>
+            <student id="315214" name="Klaudia Fanni Balog"/>
+            <student id="315245" name="Kristians Eglitis"/>
+            <student id="315198" name="Marius Babin"/>
+            <student id="315192" name="Mateusz Damian Zbyslaw"/>
+            <student id="315268" name="Maximillian Marius Wallin"/>
+            <student id="315167" name="Mikkel Bjørn Hansen"/>
+            <student id="315275" name="Natalia Koziara"/>
+            <student id="315255" name="Ondrej Klimek"/>
+            <student id="315211" name="Ouafa Djamal Hammoun"/>
+            <student id="315230" name="Roberts Zustars"/>
+            <student id="315278" name="Siddhartha Jonathan Grasse"/>
+            <student id="315183" name="Simon Mayer"/>
+            <student id="315209" name="Sofia Augustínová"/>
+            <student id="315165" name="Tamás Hegedus"/>
+            <student id="315271" name="Viktor Vegh"/>
+            <student id="315195" name="Vladimir Prodan"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="SEP1Y">
+        <teachers>
+            <teacher name="SVA"/>
+            <teacher name="MWA"/>
+        </teachers>
+        <students>
+            <student id="123456" name="Bob Bobson"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="SEP1Z">
+        <teachers>
+            <teacher name="SVA"/>
+            <teacher name="MWA"/>
+        </teachers>
+        <students>
+            <student id="123457" name="Carl Carlson"/>
+        </students>
+        <lessons></lessons>
+    </course>
+    <course name="SEP1DK">
+        <teachers>
+            <teacher name="MIVI"/>
+            <teacher name="AHAN"/>
+        </teachers>
+        <students></students>
+        <lessons></lessons>
+    </course>
+</courses>
