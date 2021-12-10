@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class courseController
+public class ControllerCourse extends AbstractController
 {
   @FXML private ComboBox<Course> selectCourseCourse;
   @FXML private ComboBox<Teacher> selectTeacherCourse;
@@ -181,6 +181,11 @@ public class courseController
       refreshStudentList();
     }
 
+    refreshTableData();
+  }
+
+  public void refresh(){
+    refreshStudentList();
     refreshTableData();
   }
 
