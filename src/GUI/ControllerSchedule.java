@@ -19,7 +19,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ControllerSchedule
+public class ControllerSchedule extends AbstractController
 {
   //Filter Lesson
   @FXML private HBox hBoxFilterLessonSchedule;
@@ -136,7 +136,7 @@ public class ControllerSchedule
     String startTime = startTimeToAddLessonSchedule.getText();
 
     startTime = startTime.replace(" ", "T");
-    //Todo check if it works
+
     //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
     LocalDateTime start = LocalDateTime.parse(startTime);
 
@@ -227,10 +227,14 @@ public class ControllerSchedule
     schedule.getLessonList().removeLesson(lessonToBeRemoved);
     refreshTable();
 
-    //todo : remove from LessonList!!!
+
     startTimeFilterLessonSchedule.setText(
         schedule.getLessonList().getAllLessons().size() + "");
 
+  }
+  public void refresh()
+  {
+    refreshTable();
   }
 
   public void refreshTable()
