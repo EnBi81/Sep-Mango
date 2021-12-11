@@ -14,6 +14,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * A class controlling StudentTab
+ * @author Agata
+ * @version 1.0
+ */
+
 public class ControllerStudents extends AbstractController
 {
 
@@ -42,6 +48,9 @@ public class ControllerStudents extends AbstractController
   VIAClass selectedClass;
   String selectedSemester;
 
+  /**
+   *Initializing ComboBoxes and textFields
+   */
   public void initialize()
   {
     ArrayList<VIAClass> classes = schedule.getVIAClassList().getAllClasses();
@@ -70,6 +79,10 @@ public class ControllerStudents extends AbstractController
     semesterToFindStudent.valueProperty().addListener(obj -> refreshTable());
   }
 
+  /**
+   * Creating a new Student object with the button
+   * @param e event which creating a student
+   */
   public void creatingStudent(ActionEvent e)
   {
     if (e.getSource() == buttonToAddStudent)
@@ -113,6 +126,9 @@ public class ControllerStudents extends AbstractController
     }
   }
 
+  /**
+   * Implementing a table view
+   */
   public void tableView()
   {
     nameStudent.setCellValueFactory(
@@ -137,6 +153,9 @@ public class ControllerStudents extends AbstractController
     refresh();
   }
 
+  /**
+   * Loading and refreshing a table view
+   */
   public void refresh()
   {
     ArrayList<Student> students = new ArrayList<>(
@@ -146,6 +165,10 @@ public class ControllerStudents extends AbstractController
     tableStudent.getItems().addAll(students);
   }
 
+  /**
+   * Reamoving a Student object from the list of students
+   * @param e event which removing a student
+   */
   public void removingStudent(ActionEvent e)
   {
     if (e.getSource().equals(removeStudent))
@@ -165,6 +188,9 @@ public class ControllerStudents extends AbstractController
     }
   }
 
+  /**
+   * Updating table view due to filters
+   */
   public void refreshTable()
   {
     ArrayList<Student> students = new ArrayList<>(schedule.getStudentList().getAllStudents());
@@ -180,6 +206,11 @@ public class ControllerStudents extends AbstractController
     tableStudent.getItems().addAll(students);
   }
 
+  /**
+   * Checking a filters' condition
+   * @param student student object which is checked
+   * @return
+   */
   public boolean filterStudent(Student student)
   {
     String inputName = nameToFindStudent.getText().toLowerCase(Locale.ROOT);
