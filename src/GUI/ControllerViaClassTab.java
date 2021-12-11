@@ -100,6 +100,7 @@ public class ControllerViaClassTab extends AbstractController
       if (selectedClass != null)
       {
         selectedClass.setPreferredRoom(preferredRoomCombo.getValue());
+        Manager.saveSchedule();
         refreshTableData();
       }
     });

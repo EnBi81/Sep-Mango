@@ -72,11 +72,6 @@ public class Course implements Serializable
     return null;
   }
 
-  //delete this when it works
-  public String getVIACLassName(){
-    return getCourseName().charAt(getCourseName().length()-2) + "" + getCourseName().charAt(getCourseName().length()-1);
-  }
-
   /**
    * adds a student to the ArrayList of students, if the list already contains the student, does nothing
    * @param student student to be added
@@ -134,7 +129,13 @@ public class Course implements Serializable
     teachers.remove(teacher);
   }
 
-  //todo call Allan and ask about Sequence Diagram
+  /**
+   * creates a lesson, which is added to the lessonList and assigned to the course
+   * @param course course in which the lesson is created and to which the lesson is assigned
+   * @param room a room in which the lesson will take place
+   * @param startTime a time the lesson starts
+   * @param endTime a time the lesson ends
+   */
   public void createLesson(Course course, Room room, LocalDateTime startTime, LocalDateTime endTime){
     Lesson lesson = new Lesson(course, room, startTime, endTime);
 
