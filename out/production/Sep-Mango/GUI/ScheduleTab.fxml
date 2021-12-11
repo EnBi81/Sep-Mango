@@ -56,11 +56,11 @@
     </HBox>
     <TableView fx:id="tableViewSchedule" onMouseClicked="#selectLesson" prefHeight="242.0" prefWidth="381.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columns>
-            <TableColumn fx:id="tableCourseSchedule" prefWidth="90.39996641874313" text="Course" />
-            <TableColumn fx:id="tableStartTimeSchedule" prefWidth="83.20001220703125" text="Start " />
-            <TableColumn fx:id="tableEndTimeSchedule" prefWidth="81.5999755859375" text="End" />
-            <TableColumn fx:id="tableRoomSchedule" prefWidth="83.19992065429688" text="Room" />
-            <TableColumn fx:id="tableClassSchedule" prefWidth="96.79998779296875" text="Class" />
+            <TableColumn fx:id="tableCourseSchedule" prefWidth="62.39996260404587" text="Course" />
+            <TableColumn fx:id="tableStartTimeSchedule" prefWidth="119.19995498657227" text="Start " />
+            <TableColumn fx:id="tableEndTimeSchedule" prefWidth="120.80003356933594" text="End" />
+            <TableColumn fx:id="tableRoomSchedule" prefWidth="80.80003356933594" text="Room" />
+            <TableColumn fx:id="tableClassSchedule" prefWidth="54.4000244140625" text="Class" />
         </columns>
     </TableView>
     <VBox fx:id="vBoxAddLessonSchedule" prefHeight="182.0" prefWidth="220.0" GridPane.rowIndex="1">
@@ -109,7 +109,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="buttonToAddLessonSchedule" mnemonicParsing="false" onAction="#addALesson" prefHeight="26.0" prefWidth="83.0" text="Add Lesson">
+            <Button fx:id="buttonToAddLessonSchedule" mnemonicParsing="false" onAction="#createLessonButton" prefHeight="26.0" prefWidth="83.0" text="Add Lesson">
                 <VBox.margin>
                     <Insets left="100.0" top="7.0" />
                 </VBox.margin>
