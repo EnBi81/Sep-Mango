@@ -154,6 +154,7 @@ public class ControllerRoom extends AbstractController{
                    }
                }
            }
+           Manager.saveSchedule();
            refresh();
        }
 

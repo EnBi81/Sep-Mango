@@ -45,8 +45,7 @@ public class ControllerCourse extends AbstractController
     tableColumnECTSCourse.setCellValueFactory(
         obj -> new SimpleStringProperty(obj.getValue().getEcts() + ""));
     //VIAClass produces nullPointer bad method in Course;
-    tableColumnClassCourse.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getVIAClass().getName()));
+    tableColumnClassCourse.setCellValueFactory(obj -> new SimpleStringProperty(obj.getValue().getVIAClass().getName()));
     // get teachers from ArrayList to String
 
     tableColumnTeachersCourse.setCellValueFactory(
@@ -84,29 +83,29 @@ public class ControllerCourse extends AbstractController
   private void initializeFilterSide()
   {
     chooseECTSCourse.getItems().add(null);
-    for (Course course : Manager.getSchedule().getCourseList().getAllCourses())
+    for (Course course : Manager.getSchedule().getCourseList()
+        .getAllCourses())
     {
       if (!chooseECTSCourse.getItems().contains(course.getEcts() + ""))
         chooseECTSCourse.getItems().add(course.getEcts() + "");
     }
     chooseClassCourse.getItems().add(null);
-    for (Course course : Manager.getSchedule().getCourseList().getAllCourses())
+    for (Course course : Manager.getSchedule().getCourseList()
+        .getAllCourses())
     {
       if (!chooseClassCourse.getItems().contains(course.getVIAClass()))
         chooseClassCourse.getItems().add(course.getVIAClass());
     }
     chooseClassCourse.valueProperty().addListener(obj -> refreshTableData());
     chooseECTSCourse.valueProperty().addListener(obj -> refreshTableData());
-    textFieldFilterByNameCourse.textProperty()
-        .addListener(obj -> refreshTableData());
-    textFieldFilterByTeacherCourse.textProperty()
-        .addListener(obj -> refreshTableData());
+    textFieldFilterByNameCourse.textProperty().addListener(obj -> refreshTableData());
+    textFieldFilterByTeacherCourse.textProperty().addListener(obj -> refreshTableData());
   }
 
   //pane initialization
-  private void initializeTeacherPane()
-  {
-    for (Course course : Manager.getSchedule().getCourseList().getAllCourses())
+  private void initializeTeacherPane(){
+    for (Course course : Manager.getSchedule().getCourseList()
+        .getAllCourses())
     {
       if (!selectCourseCourse.getItems().contains(course))
         selectCourseCourse.getItems().add(course);
@@ -124,8 +123,7 @@ public class ControllerCourse extends AbstractController
     //refresh missing
   }
 
-  public void initializeStudentPane()
-  {
+  public void initializeStudentPane(){
     for (Student student : Manager.getSchedule().getStudentList()
         .getAllStudents())
     {
@@ -139,8 +137,7 @@ public class ControllerCourse extends AbstractController
     //refresh missing
   }
 
-  public void comboBoxSelectInitialization()
-  {
+  public void comboBoxSelectInitialization(){
     selectCourseCourse.valueProperty().addListener(obj -> {
       selectStudentCourse.setDisable(false);
       selectTeacherCourse.setDisable(false);
@@ -162,27 +159,23 @@ public class ControllerCourse extends AbstractController
   public void handleClickMe(ActionEvent e)
   {
     Course course = selectCourseCourse.getValue();
-    if (e.getSource() == addTeacherCourse)
-    {
+    if (e.getSource() == addTeacherCourse){
       Teacher teacher = selectTeacherCourse.getValue();
       course.addTeacher(teacher);
     }
 
-    else if (e.getSource() == removeTeacherCourse)
-    {
+    else if (e.getSource() == removeTeacherCourse){
       Teacher teacher = selectTeacherCourse.getValue();
       course.removeTeacher(teacher);
     }
 
-    else if (e.getSource() == addStudentCourse)
-    {
+    else if (e.getSource() == addStudentCourse){
       Student student = selectStudentCourse.getValue();
       course.addStudent(student);
       refreshStudentList();
     }
 
-    else if (e.getSource() == removeStudentCourse)
-    {
+    else if (e.getSource() == removeStudentCourse){
       Student student = selectStudentCourse.getValue();
       course.removeStudent(student);
       refreshStudentList();
@@ -191,11 +184,9 @@ public class ControllerCourse extends AbstractController
     refreshTableData();
   }
 
-  public void refresh()
-  {
+  public void refresh(){
 
-    if (selectCourseCourse.getValue() == null)
-    {
+    if (selectCourseCourse == null){
       return;
     }
     refreshStudentList();
@@ -203,8 +194,7 @@ public class ControllerCourse extends AbstractController
     refreshStudentsComboBox();
   }
 
-  public void refreshStudentsComboBox()
-  {
+  public void refreshStudentsComboBox(){
     selectStudentCourse.getItems().clear();
 
     for (Student student : Manager.getSchedule().getStudentList()
@@ -216,25 +206,26 @@ public class ControllerCourse extends AbstractController
 
   }
 
-  public void refreshStudentList()
-  {
+  public void refreshStudentList(){
     listOfStudents.getItems().clear();
 
-    ArrayList<Student> students = selectCourseCourse.getValue()
-        .getAllStudents();
+    if (selectCourseCourse.getValue() == null)
+    {
+      return;
+    }
+    ArrayList<Student> students = selectCourseCourse.getValue().getAllStudents();
+    for (var s : students)
+      System.out.println(s.getName());
 
     listOfStudents.getItems().addAll(students);
   }
 
-  private void refreshTableData()
-  {
-    ArrayList<Course> courses = new ArrayList<>(
-        Manager.getSchedule().getCourseList().getAllCourses());
+  private void refreshTableData(){
+    ArrayList<Course> courses = new ArrayList<>(Manager.getSchedule().getCourseList().getAllCourses());
 
     for (int i = 0; i < courses.size(); i++)
     {
-      if (checkRemoveData(courses.get(i)))
-      {
+      if (checkRemoveData(courses.get(i))){
         courses.remove(i--);
       }
     }
@@ -243,60 +234,52 @@ public class ControllerCourse extends AbstractController
     tableViewCourse.getItems().addAll(courses);
   }
 
-  private boolean checkRemoveData(Course course)
-  {
-    String valueFilterName = textFieldFilterByNameCourse.getText()
-        .toLowerCase(Locale.ROOT);
+  private boolean checkRemoveData(Course course){
+    String valueFilterName = textFieldFilterByNameCourse.getText().toLowerCase(
+        Locale.ROOT);
     String valueFilterECTS = chooseECTSCourse.getValue();
     VIAClass valueFilterClass = chooseClassCourse.getValue();
-    String valueFilterTeacher = textFieldFilterByTeacherCourse.getText()
-        .toLowerCase(Locale.ROOT);
+    String valueFilterTeacher = textFieldFilterByTeacherCourse.getText().toLowerCase(
+        Locale.ROOT);
 
-    if (course == null)
-    {
+    if (course == null){
       return false;
     }
 
-    if (!course.getCourseName().toLowerCase(Locale.ROOT)
-        .contains(valueFilterName))
-    {
+    if (!course.getCourseName().toLowerCase(Locale.ROOT).contains(valueFilterName)){
       return true;
     }
 
-    try
-    {
+    try{
       valueFilterECTS = valueFilterECTS.toLowerCase(Locale.ROOT);
-      if (!(Integer.parseInt(valueFilterECTS) == course.getEcts()))
-      {
+      if (!(Integer.parseInt(valueFilterECTS) == course.getEcts())){
         return true;
       }
     }
-    catch (NullPointerException e)
-    {
-    }
+    catch (NullPointerException e){}
 
-    if (valueFilterClass != null)
-    {
-      if (!(valueFilterClass.equals(course.getVIAClass())))
-      {
+
+
+    if (valueFilterClass != null){
+      if (!(valueFilterClass.equals(course.getVIAClass()))){
         return true;
       }
     }
 
-    if (valueFilterTeacher.isEmpty() && course.getAllTeachers().size() == 0)
-    {
+
+    if (valueFilterTeacher.isEmpty() && course.getAllTeachers().size() == 0){
       return false;
     }
 
-    for (Teacher teacher : course.getAllTeachers())
+    for (Teacher teacher: course.getAllTeachers()
+         )
     {
-      if (teacher.getName().toLowerCase(Locale.ROOT)
-          .contains(valueFilterTeacher))
-      {
+      if (teacher.getName().toLowerCase(Locale.ROOT).contains(valueFilterTeacher)){
         return false;
       }
     }
     return true;
   }
+
 
 }
