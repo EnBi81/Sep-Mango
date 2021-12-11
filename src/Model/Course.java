@@ -4,6 +4,7 @@ import ScheduleManager.Manager;
 import utils.CollisionException;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -131,6 +132,13 @@ public class Course implements Serializable
    */
   public void removeTeacher(Teacher teacher){
     teachers.remove(teacher);
+  }
+
+  public void createLesson(Course course, Room room, LocalDateTime startTime, LocalDateTime endTime){
+    Lesson lesson = new Lesson(course, room, startTime, endTime);
+
+    Manager.getSchedule().getLessonList().addLesson(lesson);
+    course.addLesson(lesson);
   }
 
   /**
