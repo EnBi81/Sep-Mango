@@ -134,6 +134,7 @@ public class Course implements Serializable
     teachers.remove(teacher);
   }
 
+  //todo call Allan and ask about Sequence Diagram
   public void createLesson(Course course, Room room, LocalDateTime startTime, LocalDateTime endTime){
     Lesson lesson = new Lesson(course, room, startTime, endTime);
 

@@ -62,6 +62,8 @@ public class ControllerSchedule extends AbstractController
   private Lesson lesson;
   private Room selectedRoom;
   private VIAClass selectedClass;
+  private String selectedStart;
+  private String selectedEnd;
 
   //todo JavaDocs
   //todo create lesson
@@ -107,6 +109,7 @@ public class ControllerSchedule extends AbstractController
     tableCourseSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
         obj.getValue().getCourse().getCourseName()));
 
+
     tableRoomSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
         obj.getValue().getFirstRoom().getRoomName()) ////come back here
     );
@@ -123,6 +126,7 @@ public class ControllerSchedule extends AbstractController
     tableViewSchedule.getItems().addAll(lessons);
 
   }
+  //todo display connected room, book connected room
 
   public void refresh()
   {
@@ -211,6 +215,20 @@ public class ControllerSchedule extends AbstractController
 
 }
 
+  public void createLessonButton()
+  {
+    selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel().getSelectedItem();
+    selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel().getSelectedItem();
+
+    selectedStart = startTimeToAddLessonSchedule.getText();
+    selectedEnd = endTimeToAddLessonSchedule.getText();
+
+
+    selectedCourse.createLesson(selectedCourse,selectedRoom,timeFilterStart(selectedStart),timeFilterEnd(selectedEnd));
+
+    refresh();
+  }
+
   public void selectLesson()
   {
     //On mouse click in SceneBuilder
@@ -229,6 +247,8 @@ public class ControllerSchedule extends AbstractController
         .getSelectedItem();
 
     schedule.getLessonList().removeLesson(lessonToBeRemoved);
+
+    lessonToBeRemoved.getCourse().removeLesson(lessonToBeRemoved);
     refreshTable();
 
     startTimeFilterLessonSchedule.setText(
@@ -297,11 +317,20 @@ public class ControllerSchedule extends AbstractController
     return false;
   }
 
-  public LocalDateTime timeFilter(String string)
+  public LocalDateTime timeFilterStart(String string)
   {
-    string = startTimeFilterLessonSchedule.getText();
+    string = startTimeToAddLessonSchedule.getText();
 
-    string = string.replace(" ", "T");
+    string = string.replace(" ", "T") + ":00";
+
+    return LocalDateTime.parse(string);
+  }
+
+  public LocalDateTime timeFilterEnd(String string)
+  {
+    string = endTimeToAddLessonSchedule.getText();
+
+    string = string.replace(" ", "T") + ":00";
 
     return LocalDateTime.parse(string);
   }
