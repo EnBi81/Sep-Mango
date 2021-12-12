@@ -136,11 +136,13 @@ public class Course implements Serializable
    * @param startTime a time the lesson starts
    * @param endTime a time the lesson ends
    */
-  public void createLesson(Course course, Room room, LocalDateTime startTime, LocalDateTime endTime){
+  public Lesson createLesson(Course course, Room room, LocalDateTime startTime, LocalDateTime endTime){
     Lesson lesson = new Lesson(course, room, startTime, endTime);
 
     Manager.getSchedule().getLessonList().addLesson(lesson);
     course.addLesson(lesson);
+
+    return lesson;
   }
 
   /**

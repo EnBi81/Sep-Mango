@@ -111,17 +111,23 @@ public class ControllerSchedule extends AbstractController
         obj.getValue().getCourse().getCourseName()));
 
 
-    tableRoomSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getFirstRoom().getRoomName()) ////come back here
-    );
+    tableRoomSchedule.setCellValueFactory(obj -> {
+      Lesson lesson = obj.getValue();
+      String columnText = lesson.getFirstRoom().getRoomName();
+      if(lesson.getSecondRoom() != null)
+      {
+        columnText += ", " + lesson.getSecondRoom().getRoomName();
+      }
+      return new SimpleStringProperty(columnText);
+    });
 
     tableClassSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
         obj.getValue().getCourse().getVIAClass().getName()));
 
     tableStartTimeSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getStartTime().toString()));
+        obj.getValue().getStartTime().toString().replace("T", " ")));
     tableEndTimeSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getEndTime().toString()));
+        obj.getValue().getEndTime().toString().replace("T", " ")));
     ArrayList<Lesson> lessons = Manager.getSchedule().getLessonList()
         .getAllLessons();
     tableViewSchedule.getItems().addAll(lessons);
@@ -225,7 +231,13 @@ public class ControllerSchedule extends AbstractController
     selectedEnd = endTimeToAddLessonSchedule.getText();
 
 
-    selectedCourse.createLesson(selectedCourse,selectedRoom,timeFilterStart(selectedStart),timeFilterEnd(selectedEnd));
+    Lesson lesson = selectedCourse.createLesson(selectedCourse,selectedRoom,timeFilterStart(selectedStart),timeFilterEnd(selectedEnd));
+
+    if(checkBoxToAddLessonSchedule.isSelected())
+    {
+      Room secondRoom = selectedRoom.getConnectedRoom();
+      lesson.setSecondRoom(secondRoom);
+    }
 
     refresh();
   }
