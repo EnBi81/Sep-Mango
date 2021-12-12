@@ -6,12 +6,15 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * a class enabling the functionality of GUI, that means the table, all the combo boxes, buttons, and text fields
+ * @author Simon Mayer
+ * @version 1.0
+ */
 public class ControllerCourse extends AbstractController
 {
   @FXML private ComboBox<Course> selectCourseCourse;
@@ -35,19 +38,19 @@ public class ControllerCourse extends AbstractController
   // methods
 
   // main initialization
+  /**
+   * sets up the table and loads all the course's data to the table, and combo boxes
+   */
   public void initialize()
   {
     tableViewCourse.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-    //set up the columns
+    //set up the table columns
     tableColumnNameCourse.setCellValueFactory(
         obj -> new SimpleStringProperty(obj.getValue().getCourseName()));
     tableColumnECTSCourse.setCellValueFactory(
         obj -> new SimpleStringProperty(obj.getValue().getEcts() + ""));
-    //VIAClass produces nullPointer bad method in Course;
     tableColumnClassCourse.setCellValueFactory(obj -> new SimpleStringProperty(obj.getValue().getVIAClass().getName()));
-    // get teachers from ArrayList to String
-
     tableColumnTeachersCourse.setCellValueFactory(
         obj -> new SimpleStringProperty(
             teachersToString(obj.getValue().getAllTeachers())));
@@ -58,13 +61,17 @@ public class ControllerCourse extends AbstractController
     tableViewCourse.getItems().addAll(courses);
 
     initializeFilterSide();
-    initializeTeacherPane();
-    initializeStudentPane();
+    initializeActionPane();
     comboBoxSelectInitialization();
   }
 
-  //dont judge me this is the easiest way I was able to come with lol
-  public String teachersToString(ArrayList<Model.Teacher> teachers)
+  // get teachers from ArrayList to String
+  /**
+   * converts an array list of teachers into a String, so that it can be displayed in the table
+   * @param teachers list containing all the teachers teaching the course
+   * @return a String of teachers, which is displayed in the table view in GUI
+   */
+  public String teachersToString(ArrayList<Teacher> teachers)
   {
     String str = "";
 
@@ -80,6 +87,9 @@ public class ControllerCourse extends AbstractController
   }
 
   // filter initialization
+  /**
+   * loads all the data to the filter combo boxes and calls the refreshTableData() every time value changes in any filter
+   */
   private void initializeFilterSide()
   {
     chooseECTSCourse.getItems().add(null);
@@ -102,8 +112,10 @@ public class ControllerCourse extends AbstractController
     textFieldFilterByTeacherCourse.textProperty().addListener(obj -> refreshTableData());
   }
 
-  //pane initialization
-  private void initializeTeacherPane(){
+  /**
+   * loads teachers and students to combo boxes for adding and removing teacher and students. Also sets combo boxes with teachers and students disabled as well as the add and remove buttons for both options.
+   */
+  private void initializeActionPane(){
     for (Course course : Manager.getSchedule().getCourseList()
         .getAllCourses())
     {
@@ -116,14 +128,6 @@ public class ControllerCourse extends AbstractController
       if (!selectTeacherCourse.getItems().contains(teacher))
         selectTeacherCourse.getItems().add(teacher);
     }
-
-    selectTeacherCourse.setDisable(true);
-    addTeacherCourse.setDisable(true);
-    removeTeacherCourse.setDisable(true);
-    //refresh missing
-  }
-
-  public void initializeStudentPane(){
     for (Student student : Manager.getSchedule().getStudentList()
         .getAllStudents())
     {
@@ -131,12 +135,17 @@ public class ControllerCourse extends AbstractController
         selectStudentCourse.getItems().add(student);
     }
 
+    selectTeacherCourse.setDisable(true);
+    addTeacherCourse.setDisable(true);
+    removeTeacherCourse.setDisable(true);
     selectStudentCourse.setDisable(true);
     addStudentCourse.setDisable(true);
     removeStudentCourse.setDisable(true);
-    //refresh missing
   }
 
+  /**
+   * if course selected in table, selects in combo box as well. Enables other options if some value in combo boxes selected.
+   */
   public void comboBoxSelectInitialization(){
     tableViewCourse.getSelectionModel().selectedItemProperty()
         .addListener((obs,oldCourse, newCourse) ->
@@ -161,9 +170,19 @@ public class ControllerCourse extends AbstractController
 
   }
 
+  /**
+   * checks which button was clicked.
+   * If Add Teacher, adds teacher to the course
+   * If Remove Teacher, removes teacher from the course
+   * If Add Student, adds student to the course
+   * If Remove Student, removes student from the course
+   * refreshes data in the table view after the changes
+   * @param e a button that has been clicked in the GUI
+   */
   public void handleClickMe(ActionEvent e)
   {
     Course course = selectCourseCourse.getValue();
+
     if (e.getSource() == addTeacherCourse){
       Teacher teacher = selectTeacherCourse.getValue();
       course.addTeacher(teacher);
@@ -189,6 +208,10 @@ public class ControllerCourse extends AbstractController
     refreshTableData();
   }
 
+  /**
+   * calls all the refresh methods, if null does nothing.
+   * is an abstract method in AbstractController and can be called in the ControllerMain, thanks to that all the tabs will be refreshed after every change.
+   */
   public void refresh(){
 
     if (selectCourseCourse == null){
@@ -199,6 +222,9 @@ public class ControllerCourse extends AbstractController
     refreshStudentsComboBox();
   }
 
+  /**
+   * refreshes combo box with students (needs to be applied because of the add student tab)
+   */
   public void refreshStudentsComboBox(){
     selectStudentCourse.getItems().clear();
 
@@ -211,6 +237,9 @@ public class ControllerCourse extends AbstractController
 
   }
 
+  /**
+   * loads all students from the course into the list
+   */
   public void refreshStudentList(){
     listOfStudents.getItems().clear();
 
@@ -223,6 +252,9 @@ public class ControllerCourse extends AbstractController
     listOfStudents.getItems().addAll(students);
   }
 
+  /**
+   * first clears the whole table, then gets all the courses and their data and loads them into the table
+   */
   private void refreshTableData(){
     ArrayList<Course> courses = new ArrayList<>(Manager.getSchedule().getCourseList().getAllCourses());
 
@@ -237,6 +269,9 @@ public class ControllerCourse extends AbstractController
     tableViewCourse.getItems().addAll(courses);
   }
 
+  /**
+   * checks all filters and removes all the courses, which have not been filtered, from the table
+   */
   private boolean checkRemoveData(Course course){
     String valueFilterName = textFieldFilterByNameCourse.getText().toLowerCase(
         Locale.ROOT);
