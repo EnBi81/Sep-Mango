@@ -14,6 +14,10 @@ import javafx.scene.control.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * Controller class for VIAClassTab.fxml
+ * @author Gerg Nador
+ */
 public class ControllerViaClassTab extends AbstractController
 {
   //region Fields
@@ -36,10 +40,13 @@ public class ControllerViaClassTab extends AbstractController
   private VIAClass selectedClass;
   //endregion
 
+  /**
+   * Base initialize method for the controller
+   */
   public void initialize()
   {
     //region tableInitialization
-    classTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    classTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
     nameColumn.setCellValueFactory(
         obj -> new SimpleStringProperty(obj.getValue().getName()));
@@ -60,6 +67,10 @@ public class ControllerViaClassTab extends AbstractController
   }
 
   //region Other Initialization
+
+  /**
+   * Initializes the filter textfield and the combobox
+   */
   public void initializeFilterSide() //Basic initialization for the filters
   {
     filterBySemester.getItems().add(null);
@@ -73,6 +84,9 @@ public class ControllerViaClassTab extends AbstractController
     filterByName.textProperty().addListener(obj -> refreshTableData());
   }
 
+  /**
+   * Initializes the preferred room pane objects
+   */
   private void initializePreferredRoomPane() //Basic initialization of the preferredRoom tab
   {
     ArrayList<VIAClass> classes = new ArrayList<>(
@@ -85,15 +99,19 @@ public class ControllerViaClassTab extends AbstractController
     preferredRoomCombo.setDisable(true);
   }
 
+  /**
+   * Initializes the events for the table, for the button to select th preferred room,
+   * and for the class selector combo box
+   */
   private void eventsInitialization() //Set the events for setPreferredRoom tab objects
   {
     classTableView.getSelectionModel().selectedItemProperty()
-        .addListener((obs, oldClass, newClass) -> setSelectedClass(newClass));
+        .addListener((obs, oldClass, newClass) -> selectDisplayClass(newClass));
 
     preferredClassCombo.valueProperty().addListener(obj -> {
       VIAClass selected = preferredClassCombo.getSelectionModel()
           .getSelectedItem();
-      setSelectedClass(selected);
+      selectDisplayClass(selected);
     });
 
     setPreferredRoomButton.setOnAction(obj -> {
@@ -109,6 +127,10 @@ public class ControllerViaClassTab extends AbstractController
   //endregion
 
   //region Update
+
+  /**
+   * Refresh the whole tab to which the controller class was assigned (VIAClassTab)
+   */
   public void refresh() //Refresh everything
   {
     if (selectedClass == null)
@@ -119,6 +141,12 @@ public class ControllerViaClassTab extends AbstractController
   }
 
   //region UpdateTable
+
+  /**
+   * Checks if the filter values apply for one VIAClass instance
+   * @param viaClass VIAClass instance to check against the filters
+   * @return True if the filter does not apply for the viaClass object (so it should be removed); Otherwise false.
+   */
   private boolean checkRemoveData(
       VIAClass viaClass) //check for a VIAClass if the filters apply for it
   {
@@ -137,6 +165,9 @@ public class ControllerViaClassTab extends AbstractController
     return !(viaClass.getSemester() + "").equals(semesterFilter);
   }
 
+  /**
+   * Refresh the table's items, and automatically selects the previously selected class by the user.
+   */
   private void refreshTableData() //refreshes the table data considering the filter values
   {
     ArrayList<VIAClass> classes = new ArrayList<>(
@@ -157,6 +188,10 @@ public class ControllerViaClassTab extends AbstractController
   //endregion
 
   //region Update Lists and Room Combobox
+
+  /**
+   * Updates both the list of students and the list of courses.
+   */
   private void updateList() //Updates both the student list and the course list in the gui
   {
     VIAClass viaClass = selectedClass;
@@ -176,6 +211,9 @@ public class ControllerViaClassTab extends AbstractController
     }
   }
 
+  /**
+   * Updates the room selector combobox considering the currently selected class' student count and all the other classes' preferred room
+   */
   private void updateRoomCombo() //Refreshes the room combobox items
   {
     ArrayList<Room> rooms = new ArrayList<>();
@@ -207,7 +245,11 @@ public class ControllerViaClassTab extends AbstractController
   //endregion
   //endregion
 
-  private void setSelectedClass(
+  /**
+   * Connect the selected Via class in the table with the combobox's selected Via class, and back.
+   * @param viaClass The via class object to be selected
+   */
+  private void selectDisplayClass(
       VIAClass viaClass) //This method runs everytime you select a class either in the
   {                                                //table or in the combobox
     if (viaClass == null || selectedClass == viaClass)

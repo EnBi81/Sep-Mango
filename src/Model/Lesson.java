@@ -115,11 +115,7 @@ public class Lesson implements Serializable
   public Room getSecondRoom()
   {
 
-    if(room1.hasConnectedRoom())
-    {
-       room1.getConnectedRoom();
-    }
-    return null;
+    return room2;
   }
 
   /**

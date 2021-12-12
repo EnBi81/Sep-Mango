@@ -66,7 +66,8 @@ public class ControllerSchedule extends AbstractController
   private String selectedEnd;
 
   //todo JavaDocs
-  //todo create lesson
+  //todo preferred room
+  //todo displays time with the T
   public void initialize()
   {
     //Add course names to the dropdown menus
@@ -94,7 +95,7 @@ public class ControllerSchedule extends AbstractController
     endTimeToAddLessonSchedule.setDisable(true);
     buttonToAddLessonSchedule.setDisable(true);
     buttonRemoveLessonSchedule.setDisable(true);
-    bookSecondAddLessonSchedule.setVisible(false);
+    bookSecondAddLessonSchedule.setDisable(true);
 
     refreshRoomComboBox();
     initializeTableData();
@@ -110,17 +111,23 @@ public class ControllerSchedule extends AbstractController
         obj.getValue().getCourse().getCourseName()));
 
 
-    tableRoomSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getFirstRoom().getRoomName()) ////come back here
-    );
+    tableRoomSchedule.setCellValueFactory(obj -> {
+      Lesson lesson = obj.getValue();
+      String columnText = lesson.getFirstRoom().getRoomName();
+      if(lesson.getSecondRoom() != null)
+      {
+        columnText += ", " + lesson.getSecondRoom().getRoomName();
+      }
+      return new SimpleStringProperty(columnText);
+    });
 
     tableClassSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
         obj.getValue().getCourse().getVIAClass().getName()));
 
     tableStartTimeSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getStartTime().toString()));
+        obj.getValue().getStartTime().toString().replace("T", " ")));
     tableEndTimeSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getEndTime().toString()));
+        obj.getValue().getEndTime().toString().replace("T", " ")));
     ArrayList<Lesson> lessons = Manager.getSchedule().getLessonList()
         .getAllLessons();
     tableViewSchedule.getItems().addAll(lessons);
@@ -168,11 +175,11 @@ public class ControllerSchedule extends AbstractController
       selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel().getSelectedItem();
       if(selectedRoom.hasConnectedRoom())
       {
-        bookSecondAddLessonSchedule.setVisible(true);
+        bookSecondAddLessonSchedule.setDisable(false);
       }
       else
       {
-        bookSecondAddLessonSchedule.setVisible(false);
+        bookSecondAddLessonSchedule.setDisable(true);
       }
 
         if (selectedRoom.getCapacity() < selectedCourse.getAllStudents().size())
@@ -224,7 +231,13 @@ public class ControllerSchedule extends AbstractController
     selectedEnd = endTimeToAddLessonSchedule.getText();
 
 
-    selectedCourse.createLesson(selectedCourse,selectedRoom,timeFilterStart(selectedStart),timeFilterEnd(selectedEnd));
+    Lesson lesson = selectedCourse.createLesson(selectedCourse,selectedRoom,timeFilterStart(selectedStart),timeFilterEnd(selectedEnd));
+
+    if(checkBoxToAddLessonSchedule.isSelected())
+    {
+      Room secondRoom = selectedRoom.getConnectedRoom();
+      lesson.setSecondRoom(secondRoom);
+    }
 
     refresh();
   }

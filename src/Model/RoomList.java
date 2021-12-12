@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /***
- * A class containint a list of Room objects.
+ * A class containing a list of Room objects.
  * @author Beatricia
  * @version 1.0;
  */
@@ -43,9 +43,9 @@ public class RoomList implements Serializable {
      */
     public Room getByRoomName(String name) {
 
-        for (int i = 0; i < rooms.size(); i++) {
-            if (rooms.get(i).getRoomName().equals(name))
-                return rooms.get(i);
+        for (Room room : rooms) {
+            if (room.getRoomName().equals(name))
+                return room;
         }
         return null;
     }
