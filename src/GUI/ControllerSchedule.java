@@ -65,8 +65,19 @@ public class ControllerSchedule extends AbstractController
   private String selectedStart;
   private String selectedEnd;
 
-  //todo JavaDocs
-  //todo preferred room
+  Pattern pattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}");
+
+
+  /**
+   * @author Uafa
+   * @version 1.0
+   */
+
+  /**
+   *Puts the initial data about courses and classes in the Combo boxes used for
+   * adding a lesson and filtering trough lessons. Also calls the refreshComboBox
+   * and initializeTableData methods.
+   */
   public void initialize()
   {
     //Add course names to the dropdown menus
@@ -100,10 +111,16 @@ public class ControllerSchedule extends AbstractController
     initializeTableData();
   }
 
+  /**
+   * Using lambda expressions loads the lesson data into the table. Checks if a
+   * lesson has two booked rooms and displays the start and end time in a
+   * specified way.
+   */
   public void initializeTableData()
   {
     this.tableViewSchedule.getSelectionModel()
         .setSelectionMode(SelectionMode.SINGLE);
+
     this.tableCourseSchedule.setCellValueFactory((obj) -> {
       return new SimpleStringProperty(
           ((Lesson) obj.getValue()).getCourse().getCourseName());
@@ -136,6 +153,10 @@ public class ControllerSchedule extends AbstractController
     this.tableViewSchedule.getItems().addAll(lessons);
   }
 
+  /**
+   * Calls the refreshComboBox and refreshTable methods.
+   * (an abstract method from the AbstractController class)
+   */
   public void refresh()
   {
     refreshRoomComboBox();
@@ -143,6 +164,11 @@ public class ControllerSchedule extends AbstractController
 
   }
 
+  /**
+   * Adds rooms data to combo boxes for adding a lesson and filtering through
+   * lessons. (Done separately from the initialize method because this method
+   * has to be called in the refresh method to update room data)
+   */
   public void refreshRoomComboBox()
   {
     //Add rooms to the dropdown menus
@@ -157,6 +183,20 @@ public class ControllerSchedule extends AbstractController
     selectRoomToAddLessonSchedule.getItems().addAll(rooms);
 
   }
+
+  /**
+   * Firstly, if a value for course is selected enables the room selection
+   * combobox. Then checks if this course's class has a preferred room, if yes
+   * automatically selects it, if not allows the user can choose from the room
+   * list.Afterwards, checks if the selected room has a connected room, if yes
+   * then enables a checkbox which allows the booking of two rooms at the same
+   * time. Next checks if the room capacity is bigger then the classes size, if
+   * not displays an error message. Once a fitting room has been selected the
+   * start time text field is enabled. The user input is compared to a specified
+   * pattern and if it matches the end time field is enabled. Again checks for
+   * the correct pattern and once it is entered the Add Lesson button is enabled.
+   *
+   */
 
   public void addALesson()
   {
@@ -207,7 +247,7 @@ public class ControllerSchedule extends AbstractController
         startTimeToAddLessonSchedule.setDisable(false);
       }
 
-      Pattern pattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}");
+
 
       //Check if pattern matches to enable next field
       Matcher matcherS = pattern.matcher(
@@ -233,32 +273,70 @@ public class ControllerSchedule extends AbstractController
     }
   }
 
+  /**
+   * Firstly, checks if any of the values is null and whether the start and end
+   * time Strings are entered in the correct format if no displays an error
+   * message if yes continues to :
+   * First, the selected from the user values for a course, room, start time
+   * and end time. Afterwards, creates a lesson by inserting those values in the
+   * createLesson method, which is located in the Course class and is called by
+   * the selected course value. When the start and end time values are inserted
+   * the timeFilterStart and timeFilterEnd methods are called to turn the String
+   * into a LocalDateTime object. Next it checks if the checkbox for booking a
+   * second room is selected and if it is calls the setSecondRoom method to
+   * assign the connected room as a second room. In the end refreshes the whole
+   * tab, empties the text fields and deselects the checkbox if necessary.
+   */
   public void createLessonButton()
   {
-    this.selectedCourse = (Course) this.selectCourseToAddLessonSchedule.getSelectionModel()
-        .getSelectedItem();
-    this.selectedRoom = (Room) this.selectRoomToAddLessonSchedule.getSelectionModel()
-        .getSelectedItem();
-    this.selectedStart = this.startTimeToAddLessonSchedule.getText();
-    this.selectedEnd = this.endTimeToAddLessonSchedule.getText();
 
-    Lesson lesson = this.selectedCourse.createLesson(this.selectedCourse,
-        this.selectedRoom, this.timeFilterStart(this.selectedStart),
-        this.timeFilterEnd(this.selectedEnd));
-    if (this.checkBoxToAddLessonSchedule.isSelected())
+    Matcher start = pattern.matcher(
+        startTimeToAddLessonSchedule.getText());
+    boolean matchesStart = start.matches();
+
+    Matcher matcherE = pattern.matcher(endTimeToAddLessonSchedule.getText());
+    boolean matchesEnd = matcherE.matches();
+
+    if(selectedRoom == null || selectedCourse == null || !matchesStart || !matchesEnd )
     {
-      Room secondRoom = this.selectedRoom.getConnectedRoom();
-      lesson.setSecondRoom(secondRoom);
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Invalid data");
+      alert.setHeaderText("Data is missing or is invalid");
+      alert.setContentText("Please check again!");
+
+      alert.showAndWait();
+    }
+    else
+    {
+      this.selectedCourse = (Course) this.selectCourseToAddLessonSchedule.getSelectionModel()
+          .getSelectedItem();
+      this.selectedRoom = (Room) this.selectRoomToAddLessonSchedule.getSelectionModel()
+          .getSelectedItem();
+      this.selectedStart = this.startTimeToAddLessonSchedule.getText();
+      this.selectedEnd = this.endTimeToAddLessonSchedule.getText();
+
+      Lesson lesson = this.selectedCourse.createLesson(this.selectedCourse, this.selectedRoom, this.timeFilterStart(this.selectedStart),
+          this.timeFilterEnd(this.selectedEnd));
+
+      if (this.checkBoxToAddLessonSchedule.isSelected())
+      {
+        Room secondRoom = this.selectedRoom.getConnectedRoom();
+        lesson.setSecondRoom(secondRoom);
+      }
+
+      this.refresh();
+      this.checkBoxToAddLessonSchedule.setSelected(false);
+      this.bookSecondAddLessonSchedule.setDisable(true);
+      this.startTimeToAddLessonSchedule.setText("");
+      this.endTimeToAddLessonSchedule.setText("");
     }
 
-
-    this.refresh();
-    this.checkBoxToAddLessonSchedule.setSelected(false);
-    this.bookSecondAddLessonSchedule.setDisable(true);
-    this.startTimeToAddLessonSchedule.setText("");
-    this.endTimeToAddLessonSchedule.setText("");
   }
 
+  /**
+   * Used to enable remove lesson button after a lesson has been selected from
+   * the table.
+   */
   public void selectLesson()
   {
     //On mouse click in SceneBuilder
@@ -270,6 +348,11 @@ public class ControllerSchedule extends AbstractController
 
   }
 
+  /**
+   * Takes the lesson object selected by the user and removes it from the
+   * LessonList stored in the Schedule. Then calls the refreshTable method
+   * so only lessons that are in the LessonList will be shown.
+   */
   public void removeLesson()
   {
 
@@ -284,6 +367,11 @@ public class ControllerSchedule extends AbstractController
 
   }
 
+  /**
+   * Goes through the LessonList, calls the checkData method and displays
+   * the lessons that correspond to the values selected in the filtering
+   * text fields and combo boxes.
+   */
   public void refreshTable()
   {
     ArrayList<Lesson> lessons = new ArrayList<>(
@@ -299,6 +387,15 @@ public class ControllerSchedule extends AbstractController
     tableViewSchedule.getItems().addAll(lessons);
   }
 
+  /**
+   * Used for filtering lessons. First gets the values for selected course,
+   * class and/or room, then takes the text from the start and end time text
+   * fields and calls the replace method to ensure the string will match the
+   * LocalDateTime format. Afterwards, runs through the lessons parameters and
+   * compares them to the ones chosen from the user. if all parameters match
+   * returns false, else returns true.
+   * @return true if parameters do not match, false if parameters match
+   */
   public boolean checkData(Lesson lesson)
   {
     selectedCourse = courseFilterLessonSchedule.getValue();
@@ -319,7 +416,7 @@ public class ControllerSchedule extends AbstractController
     if (selectedRoom != null)
     {
       if (lesson.getFirstRoom() != selectedRoom
-          && lesson.getSecondRoom() != selectedRoom) ///come back here
+          && lesson.getSecondRoom() != selectedRoom)
       {
         return true;
       }
@@ -345,6 +442,12 @@ public class ControllerSchedule extends AbstractController
     return false;
   }
 
+  /**
+   * Returns a LocalDateTime object, which is created from the string input by
+   * the user. The returned object is set to be the start time for a lesson.
+   * @param string takes user's input
+   * @return returns a LocalDateTime object created by converting user's input
+   */
   public LocalDateTime timeFilterStart(String string)
   {
     string = startTimeToAddLessonSchedule.getText();
@@ -354,6 +457,12 @@ public class ControllerSchedule extends AbstractController
     return LocalDateTime.parse(string);
   }
 
+  /**
+   * Returns a LocalDateTime object, which is created from the string input by
+   * the user. The returned object is set to be the end time for a lesson.
+   * @param string takes user's input
+   * @return returns a LocalDateTime object created by converting user's input
+   */
   public LocalDateTime timeFilterEnd(String string)
   {
     string = endTimeToAddLessonSchedule.getText();
