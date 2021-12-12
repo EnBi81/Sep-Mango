@@ -4,7 +4,6 @@ import ScheduleManager.Manager;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 /*
  * A class representing a room with a name and a capacity.
  * @author Beatricia
