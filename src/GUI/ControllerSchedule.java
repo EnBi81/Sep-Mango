@@ -67,7 +67,6 @@ public class ControllerSchedule extends AbstractController
 
   //todo JavaDocs
   //todo preferred room
-  //todo displays time with the T
   public void initialize()
   {
     //Add course names to the dropdown menus
@@ -103,37 +102,39 @@ public class ControllerSchedule extends AbstractController
 
   public void initializeTableData()
   {
-
-    tableViewSchedule.getSelectionModel()
+    this.tableViewSchedule.getSelectionModel()
         .setSelectionMode(SelectionMode.SINGLE);
-
-    tableCourseSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getCourse().getCourseName()));
-
-
-    tableRoomSchedule.setCellValueFactory(obj -> {
-      Lesson lesson = obj.getValue();
+    this.tableCourseSchedule.setCellValueFactory((obj) -> {
+      return new SimpleStringProperty(
+          ((Lesson) obj.getValue()).getCourse().getCourseName());
+    });
+    this.tableRoomSchedule.setCellValueFactory((obj) -> {
+      Lesson lesson = (Lesson) obj.getValue();
       String columnText = lesson.getFirstRoom().getRoomName();
-      if(lesson.getSecondRoom() != null)
+      if (lesson.getSecondRoom() != null)
       {
-        columnText += ", " + lesson.getSecondRoom().getRoomName();
+        columnText = columnText + ", " + lesson.getSecondRoom().getRoomName();
       }
+
       return new SimpleStringProperty(columnText);
     });
-
-    tableClassSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getCourse().getVIAClass().getName()));
-
-    tableStartTimeSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getStartTime().toString().replace("T", " ")));
-    tableEndTimeSchedule.setCellValueFactory(obj -> new SimpleStringProperty(
-        obj.getValue().getEndTime().toString().replace("T", " ")));
+    this.tableClassSchedule.setCellValueFactory((obj) -> {
+      return new SimpleStringProperty(
+          ((Lesson) obj.getValue()).getCourse().getVIAClass().getName());
+    });
+    this.tableStartTimeSchedule.setCellValueFactory((obj) -> {
+      return new SimpleStringProperty(
+          ((Lesson) obj.getValue()).getStartTime().toString()
+              .replace("T", " "));
+    });
+    this.tableEndTimeSchedule.setCellValueFactory((obj) -> {
+      return new SimpleStringProperty(
+          ((Lesson) obj.getValue()).getEndTime().toString().replace("T", " "));
+    });
     ArrayList<Lesson> lessons = Manager.getSchedule().getLessonList()
         .getAllLessons();
-    tableViewSchedule.getItems().addAll(lessons);
-
+    this.tableViewSchedule.getItems().addAll(lessons);
   }
-  //todo display connected room, book connected room
 
   public void refresh()
   {
@@ -160,20 +161,30 @@ public class ControllerSchedule extends AbstractController
   public void addALesson()
   {
     //Enable fields one by one
-    Pattern pattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}");
 
     if (!selectCourseToAddLessonSchedule.getSelectionModel().isEmpty())
     {
-      selectRoomToAddLessonSchedule.setDisable(false);
+      selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
+        .getSelectedItem();
+
+
+      if(selectedCourse.getVIAClass().getPreferredRoom() != null)
+      {
+        selectRoomToAddLessonSchedule.getSelectionModel().select(selectedCourse.getVIAClass().getPreferredRoom());
+      }
+        selectRoomToAddLessonSchedule.setDisable(false);
+
+
     }
 
-
-    if(!selectRoomToAddLessonSchedule.getSelectionModel().isEmpty())
+    if (!selectRoomToAddLessonSchedule.getSelectionModel().isEmpty())
     {
 
-      selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel().getSelectedItem();
+
       selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel().getSelectedItem();
-      if(selectedRoom.hasConnectedRoom())
+
+
+      if (selectedRoom.hasConnectedRoom())
       {
         bookSecondAddLessonSchedule.setDisable(false);
       }
@@ -182,64 +193,70 @@ public class ControllerSchedule extends AbstractController
         bookSecondAddLessonSchedule.setDisable(true);
       }
 
-        if (selectedRoom.getCapacity() < selectedCourse.getAllStudents().size())
-        {
-          Alert alert = new Alert(Alert.AlertType.WARNING);
-          alert.setTitle("Room Capacity");
-          alert.setHeaderText("The room capacity is not enough for this class!");
-          alert.setContentText("Choose another room!");
+      if (selectedRoom.getCapacity() < selectedCourse.getAllStudents().size())
+      {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Room Capacity");
+        alert.setHeaderText("The room capacity is not enough for this class!");
+        alert.setContentText("Choose another room!");
 
-          alert.showAndWait();
-        }
-        else
-        {
-          startTimeToAddLessonSchedule.setDisable(false);
-        }
+        alert.showAndWait();
+      }
+      else
+      {
+        startTimeToAddLessonSchedule.setDisable(false);
+      }
 
+      Pattern pattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}");
+
+      //Check if pattern matches to enable next field
+      Matcher matcherS = pattern.matcher(
+          startTimeToAddLessonSchedule.getText());
+      boolean matchesStart = matcherS.matches();
+
+      if (matchesStart)
+
+      {
+        endTimeToAddLessonSchedule.setDisable(false);
+      }
+
+      //CHECK AGAIN FOR THE END TIME
+      Matcher matcherE = pattern.matcher(endTimeToAddLessonSchedule.getText());
+      boolean matchesEnd = matcherE.matches();
+
+      if (matchesEnd)
+
+      {
+        buttonToAddLessonSchedule.setDisable(false);
+      }
 
     }
-
-
-  //Check if pattern matches to enable next field
-  Matcher matcherS = pattern.matcher(startTimeToAddLessonSchedule.getText());
-  boolean matchesStart = matcherS.matches();
-
-    if(matchesStart)
-
-  {
-    endTimeToAddLessonSchedule.setDisable(false);
   }
-
-  //CHECK AGAIN FOR THE END TIME
-  Matcher matcherE = pattern.matcher(endTimeToAddLessonSchedule.getText());
-  boolean matchesEnd = matcherE.matches();
-
-    if(matchesEnd)
-
-  {
-    buttonToAddLessonSchedule.setDisable(false);
-  }
-
-}
 
   public void createLessonButton()
   {
-    selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel().getSelectedItem();
-    selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel().getSelectedItem();
+    this.selectedCourse = (Course) this.selectCourseToAddLessonSchedule.getSelectionModel()
+        .getSelectedItem();
+    this.selectedRoom = (Room) this.selectRoomToAddLessonSchedule.getSelectionModel()
+        .getSelectedItem();
+    this.selectedStart = this.startTimeToAddLessonSchedule.getText();
+    this.selectedEnd = this.endTimeToAddLessonSchedule.getText();
 
-    selectedStart = startTimeToAddLessonSchedule.getText();
-    selectedEnd = endTimeToAddLessonSchedule.getText();
-
-
-    Lesson lesson = selectedCourse.createLesson(selectedCourse,selectedRoom,timeFilterStart(selectedStart),timeFilterEnd(selectedEnd));
-
-    if(checkBoxToAddLessonSchedule.isSelected())
+    Lesson lesson = this.selectedCourse.createLesson(this.selectedCourse,
+        this.selectedRoom, this.timeFilterStart(this.selectedStart),
+        this.timeFilterEnd(this.selectedEnd));
+    if (this.checkBoxToAddLessonSchedule.isSelected())
     {
-      Room secondRoom = selectedRoom.getConnectedRoom();
+      Room secondRoom = this.selectedRoom.getConnectedRoom();
       lesson.setSecondRoom(secondRoom);
     }
 
-    refresh();
+
+    this.refresh();
+    this.checkBoxToAddLessonSchedule.setSelected(false);
+    this.bookSecondAddLessonSchedule.setDisable(true);
+    this.startTimeToAddLessonSchedule.setText("");
+    this.endTimeToAddLessonSchedule.setText("");
   }
 
   public void selectLesson()
@@ -262,10 +279,8 @@ public class ControllerSchedule extends AbstractController
     schedule.getLessonList().removeLesson(lessonToBeRemoved);
 
     lessonToBeRemoved.getCourse().removeLesson(lessonToBeRemoved);
-    refreshTable();
 
-    startTimeFilterLessonSchedule.setText(
-        schedule.getLessonList().getAllLessons().size() + "");
+    refreshTable();
 
   }
 
