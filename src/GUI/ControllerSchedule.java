@@ -66,7 +66,8 @@ public class ControllerSchedule extends AbstractController
   private String selectedEnd;
 
   //todo JavaDocs
-  //todo create lesson
+  //todo preferred room
+  //todo displays time with the T
   public void initialize()
   {
     //Add course names to the dropdown menus
@@ -94,7 +95,7 @@ public class ControllerSchedule extends AbstractController
     endTimeToAddLessonSchedule.setDisable(true);
     buttonToAddLessonSchedule.setDisable(true);
     buttonRemoveLessonSchedule.setDisable(true);
-    bookSecondAddLessonSchedule.setVisible(false);
+    bookSecondAddLessonSchedule.setDisable(true);
 
     refreshRoomComboBox();
     initializeTableData();
@@ -168,11 +169,11 @@ public class ControllerSchedule extends AbstractController
       selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel().getSelectedItem();
       if(selectedRoom.hasConnectedRoom())
       {
-        bookSecondAddLessonSchedule.setVisible(true);
+        bookSecondAddLessonSchedule.setDisable(false);
       }
       else
       {
-        bookSecondAddLessonSchedule.setVisible(false);
+        bookSecondAddLessonSchedule.setDisable(true);
       }
 
         if (selectedRoom.getCapacity() < selectedCourse.getAllStudents().size())
