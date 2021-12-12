@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * A manager providing an access point to the schedule, with reading and writing from/ti file support.
+ * @author
+ * @version 1.1
+ */
 public class Manager
 {
   private static String fileName;
@@ -15,6 +20,10 @@ public class Manager
   private static Schedule schedule = null;
   private static String savedScheduleFile = "Files\\schedule.bin";
 
+  /**
+   * Gets the global schedule object
+   * @return the schedule Object
+   */
   public static Schedule getSchedule()
   {
 
@@ -32,6 +41,9 @@ public class Manager
     return schedule;
   }
 
+  /***
+   * Saves the schedule to binary file.
+   */
   public static void saveSchedule()
   {
     try
@@ -45,6 +57,9 @@ public class Manager
 
   }
 
+  /***
+   * Imports data from the files to schedule object.
+   */
  public static void importData()
   {
     schedule = new Schedule();
@@ -70,7 +85,9 @@ public class Manager
   }
 
   /**
-   * Calls the readFromTextFile method to read the file containing all rooms' data. It reads one row at a time, creates a Room object with its parameters, and then adds the new Instance of the Room class to the RoomList, which is stored in the Schedule class.
+   * Calls the readFromTextFile method to read the file containing all rooms' data. It reads one row at a time, creates
+   * a Room object with its parameters, and then adds the new Instance of the Room class to the RoomList, which is
+   * stored in the Schedule class.
    *
    * @param fileName the name of the file
    */
@@ -97,9 +114,11 @@ public class Manager
 
   /***
    * Calls the readFromTextFile method to read the file containing all courses' data. It reads one row at a time,
-   * creates a Teacher object with its parameters if the teacher list it is not already containing that specific teacher.
-   * Then it reads one row at a time again from the courses file, and it creates a Course object with its parameters if
-   * the course list is not already containing that specific course.
+   * creates a ViaClass object with its parameters if the viaClass list it is not already containing that specific
+   * class. Then it reads one row at a time again from the courses file, and it creates a Course object with its
+   * parameters if the course list is not already containing that specific course, also it assigns courses for classes.
+   * In the third for loop Teacher object are made if the teacher is not already containing it, and then teachers
+   * instances are assigned to the course.
    * @param fileName the name of the file
    */
   public static void loadCourseData(String fileName)
@@ -109,7 +128,7 @@ public class Manager
     try
     {
       courseData = FileHandler.readFromTextFile(fileName);
-      //loading viaclass
+      //loading viaClass without duplicating
 
       for (int i = 0; i < courseData.size(); i++)
       {
@@ -122,7 +141,7 @@ public class Manager
         }
       }
 
-      //load course information, enroll students to courses autom.
+      //load course info to a classes
       for (int i = 0; i < courseData.size(); i++)
       {
         String[] info = courseData.get(i).split(separator);
@@ -137,7 +156,7 @@ public class Manager
           course.getAllStudents().addAll(viaClass.getAllStudents());
         }
       }
-      //load teacher info
+      //load teacher info without duplicating
       for (int i = 0; i < courseData.size(); i++)
       {
         String[] infoTeachers = courseData.get(i).split(separator);
@@ -153,7 +172,7 @@ public class Manager
           teacher = schedule.getTeacherList().getTeacherByName(infoTeachers[3]);
         }
 
-        course.addTeacher(teacher);
+        course.addTeacher(teacher);//assign a teacher to a course
       }
 
     }
