@@ -39,7 +39,7 @@ public class ControllerViaClassTab extends AbstractController
   public void initialize()
   {
     //region tableInitialization
-    classTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    classTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
     nameColumn.setCellValueFactory(
         obj -> new SimpleStringProperty(obj.getValue().getName()));
