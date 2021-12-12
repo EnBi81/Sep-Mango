@@ -247,7 +247,7 @@ public class ControllerViaClassTab extends AbstractController
 
   /**
    * Connect the selected Via class in the table with the combobox's selected Via class, and back.
-   * @param viaClass
+   * @param viaClass The via class object to be selected
    */
   private void selectDisplayClass(
       VIAClass viaClass) //This method runs everytime you select a class either in the
