@@ -124,6 +124,7 @@ public class ControllerStudents extends AbstractController
         refresh();
       }
     }
+    Manager.saveSchedule();
   }
 
   /**
@@ -186,6 +187,7 @@ public class ControllerStudents extends AbstractController
 
       refresh();
     }
+    Manager.saveSchedule();
   }
 
   /**
