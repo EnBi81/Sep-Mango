@@ -53,6 +53,11 @@ public class ControllerStudents extends AbstractController
    */
   public void initialize()
   {
+    if(Manager.getSchedule() == null)
+      return;
+
+    schedule = Manager.getSchedule();
+
     ArrayList<VIAClass> classes = schedule.getVIAClassList().getAllClasses();
     classToCreateStudent.getItems().add(null);
     classToCreateStudent.getItems().addAll(classes);

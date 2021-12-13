@@ -10,7 +10,10 @@ import ScheduleManager.Manager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -45,6 +48,10 @@ public class ControllerViaClassTab extends AbstractController
    */
   public void initialize()
   {
+
+    if(Manager.getSchedule() == null)
+      return;
+
     //region tableInitialization
     classTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 

@@ -37,6 +37,9 @@ public class ControllerCourse extends AbstractController
   // main initialization
   public void initialize()
   {
+    if(Manager.getSchedule() == null)
+      return;
+
     tableViewCourse.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
     //set up the columns
