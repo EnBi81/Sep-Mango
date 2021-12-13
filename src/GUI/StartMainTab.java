@@ -16,6 +16,7 @@ public class StartMainTab extends Application
     loader.setLocation(getClass().getResource("MainTab.fxml"));
     Scene scene = new Scene(loader.load());
     window.setScene(scene);
+    window.setResizable(false);
     window.show();
   }
  }
