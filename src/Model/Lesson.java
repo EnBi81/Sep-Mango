@@ -201,6 +201,7 @@ public class Lesson implements Serializable
     return str;
   }
 
+
   /**
    * compares two objects and if they are the same returns true else returns false
    *

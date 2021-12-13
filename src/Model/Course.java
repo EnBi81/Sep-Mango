@@ -1,7 +1,6 @@
 package Model;
 
 import ScheduleManager.Manager;
-import utils.CollisionException;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

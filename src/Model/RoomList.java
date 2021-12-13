@@ -1,5 +1,7 @@
 package Model;
 
+import ScheduleManager.Manager;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -56,8 +58,17 @@ public class RoomList implements Serializable {
      * @param to
      * @return
      */
-    public ArrayList<Room> getAllAvailableRooms(LocalDateTime from, LocalDateTime to) {
-        return null;//for now
+    public ArrayList<Room> getAllAvailableRooms(LocalDateTime from, LocalDateTime to)
+    {
+        ArrayList<Room> rooms = new ArrayList<>(Manager.getSchedule().getRoomList().getAllRooms());
+        for (int i = 0; i < rooms.size(); i++)
+        {
+            if(!rooms.get(i).isAvailable(from,to))
+            {
+              rooms.remove(i--);
+            }
+        }
+        return rooms;
     }
 
     /***
