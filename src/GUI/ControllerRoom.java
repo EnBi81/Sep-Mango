@@ -81,48 +81,10 @@ public class ControllerRoom extends AbstractController {
     }
 
     /***
-     * Handler method for buttons when pressed
+     * Handler method for button add then pressed.
      * @param e the action event
      */
     public void handle(ActionEvent e) {
-        if (e.getSource() == removeRoomButton) {
-            Room selectedItem = roomTableView.getSelectionModel().getSelectedItem();
-            ArrayList<VIAClass> classes = Manager.getSchedule().getVIAClassList().getAllClasses();
-            ArrayList<Lesson> lessons = Manager.getSchedule().getLessonList().getAllLessons();
-
-            VIAClass viaClass = null;
-
-            for (VIAClass aClass : classes) {
-                if (selectedItem.equals(aClass.getPreferredRoom())) {
-                    int choice = JOptionPane.showConfirmDialog(null, "This room is set as a preferred room for class " + aClass.getName()
-                            + ". \nDo you really want to remove it?");
-                    if (choice == JOptionPane.NO_OPTION)
-                        return;//it will stop the method if the user press no
-                    if (choice == JOptionPane.YES_OPTION) {
-                        viaClass = aClass;//if the user press yes, so he wants to remove the preferred room from this via class
-                        break;
-                    }
-                }
-            }
-
-            int lessonCount = 0;
-            for (Lesson lesson : lessons) {
-                if (selectedItem.equals(lesson.getFirstRoom()) || selectedItem.equals(lesson.getSecondRoom())) {
-                    lessonCount++;
-
-                }
-            }
-            if (lessonCount > 0) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("This room is assign to " + lessonCount + " lessons. To remove this room \nplease change the assigned room for the lessons.");
-                alert.show();
-                return;
-            }
-            if (viaClass != null) {
-                viaClass.setPreferredRoom(null);//i am setting the preferred room to null
-            }
-            Manager.getSchedule().getRoomList().removeRoom(selectedItem);//here i am removing the room from the actual schedule, this is only in gui for now
-        }
         if (e.getSource() == addRoomButton) {
             ArrayList<Room> rooms = Manager.getSchedule().getRoomList().getAllRooms();
             if (roomNameTextField.getText().isEmpty()) {
@@ -288,6 +250,9 @@ public class ControllerRoom extends AbstractController {
         refresh();
     }
 
+    /***
+     * Method for removing a room when the "Remove Room" button is pressed.
+     */
     public void removeRoom()
     {
         //We get the selected room from the table

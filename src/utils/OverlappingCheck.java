@@ -15,48 +15,65 @@ public class OverlappingCheck
 
   public static ArrayList<Lesson> lessonCheck(Course course)
   {
-    ArrayList<Course> courses = new ArrayList<>();
-
-    for (int i = 0; i < course.getAllStudents().size(); i++)
+    //We initialize a new ArrayList and assign it to variable
+    ArrayList<Course> courses = new ArrayList<>();//Initializing takes 1 and assigning takes 1
+    //We loop through all students and put their courses  in a courses variable without duplicates
+    for (int i = 0; i < course.getAllStudents().size(); i++)//This takes n
     {
-      //get all Students' courses
-      ArrayList<Course> studentsCourses =  course.getAllStudents().get(i).getAllCourses();
+      //We get all Students' courses
+      ArrayList<Course> studentsCourses =  course.getAllStudents().get(i).getAllCourses();//This takes 2
 
-      //if the course is not already in add it
-      for (int j = 0; j < studentsCourses.size() ; j++)
+     //We loop through student's courses
+      for (int j = 0; j < studentsCourses.size() ; j++)//For each iteration this takes n, so combined this take n^2
       {
-        if(!courses.contains(studentsCourses.get(j)))
+        //if the course is not already in add it
+        if(!courses.contains(studentsCourses.get(j)))//The contains takes n, so in total it takes n^3
         {
-          courses.add(studentsCourses.get(j));
+          //We add student's course to courses list
+          courses.add(studentsCourses.get(j));//This takes 1
         }
       }
 
     }
-
-    for (int i = 0; i < course.getAllTeachers().size(); i++)
+    ////We loop through all teacher and put their courses  in a courses variable without duplicates
+    for (int i = 0; i < course.getAllTeachers().size(); i++)//Initializing takes 1 and assigning takes 1
     {
-      //get all teachers' courses
-      ArrayList<Course> teachersCourses =  course.getAllTeachers().get(i).getAllCourses();
+      //We get all teachers' courses
+      ArrayList<Course> teachersCourses =  course.getAllTeachers().get(i).getAllCourses();//This takes 2
 
-      //if the course is not already in add it
-      for (int j = 0; j < teachersCourses.size() ; j++)
+      //We loop through student's courses
+      for (int j = 0; j < teachersCourses.size() ; j++)//For each iteration this takes n, so combined this take n^2
       {
-        if(!courses.contains(teachersCourses.get(j)))
+        //if the course is not already in add it
+        if(!courses.contains(teachersCourses.get(j)))//The contains takes n, so in total it takes n^3
         {
-          courses.add(teachersCourses.get(j));
+          //We add student's course to courses list
+          courses.add(teachersCourses.get(j));//This takes 1
         }
       }
     }
 
-    //get all lessons from the courses that have been added above
-    ArrayList<Lesson> lessons = new ArrayList<>();
-
-    for (int i = 0; i < courses.size(); i++)
+    //We initialize a new ArrayList and assign it to variable
+    ArrayList<Lesson> lessons = new ArrayList<>();//This takes 2
+    // We add all the lessons from the courses to the lessons variable
+    for (int i = 0; i < courses.size(); i++)//this takes n
     {
-      lessons.addAll(courses.get(i).getAllLessons());
+      //We add all lessons to Arraylist
+      lessons.addAll(courses.get(i).getAllLessons());//AddAll method takes n, therefore combined takes n^2
     }
 
-    return lessons;
+    return lessons;//Return takes 1
+
+    /*
+    We didn't feel the need to use recursion, therefore we don't have a base case
+    We loop through all the students from specified course, the time complexity of the loop is n^3
+    We loop through all the teachers from specified course, the time complexity of the loop is n^3
+    We add all the lessons from every course to lessons ArrayList, the time complexity of the loop is n^2
+    T(n) = 2 + n^3 + 3 + n^3 + 3 + 2 + n^2 + 1 = 2n^3 + n^2 + 11, so ignoring constants and the coefficient,
+    we get T(n) = O(n^3)
+    We chose this method to analyze, because we found this method much more complex than the average methods,
+    as it contains nested for loops.
+     */
   }
 
 
