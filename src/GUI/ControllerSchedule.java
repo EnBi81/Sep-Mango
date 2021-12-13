@@ -80,6 +80,9 @@ public class ControllerSchedule extends AbstractController
    */
   public void initialize()
   {
+    if(Manager.getSchedule() == null)
+      return;
+
     //Add course names to the dropdown menus
     ArrayList<Course> courses = new ArrayList<>(
         Manager.getSchedule().getCourseList().getAllCourses());

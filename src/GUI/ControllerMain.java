@@ -6,11 +6,18 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import utils.FileHandler;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,15 +34,25 @@ public class ControllerMain {
     @FXML
     private Tab classTab;
 
-    @FXML
-    private MenuItem exportButton;
-    @FXML
-    private MenuItem closeButton;
+    @FXML private MenuItem importRooms;
+    @FXML private MenuItem importCourses;
+    @FXML private MenuItem importStudents;
+
+    @FXML private TabPane tabPane;
+
+    private String roomsFile;
+    private String coursesFile;
+    private String studentsFile;
+    private File lastSelected;
 
     private ArrayList<AbstractController> controllers = new ArrayList<>();
 
     public void initialize() {
+
         Pane pane;
+
+        if(Manager.getSchedule() == null)
+            tabPane.setDisable(true);
 
         try {
             pane = getPaneFromFile("StudentsTab.fxml");
@@ -68,7 +85,7 @@ public class ControllerMain {
         return p;
     }
 
-    public void refreshTabs(Event event) {
+    public void refreshTabs() {
         for (int i = 0; i < controllers.size(); i++) {
             controllers.get(i).refresh();
         }
@@ -124,5 +141,46 @@ public class ControllerMain {
         xml += "</lessons></course>";
 
         return xml;
+    }
+
+    public void importButtons(ActionEvent actionEvent)
+    {
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt"));
+        MenuItem item = (MenuItem) actionEvent.getSource();
+        chooser.setTitle("Select " + item.getText());
+
+        if(lastSelected != null)
+        {
+            chooser.setInitialDirectory(lastSelected);
+        }
+
+        File file = chooser.showOpenDialog(new Stage());
+        if(file == null)
+            return;
+
+        lastSelected = file.getParentFile();
+
+        if(actionEvent.getSource() == importRooms)
+        {
+            roomsFile = file.getAbsolutePath();
+        }
+        else if(actionEvent.getSource() == importCourses)
+        {
+            coursesFile = file.getAbsolutePath();
+        }
+        else studentsFile = file.getAbsolutePath();
+
+        if(roomsFile != null && studentsFile != null && coursesFile != null)
+        {
+            Manager.importData(coursesFile, roomsFile, studentsFile);
+            tabPane.setDisable(false);
+
+            for (int i = 0; i < controllers.size(); i++) {
+                controllers.get(i).initialize();
+            }
+
+            refreshTabs();
+        }
     }
 }

@@ -53,8 +53,12 @@ public class ControllerRoom extends AbstractController {
      * Base initialize method for the controller
      */
     public void initialize() {
+        if(Manager.getSchedule() == null)
+            return;
+
         //Sets the columns in the table
         //Single property allows for only one item to be selected at a time
+
 
         roomTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         roomNameColumn.setCellValueFactory(obj -> new SimpleStringProperty(obj.getValue().getRoomName()));

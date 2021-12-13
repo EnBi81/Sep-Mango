@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -9,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="411.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControllerMain">
+<VBox fx:id="mainPane" maxHeight="411.0" maxWidth="633.0" minHeight="411.0" minWidth="633.0" prefHeight="411.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControllerMain">
    <children>
       <MenuBar prefHeight="22.0" prefWidth="611.0">
         <menus>
@@ -17,10 +16,9 @@
             <items>
                   <Menu mnemonicParsing="false" text="Import">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                      <MenuItem fx:id="importCourses" mnemonicParsing="false" onAction="#importButtons" text="Courses" />
+                        <MenuItem fx:id="importRooms" mnemonicParsing="false" onAction="#importButtons" text="Rooms" />
+                        <MenuItem fx:id="importStudents" mnemonicParsing="false" onAction="#importButtons" text="Students" />
                     </items>
                   </Menu>
                   <MenuItem fx:id="exportButton" mnemonicParsing="false" onAction="#export" text="Export" />
@@ -34,7 +32,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TabPane prefHeight="374.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" prefHeight="374.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="scheduleTab" onSelectionChanged="#refreshTabs" text="Schedule" />
           <Tab fx:id="studentsTab" onSelectionChanged="#refreshTabs" text="Students">
