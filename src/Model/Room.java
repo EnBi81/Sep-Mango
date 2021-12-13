@@ -4,6 +4,7 @@ import ScheduleManager.Manager;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 /*
  * A class representing a room with a name and a capacity.
  * @author Beatricia
@@ -76,8 +77,19 @@ public class Room implements Serializable {
      * @param to the end period
      * @return true if it is available, false if it is not
      */
-    public boolean isAvailable(LocalDateTime from, LocalDateTime to) {
-        return true;//i need all lessons for this
+    public boolean isAvailable(LocalDateTime from, LocalDateTime to)
+    {
+        ArrayList<Lesson> lessons = Manager.getSchedule().getLessonList().getAllLessons();
+        for (int i = 0; i < lessons.size(); i++) {
+            if(lessons.get(i).getFirstRoom()==this || lessons.get(i).getSecondRoom()==this)
+            {
+                if(!(lessons.get(i).getStartTime().isAfter(to) || lessons.get(i).getEndTime().isBefore(from)))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /***
