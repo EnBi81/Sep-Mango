@@ -266,6 +266,7 @@ public class ControllerSchedule extends AbstractController
 
     startTimeFilterLessonSchedule.setText(
         schedule.getLessonList().getAllLessons().size() + "");
+    Uafa could you remove this, thanks
 
   }
 
