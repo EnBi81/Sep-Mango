@@ -21,7 +21,7 @@ import java.util.Locale;
  * Controller class for VIAClassTab.fxml
  * @author Gerg Nador
  */
-public class ControllerViaClassTab extends AbstractController
+public class ControllerViaClass extends AbstractController
 {
   //region Fields
   @FXML private ComboBox<VIAClass> preferredClassCombo;
