@@ -138,6 +138,11 @@ public class ControllerCourse extends AbstractController
   }
 
   public void comboBoxSelectInitialization(){
+    tableViewCourse.getSelectionModel().selectedItemProperty()
+        .addListener((obs,oldCourse, newCourse) ->
+          selectCourseCourse.setValue(newCourse)
+        );
+
     selectCourseCourse.valueProperty().addListener(obj -> {
       selectStudentCourse.setDisable(false);
       selectTeacherCourse.setDisable(false);
@@ -215,8 +220,6 @@ public class ControllerCourse extends AbstractController
     }
     ArrayList<Student> students = selectCourseCourse.getValue().getAllStudents();
     for (var s : students)
-      System.out.println(s.getName());
-
     listOfStudents.getItems().addAll(students);
   }
 

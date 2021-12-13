@@ -232,5 +232,144 @@ public class ControllerRoom extends AbstractController {
             roomCapacityTextField.requestFocus();//it goes to the capacity text field then we press enter, request on focus, request a focus on room capacity text field
         }
     }
+
+    public void addRoom()
+    {
+        ArrayList<Room> rooms = Manager.getSchedule().getRoomList().getAllRooms();
+        if(roomNameTextField.getText().isEmpty())
+        {
+            Alert alert;
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please write a name for the new room.");
+            alert.show();
+            return;
+        }
+        try
+        {
+            for (int i = 0; i < rooms.size(); i++)
+            {
+                if(rooms.get(i).getRoomName().equals(roomNameTextField.getText()))
+                {
+                    Alert alert;
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("This room already exists");
+                    alert.show();
+                    return;
+                }
+
+            }
+            if(Integer.parseInt(roomCapacityTextField.getText())<=0)
+            {
+                Alert alert;
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Please write a positive number for capacity.");
+                alert.show();
+                return;
+            }
+            Room newRoom = new Room(roomNameTextField.getText(), Integer.parseInt(roomCapacityTextField.getText()));
+            Manager.getSchedule().getRoomList().addRoom(newRoom);//here I am adding the room
+        }
+        catch (NumberFormatException ex)
+        {
+            {
+                Alert alert;
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Please write a number for capacity.");
+                alert.show();
+                return;
+            }
+        }
+
+        Manager.saveSchedule();
+        refresh();
+    }
+
+    public void removeRoom()
+    {
+        //We get the selected room from the table
+        Room selectedItem = roomTableView.getSelectionModel().getSelectedItem(); //This takes 1
+        //We get all the classes from the manager
+        ArrayList<VIAClass> classes = Manager.getSchedule().getVIAClassList().getAllClasses();//This takes 1
+        //We get all the lessons from the manager
+        ArrayList<Lesson> lessons = Manager.getSchedule().getLessonList().getAllLessons();//This takes 1
+
+        //We initialize a new variable
+        VIAClass viaClass = null; //This takes 1
+
+        //We check if the selected room is assigned to a class as preferred room
+        for (int i = 0; i < classes.size() ; i++) // The loop will run n times
+        {
+            if(selectedItem.equals(classes.get(i).getPreferredRoom())) // For each iteration, we get the preferred room of each class, this takes 2
+                                                                        // then we check if that room is equals to the selected room, this also takes 1
+            {
+                //This if statement's body runs maximum once in the loop, the complexity of it is 1
+
+                int choice = JOptionPane.showConfirmDialog(null, "This room is set as a preferred room for class "+classes.get(i).getName()
+                    +". \nDo you really want to remove it?");  // Get user input back, this takes 1
+                //Check if the user pressed the No button
+                if(choice==JOptionPane.NO_OPTION) //The comparison takes 1 and the return takes another 1 (The return statement ends the method here)
+                    return;
+                //Check if the user pressed the Yes button
+                if(choice==JOptionPane.YES_OPTION) //The comparison takes 1
+                {
+                    viaClass=classes.get(i); //Getting the class from the list takes 1, and assigning to the viaClass variable takes 1
+                    break;
+                }
+            }
+        }
+
+        //We initialize a new variable, this takes 1
+        int lessonCount=0;
+        //We count the amount of lessons to which the selected room is assigned
+        for (int i = 0; i < lessons.size(); i++) { // This loop runs n times
+
+            // Getting one lesson from the list takes 1, getting its room takes 1, comparing the room against the selected room takes 1.
+            // As we are doing this three steps again, it takes 6, and the or operator takes 1.
+            // So in summary, the statement takes 7 for each iteration
+            if (selectedItem.equals(lessons.get(i).getFirstRoom()) || selectedItem.equals(lessons.get(i).getSecondRoom()))
+            {
+                lessonCount++; //incrementing the variable takes 1 in each iteration
+            }
+        }
+        //We check if room is assigned to any lesson.
+        if (lessonCount>0) { //The comparison takes 1
+            //We create an alert instance, and we assign it to a variable
+            Alert alert = new Alert(Alert.AlertType.ERROR); // creating new instance takes 1, assigning takes 1
+            //We set the content of the alert message.
+            alert.setContentText("This room is assign to " + lessonCount +  // Joining the strings takes 2, and setting the content takes 1
+                " lessons. To remove this room \nplease change the assigned room for the lessons.");
+
+            //We show the alert message
+            alert.show();//This takes 1
+            return;// takes 1
+        }
+
+        //We check if viaClass is not null
+        if(viaClass!=null) //this comparison takes 1
+        {
+            //We remove the preferred room from the viaClass object
+            viaClass.setPreferredRoom(null); //This also takes 1
+        }
+        //We remove the room from the room list
+        Manager.getSchedule().getRoomList().removeRoom(selectedItem);//Getting the room list takes 2, and removing an object from an arraylist takes n
+
+        //Saving the modified schedule
+        Manager.saveSchedule(); //Takes 1
+
+        //Refreshing the table
+        refresh(); //Takes n
+
+        /*
+        We have not used recursion in this method, so we don't have a base case
+        We loop through the classes n times, because we increment by one in each iteration
+        We loop through the lessons n times, because we check each lesson
+        Refreshing the table takes n
+        T(n) = 1 + 1 + 1 + 1 + 3n + 1 + 8n + 1 + 1 + n + 1 + n = 8 + 13n, so ignoring constants and the coefficient,
+        we get T(n) = O(n)
+
+        We chose this method to analyze, because it is one of our most complex method in our system,
+        in which we have to loop through multiple lists and compare instances.
+         */
+    }
 }
 

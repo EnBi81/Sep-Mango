@@ -13,8 +13,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<GridPane fx:id="gridPaneSchedule" prefHeight="308.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControllerSchedule">
+<GridPane fx:id="gridPaneSchedule" prefHeight="326.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControllerSchedule">
 <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.60003662109375" minWidth="10.0" prefWidth="191.99998779296874" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="440.00000000000006" minWidth="10.0" prefWidth="435.2000122070313" />
@@ -54,13 +55,13 @@
             </ComboBox>
         </children>
     </HBox>
-    <TableView fx:id="tableViewSchedule" onMouseClicked="#selectLesson" prefHeight="242.0" prefWidth="381.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <TableView fx:id="tableViewSchedule" maxWidth="440.0" minWidth="440.0" onMouseClicked="#selectLesson" prefHeight="242.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columns>
-            <TableColumn fx:id="tableCourseSchedule" prefWidth="62.39996260404587" text="Course" />
-            <TableColumn fx:id="tableStartTimeSchedule" prefWidth="119.19995498657227" text="Start " />
-            <TableColumn fx:id="tableEndTimeSchedule" prefWidth="120.80003356933594" text="End" />
-            <TableColumn fx:id="tableRoomSchedule" prefWidth="80.80003356933594" text="Room" />
-            <TableColumn fx:id="tableClassSchedule" prefWidth="54.4000244140625" text="Class" />
+            <TableColumn fx:id="tableCourseSchedule" prefWidth="54.399961829185486" text="Course" />
+            <TableColumn fx:id="tableStartTimeSchedule" prefWidth="114.0" text="Start " />
+            <TableColumn fx:id="tableEndTimeSchedule" prefWidth="114.0" text="End" />
+            <TableColumn fx:id="tableRoomSchedule" prefWidth="105.59991455078125" text="Room" />
+            <TableColumn fx:id="tableClassSchedule" prefWidth="44.7999267578125" text="Class" />
         </columns>
     </TableView>
     <VBox fx:id="vBoxAddLessonSchedule" prefHeight="182.0" prefWidth="220.0" GridPane.rowIndex="1">
@@ -120,10 +121,18 @@
         <children>
             <Button fx:id="buttonRemoveLessonSchedule" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#removeLesson" text="Remove Lesson">
                 <HBox.margin>
-                    <Insets left="325.0" top="5.0" />
+                    <Insets left="325.0" top="20.0" />
                 </HBox.margin>
             </Button>
         </children>
     </HBox>
+      <Label alignment="CENTER" text="Lessons" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="23.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
 </children>
 </GridPane>
