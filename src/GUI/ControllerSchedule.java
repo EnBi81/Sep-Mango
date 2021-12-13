@@ -328,6 +328,7 @@ public class ControllerSchedule extends AbstractController
       }
 
       this.refresh();
+      Manager.saveSchedule();
       this.checkBoxToAddLessonSchedule.setSelected(false);
       this.bookSecondAddLessonSchedule.setDisable(true);
       this.startTimeToAddLessonSchedule.setText("");
@@ -367,6 +368,7 @@ public class ControllerSchedule extends AbstractController
     lessonToBeRemoved.getCourse().removeLesson(lessonToBeRemoved);
 
     refreshTable();
+    Manager.saveSchedule();
 
   }
 
