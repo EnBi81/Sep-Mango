@@ -35,7 +35,7 @@ public class Manager
       }
       catch (IOException e)
       {
-        importData();
+
       }
     }
     return schedule;
@@ -60,15 +60,11 @@ public class Manager
   /***
    * Imports data from the files to schedule object.
    */
- public static void importData()
+ public static void importData(String coursesFile, String roomFile, String studentFile)
   {
     schedule = new Schedule();
 
-    String folder = "Files\\",
-        coursesFile = folder + "courses.txt",
-        roomFile = folder + "rooms.txt",
-        studentFile = folder + "students.txt";
-
+    System.out.println("new Schedule");
     loadRoomData(roomFile);
     loadStudentData(studentFile);
     loadCourseData(coursesFile);

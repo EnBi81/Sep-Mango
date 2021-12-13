@@ -20,7 +20,7 @@ import java.util.Locale;
  * @version 1.0
  */
 
-public class ControllerStudents extends AbstractController
+public class ControllerStudent extends AbstractController
 {
 
   @FXML private TextField nameToCreateStudent;
@@ -53,6 +53,11 @@ public class ControllerStudents extends AbstractController
    */
   public void initialize()
   {
+    if(Manager.getSchedule() == null)
+      return;
+
+    schedule = Manager.getSchedule();
+
     ArrayList<VIAClass> classes = schedule.getVIAClassList().getAllClasses();
     classToCreateStudent.getItems().add(null);
     classToCreateStudent.getItems().addAll(classes);
@@ -124,6 +129,7 @@ public class ControllerStudents extends AbstractController
         refresh();
       }
     }
+    Manager.saveSchedule();
   }
 
   /**
@@ -186,6 +192,7 @@ public class ControllerStudents extends AbstractController
 
       refresh();
     }
+    Manager.saveSchedule();
   }
 
   /**
