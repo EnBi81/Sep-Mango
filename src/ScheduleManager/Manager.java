@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * A manager providing an access point to the schedule, with reading and writing from/ti file support.
  * @author
- * @version 1.1
+ * @version 1.0
  */
 public class Manager
 {
