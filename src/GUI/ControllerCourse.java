@@ -180,12 +180,14 @@ public class ControllerCourse extends AbstractController
       }
       else{
         course.addTeacher(teacher);
+        Manager.saveSchedule();
       }
     }
 
     else if (e.getSource() == removeTeacherCourse){
       Teacher teacher = selectTeacherCourse.getValue();
       course.removeTeacher(teacher);
+      Manager.saveSchedule();
     }
 
     else if (e.getSource() == addStudentCourse){
@@ -200,6 +202,7 @@ public class ControllerCourse extends AbstractController
       }
       else{
         course.addStudent(student);
+        Manager.saveSchedule();
       }
 
       refreshStudentList();
@@ -209,6 +212,7 @@ public class ControllerCourse extends AbstractController
       Student student = selectStudentCourse.getValue();
       course.removeStudent(student);
       refreshStudentList();
+      Manager.saveSchedule();
     }
 
     refreshTableData();
