@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import utils.OverlappingCheck;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -169,7 +170,17 @@ public class ControllerCourse extends AbstractController
     Course course = selectCourseCourse.getValue();
     if (e.getSource() == addTeacherCourse){
       Teacher teacher = selectTeacherCourse.getValue();
-      course.addTeacher(teacher);
+      if (OverlappingCheck.isOverlapping(course,teacher)){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Collision of lessons");
+        alert.setHeaderText("Lessons of the selected teacher are colliding with the lessons of the selected course");
+        alert.setContentText("Have a nice day");
+
+        alert.showAndWait();
+      }
+      else{
+        course.addTeacher(teacher);
+      }
     }
 
     else if (e.getSource() == removeTeacherCourse){
@@ -179,7 +190,18 @@ public class ControllerCourse extends AbstractController
 
     else if (e.getSource() == addStudentCourse){
       Student student = selectStudentCourse.getValue();
-      course.addStudent(student);
+      if (OverlappingCheck.isOverlapping(course,student)){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Collision of lessons");
+        alert.setHeaderText("Lessons of the selected student are colliding with the lessons of the selected course");
+        alert.setContentText("Have a nice day");
+
+        alert.showAndWait();
+      }
+      else{
+        course.addStudent(student);
+      }
+
       refreshStudentList();
     }
 
