@@ -10,12 +10,11 @@ import java.util.ArrayList;
 
 /**
  * A manager providing an access point to the schedule, with reading and writing from/ti file support.
- * @author
+ * @author Uafa Hammoun, Simon Mayer, Beatricia Nagit
  * @version 1.0
  */
 public class Manager
 {
-  private static String fileName;
   private static String separator = ",";
   private static Schedule schedule = null;
   private static String savedScheduleFile = "Files\\schedule.bin";
