@@ -313,13 +313,15 @@ public class ControllerSchedule extends AbstractController
     Lesson lessonToBeRemoved = tableViewSchedule.getSelectionModel()
         .getSelectedItem();
 
-    schedule.getLessonList().removeLesson(lessonToBeRemoved);
+    if(lessonToBeRemoved != null)
+    {
+      schedule.getLessonList().removeLesson(lessonToBeRemoved);
 
-    lessonToBeRemoved.getCourse().removeLesson(lessonToBeRemoved);
+      lessonToBeRemoved.getCourse().removeLesson(lessonToBeRemoved);
 
-    refreshTable();
-    Manager.saveSchedule();
-
+      refreshTable();
+      Manager.saveSchedule();
+    }
   }
 
 

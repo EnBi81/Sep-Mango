@@ -47,6 +47,7 @@ public class ControllerMain {
     private File lastSelected;
 
     private ArrayList<AbstractController> controllers = new ArrayList<>();
+    private ControllerExtendTestWeek controllerExtendTestWeekTab;
 
     /**
      * Loads all tabs into main panel
@@ -249,7 +250,7 @@ public class ControllerMain {
 
           FXMLLoader loader = new FXMLLoader();
           Pane content = loader.load(getClass().getResource("ExtendTestWeekTab.fxml").openStream());
-          ControllerExtendTestWeek controllerExtendTestWeekTab = loader.getController();
+          controllerExtendTestWeekTab = loader.getController();
 
           Stage stage = new Stage();
           Scene scene = new Scene(content);
