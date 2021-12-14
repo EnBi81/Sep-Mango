@@ -111,8 +111,11 @@ public class ControllerMain {
         xml += "</courses>";
 
         try {
-            FileHandler.writeToTextFile("Files/schedule.xml", xml);
-        } catch (FileNotFoundException e) {
+            String filePath = new File("Files/schedule.xml").getAbsolutePath();
+            FileHandler.writeToTextFile(filePath, xml);
+            //Open file explorer
+            Runtime.getRuntime().exec("explorer.exe /select," + filePath);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
