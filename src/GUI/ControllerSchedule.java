@@ -10,13 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
+import utils.OverlappingCheck;
 
-import java.awt.event.ActionEvent;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,9 +62,10 @@ public class ControllerSchedule extends AbstractController
   private VIAClass selectedClass;
   private String selectedStart;
   private String selectedEnd;
+  private LocalDateTime from;
+  private LocalDateTime to;
 
   Pattern pattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}");
-
 
   /**
    * @author Uafa
@@ -74,13 +73,13 @@ public class ControllerSchedule extends AbstractController
    */
 
   /**
-   *Puts the initial data about courses and classes in the Combo boxes used for
+   * Puts the initial data about courses and classes in the Combo boxes used for
    * adding a lesson and filtering trough lessons. Also calls the refreshComboBox
    * and initializeTableData methods.
    */
   public void initialize()
   {
-    if(Manager.getSchedule() == null)
+    if (Manager.getSchedule() == null)
       return;
 
     //Add course names to the dropdown menus
@@ -187,6 +186,15 @@ public class ControllerSchedule extends AbstractController
 
   }
 
+  public void getAvailableRooms(LocalDateTime from, LocalDateTime to)
+  {
+    ArrayList<Room> availableRooms = new ArrayList<>(
+        Manager.getSchedule().getRoomList().getAllAvailableRooms(from, to));
+
+    selectRoomToAddLessonSchedule.getItems().clear();
+    selectRoomToAddLessonSchedule.getItems().addAll(availableRooms);
+  }
+
   /**
    * Firstly, if a value for course is selected enables the room selection
    * combobox. Then checks if this course's class has a preferred room, if yes
@@ -198,83 +206,127 @@ public class ControllerSchedule extends AbstractController
    * start time text field is enabled. The user input is compared to a specified
    * pattern and if it matches the end time field is enabled. Again checks for
    * the correct pattern and once it is entered the Add Lesson button is enabled.
-   *
    */
 
-  public void addALesson()
+  public void checkCourseNTime()
   {
     //Enable fields one by one
 
     if (!selectCourseToAddLessonSchedule.getSelectionModel().isEmpty())
     {
       selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
+          .getSelectedItem();
+
+      startTimeToAddLessonSchedule.setDisable(false);
+
+    }
+
+    if (checkPattern(startTimeToAddLessonSchedule.getText()) && checkDayNMonth(
+        startTimeToAddLessonSchedule.getText()))
+    {
+      endTimeToAddLessonSchedule.setDisable(false);
+
+      from = timeFilter(startTimeToAddLessonSchedule.getText());
+
+      if (checkPattern(endTimeToAddLessonSchedule.getText()) && checkDayNMonth(endTimeToAddLessonSchedule.getText()))
+      {
+        to = timeFilter(endTimeToAddLessonSchedule.getText());
+        if (from.getHour() < 6 || to.getHour() > 19)
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Time");
+          alert.setHeaderText("You can only add lessons between 6am and 7pm!");
+          alert.setContentText("Please set different hours!");
+
+          alert.showAndWait();
+        }
+        else if (from.getYear() != to.getYear()
+            || from.getMonth() != to.getMonth()
+            || from.getDayOfMonth() != to.getDayOfMonth())
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Date");
+          alert.setHeaderText("Those lessons have different days!");
+          alert.setContentText("Please check the dates again!");
+
+          alert.showAndWait();
+        }
+        else if (from.isAfter(to))
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Time");
+          alert.setHeaderText("These lessons have invalid start and end time");
+          alert.setContentText("Please check again");
+
+          alert.showAndWait();
+        }
+        else
+        {
+          selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
+              .getSelectedItem();
+          getAvailableRooms(from, to);
+
+          if (selectedCourse.getVIAClass().getPreferredRoom() == null)
+          {
+            selectRoomToAddLessonSchedule.setDisable(false);
+          }
+          else
+          {
+            selectRoomToAddLessonSchedule.getSelectionModel()
+                .select(selectedCourse.getVIAClass().getPreferredRoom());
+            selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel()
+                .getSelectedItem();
+          }
+
+        }
+      }
+    }
+
+  }
+
+  public void checkRooms()
+  {
+
+    selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
         .getSelectedItem();
 
+    selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel()
+        .getSelectedItem();
 
-      if(selectedCourse.getVIAClass().getPreferredRoom() != null)
-      {
-        selectRoomToAddLessonSchedule.getSelectionModel().select(selectedCourse.getVIAClass().getPreferredRoom());
-      }
-        selectRoomToAddLessonSchedule.setDisable(false);
-
-
+    if (selectedRoom != null && selectedRoom.hasConnectedRoom())
+    {
+      bookSecondAddLessonSchedule.setDisable(false);
+    }
+    else
+    {
+      bookSecondAddLessonSchedule.setDisable(true);
     }
 
-    if (!selectRoomToAddLessonSchedule.getSelectionModel().isEmpty())
+    if (selectedRoom != null
+        && selectedRoom.getCapacity() < selectedCourse.getAllStudents().size())
     {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Room Capacity");
+      alert.setHeaderText("The room capacity is not enough for this class!");
+      alert.setContentText("Choose another room!");
 
-
-      selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel().getSelectedItem();
-
-
-      if (selectedRoom.hasConnectedRoom())
-      {
-        bookSecondAddLessonSchedule.setDisable(false);
-      }
-      else
-      {
-        bookSecondAddLessonSchedule.setDisable(true);
-      }
-
-      if (selectedRoom.getCapacity() < selectedCourse.getAllStudents().size())
-      {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Room Capacity");
-        alert.setHeaderText("The room capacity is not enough for this class!");
-        alert.setContentText("Choose another room!");
-
-        alert.showAndWait();
-      }
-      else
-      {
-        startTimeToAddLessonSchedule.setDisable(false);
-      }
-
-
-
-      //Check if pattern matches to enable next field
-      Matcher matcherS = pattern.matcher(
-          startTimeToAddLessonSchedule.getText());
-      boolean matchesStart = matcherS.matches();
-
-      if (matchesStart)
-
-      {
-        endTimeToAddLessonSchedule.setDisable(false);
-      }
-
-      //CHECK AGAIN FOR THE END TIME
-      Matcher matcherE = pattern.matcher(endTimeToAddLessonSchedule.getText());
-      boolean matchesEnd = matcherE.matches();
-
-      if (matchesEnd)
-
-      {
-        buttonToAddLessonSchedule.setDisable(false);
-      }
-
+      alert.showAndWait();
+    }
+    else
+    {
+      buttonToAddLessonSchedule.setDisable(false);
     }
   }
+
+  public boolean checkPattern(String string)
+  {
+
+    //Check if pattern matches to enable next field
+    Matcher matcherS = pattern.matcher(string);
+    return matcherS.matches();
+  }
+
+  //is overlapping runs here
 
   /**
    * Firstly, checks if any of the values is null and whether the start and end
@@ -293,14 +345,24 @@ public class ControllerSchedule extends AbstractController
   public void createLessonButton()
   {
 
-    Matcher start = pattern.matcher(
-        startTimeToAddLessonSchedule.getText());
+    Matcher start = pattern.matcher(startTimeToAddLessonSchedule.getText());
     boolean matchesStart = start.matches();
 
     Matcher matcherE = pattern.matcher(endTimeToAddLessonSchedule.getText());
     boolean matchesEnd = matcherE.matches();
 
-    if(selectedRoom == null || selectedCourse == null || !matchesStart || !matchesEnd )
+    this.selectedCourse = (Course) this.selectCourseToAddLessonSchedule.getSelectionModel()
+        .getSelectedItem();
+    this.selectedRoom = (Room) this.selectRoomToAddLessonSchedule.getSelectionModel()
+        .getSelectedItem();
+    this.selectedStart = this.startTimeToAddLessonSchedule.getText();
+    this.selectedEnd = this.endTimeToAddLessonSchedule.getText();
+
+    LocalDateTime from = timeFilter(selectedStart);
+    LocalDateTime to = timeFilter(selectedEnd);
+
+    if (selectedRoom == null || selectedCourse == null || !matchesStart
+        || !matchesEnd)
     {
       Alert alert = new Alert(Alert.AlertType.WARNING);
       alert.setTitle("Invalid data");
@@ -309,17 +371,20 @@ public class ControllerSchedule extends AbstractController
 
       alert.showAndWait();
     }
+    else if (OverlappingCheck.isOverlappingLesson(selectedCourse, from, to))
+    {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Overlapping");
+      alert.setHeaderText("Lessons at the specified time are overlapping!");
+      alert.setContentText("Please check the data again");
+
+      alert.showAndWait();
+    }
     else
     {
-      this.selectedCourse = (Course) this.selectCourseToAddLessonSchedule.getSelectionModel()
-          .getSelectedItem();
-      this.selectedRoom = (Room) this.selectRoomToAddLessonSchedule.getSelectionModel()
-          .getSelectedItem();
-      this.selectedStart = this.startTimeToAddLessonSchedule.getText();
-      this.selectedEnd = this.endTimeToAddLessonSchedule.getText();
 
-      Lesson lesson = this.selectedCourse.createLesson(this.selectedCourse, this.selectedRoom, this.timeFilterStart(this.selectedStart),
-          this.timeFilterEnd(this.selectedEnd));
+      Lesson lesson = this.selectedCourse.createLesson(this.selectedCourse,
+          this.selectedRoom, from, to);
 
       if (this.checkBoxToAddLessonSchedule.isSelected())
       {
@@ -329,6 +394,7 @@ public class ControllerSchedule extends AbstractController
 
       this.refresh();
       Manager.saveSchedule();
+
       this.checkBoxToAddLessonSchedule.setSelected(false);
       this.bookSecondAddLessonSchedule.setDisable(true);
       this.startTimeToAddLessonSchedule.setText("");
@@ -399,6 +465,7 @@ public class ControllerSchedule extends AbstractController
    * LocalDateTime format. Afterwards, runs through the lessons parameters and
    * compares them to the ones chosen from the user. if all parameters match
    * returns false, else returns true.
+   *
    * @return true if parameters do not match, false if parameters match
    */
   public boolean checkData(Lesson lesson)
@@ -450,30 +517,70 @@ public class ControllerSchedule extends AbstractController
   /**
    * Returns a LocalDateTime object, which is created from the string input by
    * the user. The returned object is set to be the start time for a lesson.
+   *
    * @param string takes user's input
    * @return returns a LocalDateTime object created by converting user's input
    */
-  public LocalDateTime timeFilterStart(String string)
+  public LocalDateTime timeFilter(String string)
   {
-    string = startTimeToAddLessonSchedule.getText();
-
-    string = string.replace(" ", "T") + ":00";
+    string = string.replace(" ", "T");
 
     return LocalDateTime.parse(string);
+
   }
 
-  /**
-   * Returns a LocalDateTime object, which is created from the string input by
-   * the user. The returned object is set to be the end time for a lesson.
-   * @param string takes user's input
-   * @return returns a LocalDateTime object created by converting user's input
-   */
-  public LocalDateTime timeFilterEnd(String string)
+  public boolean checkDayNMonth(String string)
   {
-    string = endTimeToAddLessonSchedule.getText();
+    String strYear = string.charAt(0) + "" + string.charAt(1) + string.charAt(2)
+        + string.charAt(3);
+    String strMonth = string.charAt(5) + "" + string.charAt(6);
+    String strDay = string.charAt(8) + "" + string.charAt(9);
+    String strHour = string.charAt(11) + "" + string.charAt(12);
+    String strMinutes = string.charAt(14) + "" + string.charAt(15);
 
-    string = string.replace(" ", "T") + ":00";
+    int month = Integer.parseInt(strMonth);
+    int day = Integer.parseInt(strDay);
+    int minutes = Integer.parseInt(strMinutes);
+    int year = Integer.parseInt(strYear);
 
-    return LocalDateTime.parse(string);
+    if (month > 12)
+    {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Invalid data");
+      alert.setHeaderText("Entered date is invalid!");
+      alert.setContentText("Please check the month data again");
+
+      alert.showAndWait();
+      return false;
+    }
+    else
+    {
+      LocalDate date = LocalDate.of(year, month, 1);
+      int days = date.lengthOfMonth();
+      if (day > days)
+      {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid data");
+        alert.setHeaderText("Entered date is invalid!");
+        alert.setContentText("Please check the day data again");
+
+        alert.showAndWait();
+        return false;
+      }
+      else if (minutes > 59)
+      {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid data");
+        alert.setHeaderText("Entered date is invalid!");
+        alert.setContentText("Please check the minutes data again");
+
+        alert.showAndWait();
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    }
   }
 }
