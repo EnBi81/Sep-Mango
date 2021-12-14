@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
@@ -23,6 +24,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ControllerMain {
+    @FXML public MenuItem extendMenu;
+    @FXML public MenuItem exportButton;
     @FXML
     private Tab scheduleTab;
     @FXML
@@ -52,7 +55,11 @@ public class ControllerMain {
         Pane pane;
 
         if(Manager.getSchedule() == null)
+        {
             tabPane.setDisable(true);
+            exportButton.setDisable(true);
+            extendMenu.setDisable(true);
+        }
 
         try {
             pane = getPaneFromFile("StudentsTab.fxml");
@@ -175,6 +182,8 @@ public class ControllerMain {
         {
             Manager.importData(coursesFile, roomsFile, studentsFile);
             tabPane.setDisable(false);
+            extendMenu.setDisable(false);
+            exportButton.setDisable(false);
 
             for (int i = 0; i < controllers.size(); i++) {
                 controllers.get(i).initialize();
@@ -183,4 +192,29 @@ public class ControllerMain {
             refreshTabs();
         }
     }
+
+  public void showExtendPanel(ActionEvent actionEvent)
+  {
+      try{
+
+          FXMLLoader loader = new FXMLLoader();
+          Pane content = loader.load(getClass().getResource("ExtendTestWeekTab.fxml").openStream());
+          ControllerExtendTestWeekTab controllerExtendTestWeekTab = loader.getController();
+
+          Stage stage = new Stage();
+          Scene scene = new Scene(content);
+          stage.setScene(scene);
+          stage.setTitle("Extend Test Week");
+          controllerExtendTestWeekTab.stage = stage;
+
+          stage.showAndWait();
+          refreshTabs();
+          Manager.saveSchedule();
+      }
+      catch (IOException e)
+      {
+          System.out.println(e.getMessage());
+      }
+
+  }
 }

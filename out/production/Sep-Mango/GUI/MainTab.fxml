@@ -22,6 +22,7 @@
                     </items>
                   </Menu>
                   <MenuItem fx:id="exportButton" mnemonicParsing="false" onAction="#export" text="Export" />
+                  <MenuItem fx:id="extendMenu" mnemonicParsing="false" onAction="#showExtendPanel" text="Extend Test Week" />
               <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#closeProgram" text="Close" />
             </items>
           </Menu>

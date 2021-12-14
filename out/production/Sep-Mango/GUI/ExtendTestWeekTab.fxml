@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="130.0" prefWidth="537.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControllerExtendTestWeekTab">
+   <children>
+      <Button layoutX="369.0" layoutY="76.0" mnemonicParsing="false" onAction="#extend" prefHeight="34.0" prefWidth="122.0" text="Extend" />
+      <Label layoutX="20.0" layoutY="25.0" prefHeight="34.0" prefWidth="219.0" text="Amount of weeks to extend:">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Spinner fx:id="spinner" layoutX="259.0" layoutY="30.0">
+      </Spinner>
+   </children>
+</AnchorPane>
