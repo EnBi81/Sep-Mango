@@ -65,7 +65,7 @@
     </TableView>
     <VBox fx:id="vBoxAddLessonSchedule" prefHeight="182.0" prefWidth="220.0" GridPane.rowIndex="1">
         <children>
-            <ComboBox fx:id="selectCourseToAddLessonSchedule" onAction="#addALesson" prefHeight="26.0" prefWidth="132.0" promptText="Select Course">
+            <ComboBox fx:id="selectCourseToAddLessonSchedule" onAction="#checkCourseNTime" prefHeight="26.0" prefWidth="132.0" promptText="Select Course">
                 <VBox.margin>
                     <Insets bottom="5.0" left="10.0" top="10.0" />
                 </VBox.margin>
@@ -75,7 +75,7 @@
                   <Insets left="10.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="startTimeToAddLessonSchedule" maxWidth="-Infinity" minWidth="-Infinity" onAction="#addALesson" prefHeight="26.0" prefWidth="133.0" promptText="yyyy-mm-dd hh:mm">
+            <TextField fx:id="startTimeToAddLessonSchedule" maxWidth="-Infinity" minWidth="-Infinity" onAction="#checkCourseNTime" prefHeight="26.0" prefWidth="133.0" promptText="yyyy-mm-dd hh:mm">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
@@ -85,12 +85,12 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="endTimeToAddLessonSchedule" maxWidth="-Infinity" minWidth="-Infinity" onAction="#addALesson" prefHeight="26.0" prefWidth="133.0" promptText="yyyy-mm-dd hh:mm">
+            <TextField fx:id="endTimeToAddLessonSchedule" maxWidth="-Infinity" minWidth="-Infinity" onAction="#checkCourseNTime" prefHeight="26.0" prefWidth="133.0" promptText="yyyy-mm-dd hh:mm">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
             </TextField>
-            <ComboBox fx:id="selectRoomToAddLessonSchedule" onAction="#addALesson" prefHeight="26.0" prefWidth="131.0" promptText="Select Room">
+            <ComboBox fx:id="selectRoomToAddLessonSchedule" onAction="#checkRooms" prefHeight="26.0" prefWidth="131.0" promptText="Select Room">
                 <VBox.margin>
                     <Insets bottom="5.0" left="10.0" top="5.0" />
                 </VBox.margin>

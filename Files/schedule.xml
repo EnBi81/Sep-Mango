@@ -45,7 +45,16 @@
             <student id="315271" name="Viktor Vegh"/>
             <student id="315195" name="Vladimir Prodan"/>
         </students>
-        <lessons></lessons>
+        <lessons>
+            <lesson startTime="2000-02-11T15:55" endTime="2000-02-11T15:58"
+                    primaryRoom="C05.15" secondaryRoom="null"/>
+            <lesson startTime="2021-12-13T10:40" endTime="2021-12-13T11:40"
+                    primaryRoom="C03.13" secondaryRoom="null"/>
+            <lesson startTime="2021-12-14T12:00" endTime="2021-12-14T13:00"
+                    primaryRoom="C05.16a" secondaryRoom="null"/>
+            <lesson startTime="2021-12-15T12:00" endTime="2021-12-14T14:00"
+                    primaryRoom="C05.15" secondaryRoom="null"/>
+        </lessons>
     </course>
     <course name="SDJ1Y">
         <teachers>
@@ -64,14 +73,7 @@
         <students>
             <student id="123457" name="Carl Carlson"/>
         </students>
-        <lessons>
-            <lesson startTime="2000-12-11T23:12" endTime="2002-12-11T23:12"
-                    primaryRoom="C05.16a" secondaryRoom="null"/>
-            <lesson startTime="2003-12-11T23:12" endTime="2004-12-11T23:12"
-                    primaryRoom="C05.16a" secondaryRoom="null"/>
-            <lesson startTime="2000-12-11T23:12" endTime="2005-12-11T23:12"
-                    primaryRoom="C05.16b" secondaryRoom="null"/>
-        </lessons>
+        <lessons></lessons>
     </course>
     <course name="SDJ1DK">
         <teachers>
@@ -125,7 +127,10 @@
             <student id="315271" name="Viktor Vegh"/>
             <student id="315195" name="Vladimir Prodan"/>
         </students>
-        <lessons></lessons>
+        <lessons>
+            <lesson startTime="2021-12-13T13:40" endTime="2021-12-13T15:40"
+                    primaryRoom="C03.13" secondaryRoom="null"/>
+        </lessons>
     </course>
     <course name="RWD1Y">
         <teachers>
@@ -197,7 +202,10 @@
             <student id="315271" name="Viktor Vegh"/>
             <student id="315195" name="Vladimir Prodan"/>
         </students>
-        <lessons></lessons>
+        <lessons>
+            <lesson startTime="2000-02-11T15:54" endTime="2000-02-11T15:56"
+                    primaryRoom="C05.16b" secondaryRoom="null"/>
+        </lessons>
     </course>
     <course name="DMA1Y">
         <teachers>
@@ -206,7 +214,10 @@
         <students>
             <student id="123456" name="Bob Bobson"/>
         </students>
-        <lessons></lessons>
+        <lessons>
+            <lesson startTime="2000-02-11T15:20" endTime="2000-02-11T15:30"
+                    primaryRoom="C05.15" secondaryRoom="null"/>
+        </lessons>
     </course>
     <course name="DMA1Z">
         <teachers>

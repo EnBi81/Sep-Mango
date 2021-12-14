@@ -36,56 +36,6 @@ public class Lesson implements Serializable
     this.room2 = null;
   }
 
-  ///***///
-  public boolean timeOverlapping()
-  {
-    //return true if lesson can not be added, false if there is no problem
-
-    //Getting all the students in this Course
-    ArrayList<Student> students = course.getAllStudents();
-    students.addAll(course.getAllStudents());
-
-    ArrayList<Course> otherCourses = new ArrayList<>();
-    ArrayList<Course> temp = new ArrayList<>();
-    boolean overlapping = false;
-
-    //Putting all the courses the student from this course have in an Arraylist (without duplicates)
-
-    for (int i = 0; i < students.size(); i++)
-    {
-      temp.addAll(students.get(i).getAllCourses());
-
-      for (int j = 0; j < temp.size(); j++)
-      {
-        if (!(otherCourses.contains(temp.get(j))))
-        {
-          otherCourses.add(temp.get(j));
-        }
-      }
-    }
-
-    ArrayList<Lesson> tempLesson = new ArrayList<>();
-
-    //Getting all the classes the other courses have
-    //Checking for overlapping in start and end time
-
-    for (int i = 0; i < otherCourses.size(); i++)
-    {
-      tempLesson.addAll(otherCourses.get(i).getAllLessons());
-
-      for (int j = 0; j < tempLesson.size(); j++)
-      {
-        if (tempLesson.get(j).getStartTime().equals(getStartTime())
-            || tempLesson.get(j).getEndTime().equals(getEndTime()))
-        {
-          overlapping = true;
-        }
-
-      }
-
-    }
-    return overlapping;
-  }
 
   /**
    * returns the curse of the lesson
@@ -118,16 +68,6 @@ public class Lesson implements Serializable
     return room2;
   }
 
-  /**
-   * sets the primary room (used for changing the primary room)
-   *
-   * @param room the room that should be assigned
-   */
-
-  public void setFirstRoom(Room room)
-  {
-    room1 = room;
-  }
 
   /**
    * sets the secondary room (used when room capacity is not enough and the room has a connected room)
@@ -163,10 +103,8 @@ public class Lesson implements Serializable
 
   public void setStartTime(LocalDateTime from)
   {
-    if (!(timeOverlapping()))
-    {
+
       this.startTime = from;
-    }
 
   }
 
@@ -177,11 +115,7 @@ public class Lesson implements Serializable
    */
   public void setEndTime(LocalDateTime endTime)
   {
-    if (!(timeOverlapping()))
-    {
       this.endTime = endTime;
-    }
-
   }
 
   /**
@@ -210,7 +144,7 @@ public class Lesson implements Serializable
    */
 
 
-  //todo look at the method (makes selecting from the table impossible)
+
  /* public boolean equals(Object obj)
   {
 
@@ -223,6 +157,6 @@ public class Lesson implements Serializable
 
     return this.room1.equals(other.room1) && this.startTime.equals(
         other.startTime) && this.endTime.equals(other.endTime)
-        && this.course.equals(other.course) && this.room2.equals(other.room2);
+        && this.course.equals(other.course));
   }*/
 }
