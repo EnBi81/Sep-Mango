@@ -48,8 +48,8 @@ public RoomList getRoomList()
   return roomList;
 }
   /**
-   * Gets a list of via's classes
-   * @return list of via's classes
+   * Gets a list of classes
+   * @return list of classes
    */
 public VIAClassList getVIAClassList(){
   return viaClassList;

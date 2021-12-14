@@ -59,14 +59,13 @@ public class Manager
   /***
    * Imports data from the files to schedule object.
    */
- public static void importData(String coursesFile, String roomFile, String studentFile)
+ public static void importData(String courseFile, String roomFile, String studentFile)
   {
     schedule = new Schedule();
 
-    System.out.println("new Schedule");
     loadRoomData(roomFile);
     loadStudentData(studentFile);
-    loadCourseData(coursesFile);
+    loadCourseData(courseFile);
 
     try
     {
