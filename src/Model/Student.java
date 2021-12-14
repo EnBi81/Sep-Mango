@@ -28,25 +28,7 @@ public class Student implements Serializable
     this.id = id;
   }
 
-  /**
-   * Gets a student's first name
-   * @return student's first name
-   */
 
-  public String getFirstName()
-  {
-    return name.split(" ")[0];
-  }
-
-  /**
-   * Gets a student's last name
-   * @return student's last name
-   */
-  public String getLastName()
-  {
-    String[] splitName = name.split(" ");
-    return splitName[splitName.length - 1];
-  }
   /**
    * Gets a student's name
    * @return student's name

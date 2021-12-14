@@ -18,6 +18,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Controller of our main Window in GUI
+ */
 public class ControllerMain {
     @FXML public MenuItem extendMenu;
     @FXML public MenuItem exportButton;
@@ -45,6 +48,10 @@ public class ControllerMain {
 
     private ArrayList<AbstractController> controllers = new ArrayList<>();
 
+    /**
+     * Loads all tabs into main panel
+     * Setting disabled for the function until a schedule is created
+     */
     public void initialize() {
 
         Pane pane;
@@ -80,6 +87,14 @@ public class ControllerMain {
 
     }
 
+    /**
+     * Loads a pane from a single file, gets it is controller
+     * and save in the controllers arraylist
+     * @param fileName a name of file with pane
+     * @return panel
+     * @throws IOException
+     */
+
     public Pane getPaneFromFile(String fileName) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Pane p = loader.load(getClass().getResource(fileName).openStream());
@@ -87,16 +102,25 @@ public class ControllerMain {
         return p;
     }
 
+    /**
+     * Data refresh for all controllers
+     */
     public void refreshTabs() {
         for (int i = 0; i < controllers.size(); i++) {
             controllers.get(i).refresh();
         }
     }
 
+    /**
+     * Closing the program
+     */
     public void closeProgram() {
         System.exit(0);
     }
 
+    /**
+     * Writes the content from our program to the specified text file in XML format
+     */
     public void export() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?><courses>";
         ArrayList<Course> courses = Manager.getSchedule().getCourseList().getAllCourses();
@@ -115,20 +139,40 @@ public class ControllerMain {
         }
     }
 
+    /**
+     * Converts student's information to XML format
+     * @param student a Student object
+     * @return student's information in XML format
+     */
     public String studentToXML(Student student) {
         return "<student id=\"" + student.getId() + "\" name=\"" + student.getName() + "\"/>";
     }
 
+    /**
+     * Converts teacher's information to XML format
+     * @param teacher a Teacher object
+     * @return teacher's information in XML format
+     */
     public String teacherToXML(Teacher teacher) {
         return "<teacher name=\"" + teacher.getName() + "\"/>";
     }
 
+    /**
+     * Converts lesson's information to XML format
+     * @param lesson a Lesson object
+     * @return lesson's information in XML format
+     */
     public String lessonToXML(Lesson lesson) {
         return "<lesson startTime=\"" + lesson.getStartTime() + "\" endTime=\"" + lesson.getEndTime() + "\""
                 + " primaryRoom=\"" + lesson.getFirstRoom().getRoomName() + "\""
                 + " secondaryRoom=\"" + (lesson.getSecondRoom() == null ? null : lesson.getSecondRoom().getRoomName()) + "\"/>";
     }
 
+    /**
+     * Converts course's information to XML format
+     * @param course a Course object
+     * @return courses's information in XML format
+     */
     public String courseToXML(Course course) {
         String xml = "<course name=\"" + course.getCourseName() + "\">";
         xml += "<teachers>";
@@ -148,6 +192,10 @@ public class ControllerMain {
         return xml;
     }
 
+    /**
+     * Takes user input from text files and imports the data into the program
+     * @param actionEvent
+     */
     public void importButtons(ActionEvent actionEvent)
     {
         FileChooser chooser = new FileChooser();
@@ -191,6 +239,10 @@ public class ControllerMain {
         }
     }
 
+    /**
+     * Loads and shows the extend window
+     * @param actionEvent
+     */
   public void showExtendPanel(ActionEvent actionEvent)
   {
       try{

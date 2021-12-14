@@ -10,17 +10,26 @@ import javafx.stage.Stage;
 import java.time.*;
 import java.util.ArrayList;
 
+/**
+ * Controller for the extend window
+ */
 public class ControllerExtendTestWeek
 {
   public Stage stage;
   @FXML public Spinner<Integer> spinner;
 
+  /**
+   * Spinner implementation to get user input
+   */
   public void initialize()
   {
     spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 25));
     spinner.setEditable(false);
   }
 
+  /**
+   * Extending the one-week schedule for the time selected by the user
+   */
   public void extend()
   {
     int weeks = spinner.getValue();

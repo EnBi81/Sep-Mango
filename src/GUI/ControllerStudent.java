@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * A class controlling StudentTab
+ * A user interface that allows for displaying and modifying information about students in Student tab.
  * @author Agata
  * @version 1.0
  */
