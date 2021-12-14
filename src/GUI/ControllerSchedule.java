@@ -76,6 +76,7 @@ public class ControllerSchedule extends AbstractController
    * Puts the initial data about courses and classes in the Combo boxes used for
    * adding a lesson and filtering trough lessons. Also calls the refreshComboBox
    * and initializeTableData methods.
+   * (an abstract method from the AbstractController class)
    */
   public void initialize()
   {
@@ -167,7 +168,7 @@ public class ControllerSchedule extends AbstractController
   }
 
   /**
-   * Adds rooms data to combo boxes for adding a lesson and filtering through
+   * Adds rooms data to combo box for filtering through
    * lessons. (Done separately from the initialize method because this method
    * has to be called in the refresh method to update room data)
    */
@@ -181,166 +182,49 @@ public class ControllerSchedule extends AbstractController
     roomFilterLessonSchedule.getItems().add(null);
     roomFilterLessonSchedule.getItems().addAll(rooms);
 
-    selectRoomToAddLessonSchedule.getItems().clear();
-    selectRoomToAddLessonSchedule.getItems().addAll(rooms);
-
-  }
-
-  public void getAvailableRooms(LocalDateTime from, LocalDateTime to)
-  {
-    ArrayList<Room> availableRooms = new ArrayList<>(
-        Manager.getSchedule().getRoomList().getAllAvailableRooms(from, to));
-
-    selectRoomToAddLessonSchedule.getItems().clear();
-    selectRoomToAddLessonSchedule.getItems().addAll(availableRooms);
   }
 
   /**
-   * Firstly, if a value for course is selected enables the room selection
-   * combobox. Then checks if this course's class has a preferred room, if yes
-   * automatically selects it, if not allows the user can choose from the room
-   * list.Afterwards, checks if the selected room has a connected room, if yes
-   * then enables a checkbox which allows the booking of two rooms at the same
-   * time. Next checks if the room capacity is bigger then the classes size, if
-   * not displays an error message. Once a fitting room has been selected the
-   * start time text field is enabled. The user input is compared to a specified
-   * pattern and if it matches the end time field is enabled. Again checks for
-   * the correct pattern and once it is entered the Add Lesson button is enabled.
+   * Goes through the LessonList, calls the checkData method and displays
+   * the lessons that correspond to the values selected in the filtering
+   * text fields and combo boxes.
    */
-
-  public void checkCourseNTime()
+  public void refreshTable()
   {
-    //Enable fields one by one
+    ArrayList<Lesson> lessons = new ArrayList<>(
+        Manager.getSchedule().getLessonList().getAllLessons());
 
-    if (!selectCourseToAddLessonSchedule.getSelectionModel().isEmpty())
+    for (int i = 0; i < lessons.size(); i++)
     {
-      selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
-          .getSelectedItem();
-
-      startTimeToAddLessonSchedule.setDisable(false);
-
+      if (checkData(lessons.get(i)))
+        lessons.remove(i--);
     }
 
-    if (checkPattern(startTimeToAddLessonSchedule.getText()) && checkDayNMonth(
-        startTimeToAddLessonSchedule.getText()))
-    {
-      endTimeToAddLessonSchedule.setDisable(false);
-
-      from = timeFilter(startTimeToAddLessonSchedule.getText());
-
-      if (checkPattern(endTimeToAddLessonSchedule.getText()) && checkDayNMonth(endTimeToAddLessonSchedule.getText()))
-      {
-        to = timeFilter(endTimeToAddLessonSchedule.getText());
-        if (from.getHour() < 6 || to.getHour() > 19)
-        {
-          Alert alert = new Alert(Alert.AlertType.WARNING);
-          alert.setTitle("Time");
-          alert.setHeaderText("You can only add lessons between 6am and 7pm!");
-          alert.setContentText("Please set different hours!");
-
-          alert.showAndWait();
-        }
-        else if (from.getYear() != to.getYear()
-            || from.getMonth() != to.getMonth()
-            || from.getDayOfMonth() != to.getDayOfMonth())
-        {
-          Alert alert = new Alert(Alert.AlertType.WARNING);
-          alert.setTitle("Date");
-          alert.setHeaderText("Those lessons have different days!");
-          alert.setContentText("Please check the dates again!");
-
-          alert.showAndWait();
-        }
-        else if (from.isAfter(to))
-        {
-          Alert alert = new Alert(Alert.AlertType.WARNING);
-          alert.setTitle("Time");
-          alert.setHeaderText("These lessons have invalid start and end time");
-          alert.setContentText("Please check again");
-
-          alert.showAndWait();
-        }
-        else
-        {
-          selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
-              .getSelectedItem();
-          getAvailableRooms(from, to);
-
-          if (selectedCourse.getVIAClass().getPreferredRoom() == null)
-          {
-            selectRoomToAddLessonSchedule.setDisable(false);
-          }
-          else
-          {
-            selectRoomToAddLessonSchedule.getSelectionModel()
-                .select(selectedCourse.getVIAClass().getPreferredRoom());
-            selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel()
-                .getSelectedItem();
-          }
-
-        }
-      }
-    }
-
+    tableViewSchedule.getItems().clear();
+    tableViewSchedule.getItems().addAll(lessons);
   }
 
-  public void checkRooms()
-  {
 
-    selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
-        .getSelectedItem();
-
-    selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel()
-        .getSelectedItem();
-
-    if (selectedRoom != null && selectedRoom.hasConnectedRoom())
-    {
-      bookSecondAddLessonSchedule.setDisable(false);
-    }
-    else
-    {
-      bookSecondAddLessonSchedule.setDisable(true);
-    }
-
-    if (selectedRoom != null
-        && selectedRoom.getCapacity() < selectedCourse.getAllStudents().size())
-    {
-      Alert alert = new Alert(Alert.AlertType.WARNING);
-      alert.setTitle("Room Capacity");
-      alert.setHeaderText("The room capacity is not enough for this class!");
-      alert.setContentText("Choose another room!");
-
-      alert.showAndWait();
-    }
-    else
-    {
-      buttonToAddLessonSchedule.setDisable(false);
-    }
-  }
-
-  public boolean checkPattern(String string)
-  {
-
-    //Check if pattern matches to enable next field
-    Matcher matcherS = pattern.matcher(string);
-    return matcherS.matches();
-  }
 
   //is overlapping runs here
 
   /**
-   * Firstly, checks if any of the values is null and whether the start and end
-   * time Strings are entered in the correct format if no displays an error
-   * message if yes continues to :
-   * First, the selected from the user values for a course, room, start time
-   * and end time. Afterwards, creates a lesson by inserting those values in the
-   * createLesson method, which is located in the Course class and is called by
-   * the selected course value. When the start and end time values are inserted
-   * the timeFilterStart and timeFilterEnd methods are called to turn the String
-   * into a LocalDateTime object. Next it checks if the checkbox for booking a
-   * second room is selected and if it is calls the setSecondRoom method to
-   * assign the connected room as a second room. In the end refreshes the whole
-   * tab, empties the text fields and deselects the checkbox if necessary.
+   * Firstly, checks if the start and end time Strings are entered in the
+   * correct format(this is done so there would not be any problems when adding a lesson
+   * for the second, third and so on time), if not displays an error message, else
+   * proceeds to store the selected from the user values for a course, room,
+   * start time and end time. When the start and end time values are inserted the
+   * timeFilter method is called to turn the String into a LocalDateTime object.
+   * The next step is to check if any of the values is null or empty and
+   * to look for overlapping in the lessons. The overlapping check is done by the
+   * isOverlapping method located in the OverlappingCheck Class. If there is no
+   * overlapping and all values are valid, creates a lesson by inserting those
+   * values in the createLesson method, which is located in the Course class
+   * and is called with the selected course value. Next it checks if the checkbox for
+   * booking a second room is selected and if it is, calls the setSecondRoom
+   * method to assign the connected room as a second room. In the end refreshes
+   * the whole tab, empties the text fields and deselects the checkbox
+   * if necessary.
    */
   public void createLessonButton()
   {
@@ -438,24 +322,141 @@ public class ControllerSchedule extends AbstractController
 
   }
 
-  /**
-   * Goes through the LessonList, calls the checkData method and displays
-   * the lessons that correspond to the values selected in the filtering
-   * text fields and combo boxes.
-   */
-  public void refreshTable()
-  {
-    ArrayList<Lesson> lessons = new ArrayList<>(
-        Manager.getSchedule().getLessonList().getAllLessons());
 
-    for (int i = 0; i < lessons.size(); i++)
+
+  /**
+   * Firstly, if a value for a course is selected enables the start time text
+   * field. Once the user inputs value for the start time, the checkPattern and
+   * checkDate methods to ensure the correct pattern and a valid date and time
+   * have been entered, if yes enables the end time text field, if not the
+   * called methods display warning dialogs. The same procedure is done for the
+   * end time value. Once both values have been verified, the method checks if the
+   * lesson is set to be after 6:59 am and before 7:00 pm, if the date for both
+   * lessons is the same and if the start time is before the end time. If not true
+   * each of those checks has its own warning dialog, which does not allow the
+   * method to continue until a valid data has been entered. Lastly, calls the
+   * getAvailableRooms method to display only rooms that can be booked and checks,
+   * if the class that has the selected course has a preferred room, if yes
+   * automatically assigns  it as the selected room, if not enables the room
+   * combobox.
+   */
+
+  public void checkCourseNTime()
+  {
+    //Enable fields one by one
+
+    if (!selectCourseToAddLessonSchedule.getSelectionModel().isEmpty())
     {
-      if (checkData(lessons.get(i)))
-        lessons.remove(i--);
+      selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
+          .getSelectedItem();
+
+      startTimeToAddLessonSchedule.setDisable(false);
+
     }
 
-    tableViewSchedule.getItems().clear();
-    tableViewSchedule.getItems().addAll(lessons);
+    if (checkPattern(startTimeToAddLessonSchedule.getText()) && checkDate(
+        startTimeToAddLessonSchedule.getText()))
+    {
+      endTimeToAddLessonSchedule.setDisable(false);
+
+      from = timeFilter(startTimeToAddLessonSchedule.getText());
+
+      if (checkPattern(endTimeToAddLessonSchedule.getText()) && checkDate(endTimeToAddLessonSchedule.getText()))
+      {
+        to = timeFilter(endTimeToAddLessonSchedule.getText());
+        if (from.getHour() < 6 || to.getHour() > 19)
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Time");
+          alert.setHeaderText("You can only add lessons between 6am and 7pm!");
+          alert.setContentText("Please set different hours!");
+
+          alert.showAndWait();
+        }
+        else if (from.getYear() != to.getYear()
+            || from.getMonth() != to.getMonth()
+            || from.getDayOfMonth() != to.getDayOfMonth())
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Date");
+          alert.setHeaderText("Those lessons have different days!");
+          alert.setContentText("Please check the dates again!");
+
+          alert.showAndWait();
+        }
+        else if (from.isAfter(to))
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Time");
+          alert.setHeaderText("These lessons have invalid start and end time");
+          alert.setContentText("Please check again");
+
+          alert.showAndWait();
+        }
+        else
+        {
+          selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
+              .getSelectedItem();
+          getAvailableRooms(from, to);
+
+          if (selectedCourse.getVIAClass().getPreferredRoom() == null)
+          {
+            selectRoomToAddLessonSchedule.setDisable(false);
+          }
+          else
+          {
+            selectRoomToAddLessonSchedule.getSelectionModel()
+                .select(selectedCourse.getVIAClass().getPreferredRoom());
+            selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel()
+                .getSelectedItem();
+          }
+
+        }
+      }
+    }
+
+  }
+
+  /**
+   * First stores the room that has been selected and checks if it has a
+   * connected room, if yes enables a checkbox allowing the user to book a
+   * second room for the lesson. Afterwards, compares the capacity of the
+   * selected room with the amount of students enrolled in the course, if
+   * capacity is not enough, displays a warning message, else enables the add
+   * lesson button.
+   */
+  public void checkRooms()
+  {
+
+    selectedCourse = selectCourseToAddLessonSchedule.getSelectionModel()
+        .getSelectedItem();
+
+    selectedRoom = selectRoomToAddLessonSchedule.getSelectionModel()
+        .getSelectedItem();
+
+    if (selectedRoom != null && selectedRoom.hasConnectedRoom())
+    {
+      bookSecondAddLessonSchedule.setDisable(false);
+    }
+    else
+    {
+      bookSecondAddLessonSchedule.setDisable(true);
+    }
+
+    if (selectedRoom != null
+        && selectedRoom.getCapacity() < selectedCourse.getAllStudents().size())
+    {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Room Capacity");
+      alert.setHeaderText("The room capacity is not enough for this class!");
+      alert.setContentText("Choose another room!");
+
+      alert.showAndWait();
+    }
+    else
+    {
+      buttonToAddLessonSchedule.setDisable(false);
+    }
   }
 
   /**
@@ -513,29 +514,27 @@ public class ControllerSchedule extends AbstractController
 
     return false;
   }
-
   /**
-   * Returns a LocalDateTime object, which is created from the string input by
-   * the user. The returned object is set to be the start time for a lesson.
-   *
-   * @param string takes user's input
-   * @return returns a LocalDateTime object created by converting user's input
+   * Takes the text in the start or end time text fields, separates it into the
+   * year, month, day, hour, minutes values and then parses those values into
+   * integers. Next checks if the entered month value is more than 12,
+   * if yes shows a warning dialog, if not proceeds to check the
+   * day value. To do that first creates a LocalDate object with the month value
+   * and compares the days in a month of the object with the value entered by the
+   * user. If the input is invalid displays a warning, else proceeds to check the
+   * value for minutes. If the value is more than 59 displays a warning, else
+   * returns true.
+   * @param string the start or end time entered by the user
+   * @return true if values for month, day and minutes are correct, false if any of the values is invalid
    */
-  public LocalDateTime timeFilter(String string)
-  {
-    string = string.replace(" ", "T");
 
-    return LocalDateTime.parse(string);
 
-  }
-
-  public boolean checkDayNMonth(String string)
+  public boolean checkDate(String string)
   {
     String strYear = string.charAt(0) + "" + string.charAt(1) + string.charAt(2)
         + string.charAt(3);
     String strMonth = string.charAt(5) + "" + string.charAt(6);
     String strDay = string.charAt(8) + "" + string.charAt(9);
-    String strHour = string.charAt(11) + "" + string.charAt(12);
     String strMinutes = string.charAt(14) + "" + string.charAt(15);
 
     int month = Integer.parseInt(strMonth);
@@ -583,4 +582,49 @@ public class ControllerSchedule extends AbstractController
       }
     }
   }
+
+  /**
+   * Checks if the entered text matches the specified pattern
+   * @param string the text in the start or end time text fields
+   * @return true if pattern matches, false if not
+   */
+  public boolean checkPattern(String string)
+  {
+
+    //Check if pattern matches to enable next field
+    Matcher matcherS = pattern.matcher(string);
+    return matcherS.matches();
+  }
+
+  /**
+   * Returns a LocalDateTime object, which is created from the string value entered by
+   * the user. The returned object is set to be the start time for a lesson.
+   *
+   * @param string takes user's input
+   * @return returns a LocalDateTime object created by converting user's input
+   */
+  public LocalDateTime timeFilter(String string)
+  {
+    string = string.replace(" ", "T");
+
+    return LocalDateTime.parse(string);
+
+  }
+
+  /**
+   * Takes a time period and by calling the getAllAvailableRooms method,
+   * displays only the rooms that are available during that time period.
+   * @param from the selected start time of a lesson
+   * @param to the selected end time of a lesson
+   */
+  public void getAvailableRooms(LocalDateTime from, LocalDateTime to)
+  {
+    ArrayList<Room> availableRooms = new ArrayList<>(
+        Manager.getSchedule().getRoomList().getAllAvailableRooms(from, to));
+
+    selectRoomToAddLessonSchedule.getItems().clear();
+    selectRoomToAddLessonSchedule.getItems().addAll(availableRooms);
+  }
+
+
 }
