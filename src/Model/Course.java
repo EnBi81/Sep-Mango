@@ -139,8 +139,9 @@ public class Course implements Serializable
   public Lesson createLesson(Course course, Room room, LocalDateTime startTime, LocalDateTime endTime){
     Lesson lesson = new Lesson(course, room, startTime, endTime);
 
-    Manager.getSchedule().getLessonList().addLesson(lesson);
     course.addLesson(lesson);
+
+    Manager.getSchedule().getLessonList().addLesson(lesson);
 
     return lesson;
   }

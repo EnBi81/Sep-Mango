@@ -248,7 +248,6 @@ public class ControllerCourse extends AbstractController
       return;
     }
     ArrayList<Student> students = selectCourseCourse.getValue().getAllStudents();
-    for (var s : students)
     listOfStudents.getItems().addAll(students);
   }
 
