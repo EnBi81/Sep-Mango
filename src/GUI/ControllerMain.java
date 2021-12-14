@@ -57,6 +57,8 @@ public class ControllerMain {
 
         Pane pane;
 
+        //Check if the user has already imported the data, if not then
+        //Disable the base functionalities
         if(Manager.getSchedule() == null)
         {
             tabPane.setDisable(true);
@@ -97,9 +99,13 @@ public class ControllerMain {
      */
 
     public Pane getPaneFromFile(String fileName) throws IOException {
+        //Initialize a new fxmlloader, to be able to load the content from an fxml file
         FXMLLoader loader = new FXMLLoader();
+        // Get/Load the pane from the fxml file
         Pane p = loader.load(getClass().getResource(fileName).openStream());
+        //Get the controller from the fxml file and add it to the arraylist
         controllers.add(loader.getController());
+        //return the loaded pane
         return p;
     }
 
@@ -123,17 +129,21 @@ public class ControllerMain {
      * Writes the content from our program to the specified text file in XML format
      */
     public void export() {
+        //Base xml file starting
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?><courses>";
         ArrayList<Course> courses = Manager.getSchedule().getCourseList().getAllCourses();
+        //Convert all the courses to xml and add it to the xml variable
         for (int i = 0; i < courses.size(); i++) {
             xml += courseToXML(courses.get(i));
         }
         xml += "</courses>";
 
         try {
+            //Save the xml file
             String filePath = new File("Files/schedule.xml").getAbsolutePath();
             FileHandler.writeToTextFile(filePath, xml);
-            //Open file explorer
+            //Open file explorer where we saved the exported xml file
+            //So the user can see where did we save it for him/her
             Runtime.getRuntime().exec("explorer.exe /select," + filePath);
         } catch (IOException e) {
             e.printStackTrace();
@@ -199,20 +209,30 @@ public class ControllerMain {
      */
     public void importButtons(ActionEvent actionEvent)
     {
+        //Create new file chooser
         FileChooser chooser = new FileChooser();
+        //Add extension filter, so the user can only select text files
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt"));
         MenuItem item = (MenuItem) actionEvent.getSource();
+        //Set the title of the chooser according the menu button he/she pressed
+        //For example if he pressed the menu item Courses, the title will be "Select Courses"
         chooser.setTitle("Select " + item.getText());
 
         if(lastSelected != null)
         {
+            //Make the user's life better by starting the chooser
+            //In the last selected file's directory
             chooser.setInitialDirectory(lastSelected);
         }
 
+        //Run the chooser
         File file = chooser.showOpenDialog(new Stage());
+        //If the user did not choose anything
         if(file == null)
             return;
 
+        //Make the user's life better part 2:
+        //Saving the directory (folder) of the chosen file
         lastSelected = file.getParentFile();
 
         if(actionEvent.getSource() == importRooms)
@@ -225,6 +245,7 @@ public class ControllerMain {
         }
         else studentsFile = file.getAbsolutePath();
 
+        //If the user has read all the files, then import and enable some base functionalities
         if(roomsFile != null && studentsFile != null && coursesFile != null)
         {
             Manager.importData(coursesFile, roomsFile, studentsFile);
@@ -247,7 +268,7 @@ public class ControllerMain {
   public void showExtendPanel(ActionEvent actionEvent)
   {
       try{
-
+          //Load the Pane and the controller from the ExtendTestWeekTab file
           FXMLLoader loader = new FXMLLoader();
           Pane content = loader.load(getClass().getResource("ExtendTestWeekTab.fxml").openStream());
           controllerExtendTestWeekTab = loader.getController();
@@ -256,6 +277,8 @@ public class ControllerMain {
           Scene scene = new Scene(content);
           stage.setScene(scene);
           stage.setTitle("Extend Test Week");
+          //Assign the stage to the controller, so it can be programmatically closed from that controller
+          //(The program closes the pop-up window when the user presses the extend button
           controllerExtendTestWeekTab.stage = stage;
 
           stage.showAndWait();

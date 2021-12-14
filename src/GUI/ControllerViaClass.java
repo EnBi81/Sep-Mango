@@ -48,13 +48,15 @@ public class ControllerViaClass extends AbstractController
    */
   public void initialize()
   {
-
+    //Check if the schedule is already imported, if not then dont do anything
+    //(When the user imports the schedule, this method will be called automatically)
     if(Manager.getSchedule() == null)
       return;
 
     //region tableInitialization
     classTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+    //Set the values to be displayed in the tableview
     nameColumn.setCellValueFactory(
         obj -> new SimpleStringProperty(obj.getValue().getName()));
     semesterColumn.setCellValueFactory(
@@ -67,6 +69,7 @@ public class ControllerViaClass extends AbstractController
             obj.getValue().getPreferredRoom().getRoomName()));
     //endregion
 
+    //Initialize all the other stuff, and the load data by refreshing the tab
     initializeFilterSide();
     initializePreferredRoomPane();
     eventsInitialization();
@@ -96,8 +99,8 @@ public class ControllerViaClass extends AbstractController
    */
   private void initializePreferredRoomPane() //Basic initialization of the preferredRoom tab
   {
-    ArrayList<VIAClass> classes = new ArrayList<>(
-        Manager.getSchedule().getVIAClassList().getAllClasses());
+    ArrayList<VIAClass> classes =
+        Manager.getSchedule().getVIAClassList().getAllClasses();
 
     preferredClassCombo.getItems().clear();
     preferredClassCombo.getItems().addAll(classes);
@@ -112,15 +115,18 @@ public class ControllerViaClass extends AbstractController
    */
   private void eventsInitialization() //Set the events for setPreferredRoom tab objects
   {
+    //Run the selectDisplayClass every time the user selects a class from the table
     classTableView.getSelectionModel().selectedItemProperty()
         .addListener((obs, oldClass, newClass) -> selectDisplayClass(newClass));
 
+    //Run the selectDisplayClass every time the user selects a class from the combobox
     preferredClassCombo.valueProperty().addListener(obj -> {
       VIAClass selected = preferredClassCombo.getSelectionModel()
           .getSelectedItem();
       selectDisplayClass(selected);
     });
 
+    //Run that when the user presses the set preferred room button
     setPreferredRoomButton.setOnAction(obj -> {
       if (selectedClass != null)
       {
@@ -142,6 +148,7 @@ public class ControllerViaClass extends AbstractController
   {
     if (selectedClass == null)
       return;
+
     refreshTableData();
     updateList();
     updateRoomCombo();
@@ -229,6 +236,7 @@ public class ControllerViaClass extends AbstractController
     ArrayList<VIAClass> viaClasses = Manager.getSchedule().getVIAClassList()
         .getAllClasses();
 
+    //Check if the room does not have enough capacity for the class
     for (int i = 0; i < rooms.size(); i++)
     {
       Room room = rooms.get(i);
@@ -236,6 +244,7 @@ public class ControllerViaClass extends AbstractController
           .size())
         rooms.remove(i--);
     }
+    //Remove every item which is assigned as preferred room to other classes
     for (VIAClass viaClass : viaClasses)
     {
       if (viaClass != selectedClass && viaClass.getPreferredRoom() != null)
@@ -245,6 +254,7 @@ public class ControllerViaClass extends AbstractController
     preferredRoomCombo.getItems().clear();
     preferredRoomCombo.getItems().addAll(rooms);
 
+    //Automatically select the preferred room if it is assigned to the class
     if (selectedClass.getPreferredRoom() != null)
       preferredRoomCombo.getSelectionModel()
           .select(selectedClass.getPreferredRoom());
