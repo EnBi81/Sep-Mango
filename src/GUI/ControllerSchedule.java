@@ -270,6 +270,8 @@ public class ControllerSchedule extends AbstractController
       Lesson lesson = this.selectedCourse.createLesson(this.selectedCourse,
           this.selectedRoom, from, to);
 
+      Manager.getSchedule().getLessonList().addLesson(lesson);
+
       if (this.checkBoxToAddLessonSchedule.isSelected())
       {
         Room secondRoom = this.selectedRoom.getConnectedRoom();

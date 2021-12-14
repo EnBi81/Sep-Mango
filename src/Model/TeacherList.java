@@ -28,14 +28,6 @@ public class TeacherList implements Serializable
   }
 
   /**
-   * removes a teacher from the list
-   * @param teacher teacher to be removed
-   */
-  public void removeTeacher(Teacher teacher){
-    teachers.remove(teacher);
-  }
-
-  /**
    * returns a teacher with specific name
    * @return a teacher
    * @param name the name of the returned teacher

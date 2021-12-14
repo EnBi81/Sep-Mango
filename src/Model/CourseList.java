@@ -31,15 +31,6 @@ public class CourseList implements Serializable
   }
 
   /**
-   * removes a course from the list
-   * @param course course to be removed
-   */
-  public void removeCourse(Course course)
-  {
-    courses.remove(course);
-  }
-
-  /**
    * returns a list of Course objects
    * @return all courses that are taught
    *   */
