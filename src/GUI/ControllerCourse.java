@@ -168,54 +168,77 @@ public class ControllerCourse extends AbstractController
   public void handleClickMe(ActionEvent e)
   {
     Course course = selectCourseCourse.getValue();
-    if (e.getSource() == addTeacherCourse){
-      Teacher teacher = selectTeacherCourse.getValue();
-      if (OverlappingCheck.isOverlapping(course,teacher)){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Collision of lessons");
-        alert.setHeaderText("Lessons of the selected teacher are colliding with the lessons of the selected course");
-        alert.setContentText("Have a nice day");
+    if (course == null)
+    {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("No course selected.");
+      alert.setHeaderText("Please select a course in order to proceed.");
+      alert.setContentText("Have a nice day");
 
-        alert.showAndWait();
+      alert.showAndWait();
+    }
+    else
+    {
+
+      if (e.getSource() == addTeacherCourse)
+      {
+        Teacher teacher = selectTeacherCourse.getValue();
+        if (OverlappingCheck.isOverlapping(course, teacher))
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Collision of lessons");
+          alert.setHeaderText(
+              "Lessons of the selected teacher are colliding with the lessons of the selected course");
+          alert.setContentText("Have a nice day");
+
+          alert.showAndWait();
+        }
+        else
+        {
+          course.addTeacher(teacher);
+          Manager.saveSchedule();
+        }
       }
-      else{
-        course.addTeacher(teacher);
+
+      else if (e.getSource() == removeTeacherCourse)
+      {
+        Teacher teacher = selectTeacherCourse.getValue();
+        course.removeTeacher(teacher);
         Manager.saveSchedule();
       }
-    }
 
-    else if (e.getSource() == removeTeacherCourse){
-      Teacher teacher = selectTeacherCourse.getValue();
-      course.removeTeacher(teacher);
-      Manager.saveSchedule();
-    }
+      else if (e.getSource() == addStudentCourse)
+      {
+        Student student = selectStudentCourse.getValue();
+        if (OverlappingCheck.isOverlapping(course, student))
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Collision of lessons");
+          alert.setHeaderText(
+              "Lessons of the selected student are colliding with the lessons of the selected course");
+          alert.setContentText("Have a nice day");
 
-    else if (e.getSource() == addStudentCourse){
-      Student student = selectStudentCourse.getValue();
-      if (OverlappingCheck.isOverlapping(course,student)){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Collision of lessons");
-        alert.setHeaderText("Lessons of the selected student are colliding with the lessons of the selected course");
-        alert.setContentText("Have a nice day");
+          alert.showAndWait();
+        }
+        else
+        {
+          course.addStudent(student);
+          Manager.saveSchedule();
+        }
 
-        alert.showAndWait();
+        refreshStudentList();
       }
-      else{
-        course.addStudent(student);
+
+      else if (e.getSource() == removeStudentCourse)
+      {
+        Student student = selectStudentCourse.getValue();
+        course.removeStudent(student);
+        refreshStudentList();
         Manager.saveSchedule();
       }
 
-      refreshStudentList();
+      refreshTableData();
     }
-
-    else if (e.getSource() == removeStudentCourse){
-      Student student = selectStudentCourse.getValue();
-      course.removeStudent(student);
-      refreshStudentList();
-      Manager.saveSchedule();
-    }
-
-    refreshTableData();
   }
 
   public void refresh(){
