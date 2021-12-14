@@ -12,7 +12,11 @@ import java.util.Collections;
 
 public class OverlappingCheck
 {
-
+  /**
+   * Gets all lesson from all the students and teachers enrolled to the course
+   * @param course The course to get from all the students' and teachers' lessons
+   * @return A list of lessons to which the students and teachers are assigned
+   */
   public static ArrayList<Lesson> lessonCheck(Course course)
   {
     //We initialize a new ArrayList and assign it to variable
@@ -76,7 +80,13 @@ public class OverlappingCheck
      */
   }
 
-
+  /**
+   * Checks if the time period is occupied for the students or the teachers assigned to the course (the time period is overlapping other lessons)
+   * @param course The course to check
+   * @param from The start of the time period
+   * @param to The end of the time period
+   * @return True if there is any overlapping; otherwise false.
+   */
   public static boolean isOverlappingLesson(Course course, LocalDateTime from, LocalDateTime to)
   {
     ArrayList<Lesson> lessons = lessonCheck(course);
@@ -93,6 +103,13 @@ public class OverlappingCheck
     }
     return false;
   }
+
+  /**
+   * Check is there is an overlapping between a course's lessons and a list of lessons
+   * @param course The course to compare its lesson list
+   * @param lessons The lesson list to compare the course's lessons against
+   * @return True if there is any overlapping; otherwise false.
+   */
   public static boolean isOverLapping(Course course, ArrayList<Lesson> lessons) //course, teachers/students lessons
   {
     ArrayList<Lesson> courseLessons = course.getAllLessons();
@@ -109,6 +126,13 @@ public class OverlappingCheck
     }
     return  false;
   }
+
+  /**
+   * Check is there is an overlapping between a course's lessons and a student's lessons
+   * @param course The course to compare its lesson list
+   * @param student The student to compare its lessons
+   * @return True if there is any overlapping; otherwise false.
+   */
   public static boolean isOverlapping(Course course, Student student)
   {
     ArrayList<Lesson> studentLessons = new ArrayList<>();
@@ -122,6 +146,12 @@ public class OverlappingCheck
 
   }
 
+  /**
+   * Check is there is an overlapping between a course's lessons and a teacher's lessons
+   * @param course The course to compare its lesson list
+   * @param teacher The teacher to compare its lessons
+   * @return True if there is any overlapping; otherwise false.
+   */
   public static boolean isOverlapping(Course course, Teacher teacher)
   {
     ArrayList<Lesson> teacherLessons = new ArrayList<>();
