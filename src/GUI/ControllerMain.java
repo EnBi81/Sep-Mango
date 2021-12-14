@@ -3,23 +3,18 @@ package GUI;
 import Model.*;
 import ScheduleManager.Manager;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import utils.FileHandler;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -202,7 +197,7 @@ public class ControllerMain {
 
           FXMLLoader loader = new FXMLLoader();
           Pane content = loader.load(getClass().getResource("ExtendTestWeekTab.fxml").openStream());
-          ControllerExtendTestWeekTab controllerExtendTestWeekTab = loader.getController();
+          ControllerExtendTestWeek controllerExtendTestWeekTab = loader.getController();
 
           Stage stage = new Stage();
           Scene scene = new Scene(content);

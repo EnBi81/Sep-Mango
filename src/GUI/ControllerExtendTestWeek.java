@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.time.*;
 import java.util.ArrayList;
 
-public class ControllerExtendTestWeekTab
+public class ControllerExtendTestWeek
 {
   public Stage stage;
   @FXML public Spinner<Integer> spinner;
