@@ -270,6 +270,8 @@ public class ControllerSchedule extends AbstractController
       Lesson lesson = this.selectedCourse.createLesson(this.selectedCourse,
           this.selectedRoom, from, to);
 
+      Manager.getSchedule().getLessonList().addLesson(lesson);
+
       if (this.checkBoxToAddLessonSchedule.isSelected())
       {
         Room secondRoom = this.selectedRoom.getConnectedRoom();
@@ -313,13 +315,15 @@ public class ControllerSchedule extends AbstractController
     Lesson lessonToBeRemoved = tableViewSchedule.getSelectionModel()
         .getSelectedItem();
 
-    schedule.getLessonList().removeLesson(lessonToBeRemoved);
+    if(lessonToBeRemoved != null)
+    {
+      schedule.getLessonList().removeLesson(lessonToBeRemoved);
 
-    lessonToBeRemoved.getCourse().removeLesson(lessonToBeRemoved);
+      lessonToBeRemoved.getCourse().removeLesson(lessonToBeRemoved);
 
-    refreshTable();
-    Manager.saveSchedule();
-
+      refreshTable();
+      Manager.saveSchedule();
+    }
   }
 
 

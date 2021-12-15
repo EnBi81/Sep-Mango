@@ -19,7 +19,6 @@ public class Course implements Serializable
   private ArrayList<Teacher> teachers;
   private ArrayList<Lesson> lessons;
   private ArrayList<Student> students;
-  private Schedule schedule = Manager.getSchedule();
 
   /**
    * three parameter constructor which creates an instance of a class Course
@@ -140,8 +139,6 @@ public class Course implements Serializable
     Lesson lesson = new Lesson(course, room, startTime, endTime);
 
     course.addLesson(lesson);
-
-    Manager.getSchedule().getLessonList().addLesson(lesson);
 
     return lesson;
   }

@@ -6,13 +6,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import utils.OverlappingCheck;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * a class which enables the functionality of the GUI
+ *
+ * @author Simon Mayer
+ * @version 1.0
+ */
 public class ControllerCourse extends AbstractController
 {
   @FXML private ComboBox<Course> selectCourseCourse;
@@ -36,6 +40,9 @@ public class ControllerCourse extends AbstractController
   // methods
 
   // main initialization
+  /**
+   * loads all the data about courses into the table, and combo boxes
+   */
   public void initialize()
   {
     if(Manager.getSchedule() == null)
@@ -67,8 +74,12 @@ public class ControllerCourse extends AbstractController
     comboBoxSelectInitialization();
   }
 
-  //dont judge me this is the easiest way I was able to come with lol
-  public String teachersToString(ArrayList<Model.Teacher> teachers)
+  /**
+   * converts an array list of teachers into string so that it is possible to display them in the table
+   * @param teachers array list of teachers in the selected course
+   * @return string with teacher's name
+   */
+  public String teachersToString(ArrayList<Teacher> teachers)
   {
     String str = "";
 
@@ -84,6 +95,10 @@ public class ControllerCourse extends AbstractController
   }
 
   // filter initialization
+  /**
+   * loads course's data into combo boxes in the filter section
+   * sets listeners for refreshing table whenever there is a change in the filters (both text fields and combo boxes)
+   */
   private void initializeFilterSide()
   {
     chooseECTSCourse.getItems().add(null);
@@ -107,6 +122,11 @@ public class ControllerCourse extends AbstractController
   }
 
   //pane initialization
+  /**
+   * loads all courses and teachers into combo boxes on the left side of GUI
+   * that means the add/remove section
+   * disables select/add/remove teacher
+   */
   private void initializeTeacherPane(){
     for (Course course : Manager.getSchedule().getCourseList()
         .getAllCourses())
@@ -124,9 +144,13 @@ public class ControllerCourse extends AbstractController
     selectTeacherCourse.setDisable(true);
     addTeacherCourse.setDisable(true);
     removeTeacherCourse.setDisable(true);
-    //refresh missing
   }
 
+  /**
+   * loads all the students into combo box on the left side of GUI
+   * that means the add/remove section
+   * disables select/add/remove student
+   */
   public void initializeStudentPane(){
     for (Student student : Manager.getSchedule().getStudentList()
         .getAllStudents())
@@ -138,9 +162,14 @@ public class ControllerCourse extends AbstractController
     selectStudentCourse.setDisable(true);
     addStudentCourse.setDisable(true);
     removeStudentCourse.setDisable(true);
-    //refresh missing
   }
 
+  /**
+   * selects course in combo box if selected in table
+   * enables select teacher and select student when course selected
+   * enables add/remove student when student selected
+   * enables add/remove teacher when teacher selected
+   */
   public void comboBoxSelectInitialization(){
     tableViewCourse.getSelectionModel().selectedItemProperty()
         .addListener((obs,oldCourse, newCourse) ->
@@ -165,59 +194,95 @@ public class ControllerCourse extends AbstractController
 
   }
 
+  /**
+   * checks if course is selected, if not and other action is possible, displays a warning alert
+   * else check which button was clicked, gets the value from the corresponding combo box
+   * adds or removes corresponding object to/from course
+   * when adding checks for overlapping
+   * if overlapping returns a warning alert, else executes the function
+   * refreshes table after executing function
+   * @param e button which has been clicked
+   */
   public void handleClickMe(ActionEvent e)
   {
     Course course = selectCourseCourse.getValue();
-    if (e.getSource() == addTeacherCourse){
-      Teacher teacher = selectTeacherCourse.getValue();
-      if (OverlappingCheck.isOverlapping(course,teacher)){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Collision of lessons");
-        alert.setHeaderText("Lessons of the selected teacher are colliding with the lessons of the selected course");
-        alert.setContentText("Have a nice day");
+    if (course == null)
+    {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("No course selected.");
+      alert.setHeaderText("Please select a course in order to proceed.");
+      alert.setContentText("Have a nice day");
 
-        alert.showAndWait();
+      alert.showAndWait();
+    }
+    else
+    {
+
+      if (e.getSource() == addTeacherCourse)
+      {
+        Teacher teacher = selectTeacherCourse.getValue();
+        if (OverlappingCheck.isOverlapping(course, teacher))
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Collision of lessons");
+          alert.setHeaderText(
+              "Lessons of the selected teacher are colliding with the lessons of the selected course");
+          alert.setContentText("Have a nice day");
+
+          alert.showAndWait();
+        }
+        else
+        {
+          course.addTeacher(teacher);
+          Manager.saveSchedule();
+        }
       }
-      else{
-        course.addTeacher(teacher);
+
+      else if (e.getSource() == removeTeacherCourse)
+      {
+        Teacher teacher = selectTeacherCourse.getValue();
+        course.removeTeacher(teacher);
         Manager.saveSchedule();
       }
-    }
 
-    else if (e.getSource() == removeTeacherCourse){
-      Teacher teacher = selectTeacherCourse.getValue();
-      course.removeTeacher(teacher);
-      Manager.saveSchedule();
-    }
+      else if (e.getSource() == addStudentCourse)
+      {
+        Student student = selectStudentCourse.getValue();
+        if (OverlappingCheck.isOverlapping(course, student))
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle("Collision of lessons");
+          alert.setHeaderText(
+              "Lessons of the selected student are colliding with the lessons of the selected course");
+          alert.setContentText("Have a nice day");
 
-    else if (e.getSource() == addStudentCourse){
-      Student student = selectStudentCourse.getValue();
-      if (OverlappingCheck.isOverlapping(course,student)){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Collision of lessons");
-        alert.setHeaderText("Lessons of the selected student are colliding with the lessons of the selected course");
-        alert.setContentText("Have a nice day");
+          alert.showAndWait();
+        }
+        else
+        {
+          course.addStudent(student);
+          Manager.saveSchedule();
+        }
 
-        alert.showAndWait();
+        refreshStudentList();
       }
-      else{
-        course.addStudent(student);
+
+      else if (e.getSource() == removeStudentCourse)
+      {
+        Student student = selectStudentCourse.getValue();
+        course.removeStudent(student);
+        refreshStudentList();
         Manager.saveSchedule();
       }
 
-      refreshStudentList();
+      refreshTableData();
     }
-
-    else if (e.getSource() == removeStudentCourse){
-      Student student = selectStudentCourse.getValue();
-      course.removeStudent(student);
-      refreshStudentList();
-      Manager.saveSchedule();
-    }
-
-    refreshTableData();
   }
 
+  /**
+   * if course not selected does not do anything
+   * else updates table, combo box with students and list of students
+   */
   public void refresh(){
 
     if (selectCourseCourse == null){
@@ -228,6 +293,10 @@ public class ControllerCourse extends AbstractController
     refreshStudentsComboBox();
   }
 
+  /**
+   * clears the combo box with students and loads the new student list
+   * if student already in the list, skips the adding of this student
+   */
   public void refreshStudentsComboBox(){
     selectStudentCourse.getItems().clear();
 
@@ -240,6 +309,10 @@ public class ControllerCourse extends AbstractController
 
   }
 
+  /**
+   * clears the list of students and loads the new student list
+   * if course not selected does not do anything
+   */
   public void refreshStudentList(){
     listOfStudents.getItems().clear();
 
@@ -251,6 +324,12 @@ public class ControllerCourse extends AbstractController
     listOfStudents.getItems().addAll(students);
   }
 
+  /**
+   * keeps the table updated
+   * gets a copy of the courses from course list
+   * checks for filters and removes all courses that does not correspond
+   * clears the whole table and adds the new list of courses
+   */
   private void refreshTableData(){
     ArrayList<Course> courses = new ArrayList<>(Manager.getSchedule().getCourseList().getAllCourses());
 
@@ -265,6 +344,13 @@ public class ControllerCourse extends AbstractController
     tableViewCourse.getItems().addAll(courses);
   }
 
+  /**
+   * gets all values from filters
+   * if course is null does not do anything
+   * removes all courses which does not correspond with the filter values
+   * @param course course that is compared with the filter values
+   * @return true if course should be removed, false if not
+   */
   private boolean checkRemoveData(Course course){
     String valueFilterName = textFieldFilterByNameCourse.getText().toLowerCase(
         Locale.ROOT);
@@ -282,6 +368,7 @@ public class ControllerCourse extends AbstractController
     }
 
     try{
+      //is necessary, otherwise nullPointer and Course tab cannot be clicked
       valueFilterECTS = valueFilterECTS.toLowerCase(Locale.ROOT);
       if (!(Integer.parseInt(valueFilterECTS) == course.getEcts())){
         return true;

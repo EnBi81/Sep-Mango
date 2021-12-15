@@ -9,5 +9,8 @@ public abstract class   AbstractController
    * Refreshes the current Tab
    */
   public abstract void refresh();
+  /**
+   * Initialize the current Tab
+   */
   public abstract void initialize();
 }
