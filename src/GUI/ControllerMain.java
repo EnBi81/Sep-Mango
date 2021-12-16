@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -14,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import utils.FileHandler;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,6 +42,8 @@ public class ControllerMain {
     @FXML private MenuItem importRooms;
     @FXML private MenuItem importCourses;
     @FXML private MenuItem importStudents;
+
+    @FXML private MenuItem aboutButton;
 
     @FXML private TabPane tabPane;
 
@@ -293,4 +297,18 @@ public class ControllerMain {
       }
 
   }
+
+  public void helpButton ()
+  {
+      int choice = JOptionPane.showConfirmDialog(null,"Do you like our program ?", "", JOptionPane.YES_NO_OPTION);
+      if (choice == JOptionPane.NO_OPTION)
+      {
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setContentText("WRONG ANSWER");
+
+          alert.showAndWait();
+          System.exit(1);
+      }
+  }
+
 }
