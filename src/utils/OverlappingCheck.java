@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Util class to check overlapping between the lessons.
+ * @author Agata, Beatricia, Greg, Simon, Uafa
+ * @version 1.0
+ */
 public class OverlappingCheck
 {
   /**

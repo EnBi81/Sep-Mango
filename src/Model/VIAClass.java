@@ -3,6 +3,12 @@ package Model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * A class containing information about a class object.
+ *
+ * @author Gergo Nador
+ * @version 1.0
+ */
 public class VIAClass implements Serializable
 {
   private final int semester;

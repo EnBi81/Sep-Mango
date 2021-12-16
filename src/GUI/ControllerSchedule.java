@@ -18,6 +18,11 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controller class for the Schedule tab
+ * @author Uafa
+ * @version 1.0
+ */
 public class ControllerSchedule extends AbstractController
 {
   //Filter Lesson

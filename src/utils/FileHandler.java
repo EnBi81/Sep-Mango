@@ -7,6 +7,13 @@ import java.util.Scanner;
 
 import Model.*;
 
+/**
+ * This class provides methods to handle multiple file types.
+ * It can read and write text files, and also binary files.
+ *
+ * @author Greg
+ * @version 1.0
+ */
 public class FileHandler
 {
   /**
