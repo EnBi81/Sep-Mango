@@ -22,7 +22,7 @@ public class StudentList implements Serializable
   /**
    * Gets student with specified name
    * @param name that the returned student should have
-   * @return
+   * @return A student object which matches the name
    */
   public Student getStudentByName(String name)
   {
@@ -39,7 +39,7 @@ public class StudentList implements Serializable
   /**
    * Gets student with specified id
    * @param id that the returned student should have
-   * @return
+   * @return A student object that matches the id given in the parameter
    */
   public Student getStudentById(int id)
   {

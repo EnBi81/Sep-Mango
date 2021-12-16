@@ -58,6 +58,9 @@ public class Manager
 
   /***
    * Imports data from the files to schedule object.
+   * @param courseFile The path of the file in which the course information are stored
+   * @param roomFile The path of the file in which the room information are stored
+   * @param studentFile The path of the file in which the student information are stored
    */
  public static void importData(String courseFile, String roomFile, String studentFile)
   {

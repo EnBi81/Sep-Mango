@@ -180,7 +180,7 @@ public class ControllerRoom extends AbstractController {
     }
 
     /***
-     * When user enters ”Enter” the program adds a room.
+     * When user presses Enter the program adds a room.
      * @param keyEvent the key event
      */
     public void createRoomKeyEvent(KeyEvent keyEvent) {
@@ -190,7 +190,7 @@ public class ControllerRoom extends AbstractController {
     }
 
     /***
-     * When user enters ”Enter” the program jumps to capacity text field.
+     * When user presses Enter the program jumps to capacity text field.
      * @param keyEvent keyEvent the key event
      */
     public void jumpToCapacity(KeyEvent keyEvent) {
@@ -199,6 +199,9 @@ public class ControllerRoom extends AbstractController {
         }
     }
 
+    /**
+     * Adds a room to the schedule.
+     */
     public void addRoom()
     {
         ArrayList<Room> rooms = Manager.getSchedule().getRoomList().getAllRooms();

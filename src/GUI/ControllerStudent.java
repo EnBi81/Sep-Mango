@@ -216,7 +216,7 @@ public class ControllerStudent extends AbstractController
   /**
    * Checking a filters' condition
    * @param student student object which is checked
-   * @return
+   * @return True if the given student matches the filter; otherwise false
    */
   public boolean filterStudent(Student student)
   {

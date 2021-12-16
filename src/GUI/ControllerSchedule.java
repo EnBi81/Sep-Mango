@@ -476,6 +476,7 @@ public class ControllerSchedule extends AbstractController
    * compares them to the ones chosen from the user. if all parameters match
    * returns false, else returns true.
    *
+   * @param lesson the lesson instance to check if the GUI parameters applies to it
    * @return true if parameters do not match, false if parameters match
    */
   public boolean checkData(Lesson lesson)
