@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 /**
  * Controller of our main Window in GUI
+ * @version 1
+ * @author Agata, Beatricia, Greg, Simon, Uafa
  */
 public class ControllerMain {
     @FXML public MenuItem extendMenu;

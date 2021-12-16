@@ -3,6 +3,12 @@ package Model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * A class containing a list of lesson objects
+ *
+ * @version 1.0
+ * @author Uafa
+ */
 public class LessonList implements Serializable
 {
   /**

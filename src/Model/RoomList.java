@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-/***
+/**
  * A class containing a list of Room objects.
  * @author Beatricia
  * @version 1.0;

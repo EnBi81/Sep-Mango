@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 /**
  * Controller for the extend window
+ * @author Agata, Uafa, Simon, Greg
+ * @version 1
  */
 public class ControllerExtendTestWeek
 {

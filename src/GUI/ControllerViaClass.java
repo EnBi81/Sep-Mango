@@ -19,7 +19,7 @@ import java.util.Locale;
 
 /**
  * Controller class for VIAClassTab.fxml
- * @author Gerg Nador
+ * @author Gergo Nador
  */
 public class ControllerViaClass extends AbstractController
 {

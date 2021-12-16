@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 /**
  * An object to hold multiple VIAClass objects.
+ *
+ * @author Gergo Nador
+ * @version 1.0
  */
 public class VIAClassList implements Serializable
 {
