@@ -62,7 +62,6 @@ public class ControllerSchedule extends AbstractController
   Schedule schedule = Manager.getSchedule();
 
   private Course selectedCourse;
-  private Lesson lesson;
   private Room selectedRoom;
   private VIAClass selectedClass;
   private String selectedStart;
