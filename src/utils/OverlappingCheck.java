@@ -3,12 +3,9 @@ package utils;
 import Model.Course;
 import Model.Lesson;
 import Model.*;
-import ScheduleManager.Manager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Util class to check overlapping between the lessons.

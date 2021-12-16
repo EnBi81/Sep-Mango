@@ -1,7 +1,7 @@
 package GUI;
 
 import Model.*;
-import ScheduleManager.Manager;
+import Model.Manager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

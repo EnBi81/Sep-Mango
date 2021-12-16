@@ -3,7 +3,7 @@ package GUI;
 import Model.Lesson;
 import Model.Room;
 import Model.VIAClass;
-import ScheduleManager.Manager;
+import Model.Manager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

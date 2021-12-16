@@ -1,7 +1,7 @@
 package GUI;
 
 import Model.*;
-import ScheduleManager.Manager;
+import Model.Manager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

@@ -1,4 +1,4 @@
-package ScheduleManager;
+package Model;
 
 import Model.*;
 import utils.FileHandler;

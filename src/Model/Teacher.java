@@ -1,7 +1,5 @@
 package Model;
 
-import ScheduleManager.Manager;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
