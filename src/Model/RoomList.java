@@ -54,9 +54,9 @@ public class RoomList implements Serializable {
 
     /***
      * Gets all the available rooms for a specific period of time (from and to).
-     * @param from
-     * @param to
-     * @return
+     * @param from The time to check the availability from
+     * @param to The time to check the availability till
+     * @return A list of rooms which are available in the given time slot
      */
     public ArrayList<Room> getAllAvailableRooms(LocalDateTime from, LocalDateTime to)
     {
